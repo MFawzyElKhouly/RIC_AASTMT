@@ -1,0 +1,14 @@
+myGoal 130
+theirGoal 70
+surrounding 20
+length 30
+cut 50
+supporting 6
+cutConst 2.5
+pressConst 6.5
+myGoalConst 13
+theirGoalConst 22
+factor 0.6
+tttmyGoal 12
+ttttheirGoal 6
+tttsurrounding 60

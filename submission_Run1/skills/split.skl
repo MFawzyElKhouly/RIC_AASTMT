@@ -1,0 +1,34 @@
+STARTSKILL SKILL_SPLIT
+
+STARTSTATE
+settar EFF_LL1 -90 EFF_RL1 -90  EFF_LL5 -40 EFF_RL5 -40 end
+wait .05 end
+ENDSTATE
+
+STARTSTATE
+settar EFF_LL3 50 EFF_RL3 50  end
+wait .05 end
+ENDSTATE
+
+STARTSTATE
+settar EFF_LL4 1 EFF_RL4 1  end
+wait .05 end
+ENDSTATE
+
+STARTSTATE
+settar EFF_LA1 50 EFF_RA1 50  end
+wait .04 end
+ENDSTATE
+
+STARTSTATE
+settar EFF_LA2 120 EFF_RA2 -120  end
+wait .04 end
+ENDSTATE
+
+
+
+
+
+
+ENDSKILL 
+ 
