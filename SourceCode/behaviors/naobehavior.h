@@ -138,6 +138,10 @@ protected:
     // ---------  THESE FUNCTIONS ARE
     // ---------  TO BE OVERRIDEN BY AGENTS...
     virtual SkillType selectSkill();
+
+    virtual SkillType getPlayModeSkill();
+    virtual SkillType getDefensiveSkill();
+    virtual SkillType getAttackSkill();
     virtual void beam( double& beamX, double& beamY, double& beamAngle );
     virtual void updateFitness() {}
 

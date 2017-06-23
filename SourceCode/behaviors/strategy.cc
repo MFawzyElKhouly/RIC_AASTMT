@@ -50,97 +50,27 @@ void NaoBehavior::beam(double& beamX, double& beamY, double& beamAngle) {
 
 SkillType NaoBehavior::selectSkill() {
 
-	// My position and angle
-	//cout << worldModel->getUNum() << ": " << worldModel->getMyPosition() << ",\t" << worldModel->getMyAngDeg() << "\n";
+	if (worldModel->getPlayMode() != PM_PLAY_ON) {
+		return getPlayModeSkill();
+	}
+	if (loader->getTeamState() == ATTACKING) {
+		return getAttackSkill();
 
-	// Position of the ball
-	//cout << worldModel->getBall() << "\n";
+	}
+	if (loader->getTeamState() == DEFENDING) {
+			return getDefensiveSkill();
 
-	// Example usage of the roboviz drawing system and RVSender in rvdraw.cc.
-	// Agents draw the position of where they think the ball is
-	// Also see example in naobahevior.cc for drawing agent position and
-	// orientation.
-	/*
-	 worldModel->getRVSender()->clear(); // erases drawings from previous cycle
-	 worldModel->getRVSender()->drawPoint("ball", ball.getX(), ball.getY(), 10.0f, RVSender::MAGENTA);
-	 */
+		}
 
-	// ### Demo Behaviors ###
-	// Walk in different directions
-	//return goToTargetRelative(VecPosition(1,0,0), 0); // Forward
-	// goToTargetRelative(VecPosition(-1,0,0), 0); // Backward
-	//return goToTargetRelative(VecPosition(0,1,0), 0); // Left
-	//return goToTargetRelative(VecPosition(0,-1,0), 0); // Right
-	//return goToTargetRelative(VecPosition(1,1,0), 0); // Diagonal
-	//return goToTargetRelative(VecPosition(0,1,0), 90); // Turn counter-clockwise
-	//return goToTargetRelative(VecPdosition(0,-1,0), -90); // Turn clockwise
-	//return goToTargetRelative(VecPosition(1,0,0), 15); // Circle
-	// Walk to the ball
-	//return goToTarget(ball);
-	// Turn in place to face ball
-	/*double distance, angle;
-	 getTargetDistanceAndAngle(ball, distance, angle);
-	 if (abs(angle) > 10) {
-	 return goToTargetRelative(VecPosition(), angle);
-	 } else {
-	 return SKILL_STAND;
-	 }*/
-
-	// Walk to ball while always facing forward
-	//return goToTargetRelative(worldModel->g2l(ball), -worldModel->getMyAngDeg());
-	// Dribble ball toward opponent's goal
-		//return kickBall(KICK_DRIBBLE, VecPosition(HALF_FIELD_X, 0, 0));
-	// Kick ball toward opponent's goal
-	//return kickBall(KICK_FORWARD, VecPosition(HALF_FIELD_X, 0, 0)); // Basic kick
-	//return kickBall(KICK_IK, VecPosition(HALF_FIELD_X, 0, 0)); // IK kick
-	// Just stand in place
-	//return SKILL_STAND;
-	// Demo behavior where players form a rotating circle and kick the ball
-	// back and forth]
-	//return demoKickingCircle();
-//	if(worldModel->getUNum()!=worldModel->getTeammateClosestTo(ball))
-//		return SKILL_STAND;
-	//get position of my player
-	/*
-	 if (worldModel->getPlayMode() == PM_KICK_OFF_LEFT
-	 && worldModel->getUNum() == 1)
-	 return kickBall(KICK_FORWARD, *(new VecPosition(-5, 0, 0)));
-	 if(worldModel->getPlayMode() == PM_KICK_OFF_LEFT ||
-	 worldModel->getPlayMode() == PM_KICK_OFF_RIGHT)
-	 start = 0;
-	 if (start == 0 &&
-	 worldModel->getTeammateClosestTo(worldModel->getBall())
-	 != worldModel->getUNum()) {
-	 bool notInPlace = 0;
-	 for (int i = 0; i < (int) sttaics.size() && !notInPlace; i++) {
-	 if (worldModel->getTeammate(i + WO_TEAMMATE1).getDistanceTo(
-	 sttaics[i]) > 1) {
-	 //cout << "Agent " << worldModel->getUNum() << " sees "
-	 //<< i + WO_TEAMMATE1 << endl;
-	 notInPlace = 0;
-	 }
-	 }
-
-	 if (worldModel->getMyPosition().getDistanceTo(
-	 sttaics[(worldModel->getUNum() - 1)]) > 1) {
-	 //	 cout << "Agent " << worldModel->getUNum() <<" is not in place " << endl << endl;
-	 //		 cout << worldModel->getMyPosition().getX() << " " << worldModel->getMyPosition().getY()
-	 //				 << endl  << " Dis " << worldModel->getMyPosition().getDistanceTo(sttaics[worldModel->getUNum()-1]) << endl;
-	 return goToTarget(sttaics[(worldModel->getUNum() - 1)]);
-	 }
-	 if (notInPlace == 0)
-	 start = 1;
-	 }*/
-//	if(worldModel->getSide() == SIDE_RIGHT) {
-//		if(worldModel->getTeammateClosestTo(worldModel->getBall()) == agentUNum)
-//			return goToTarget(worldModel->getBall());
-//		return SKILL_STAND;
-//	}
-	if((((worldModel->getSide() == SIDE_LEFT)&&(worldModel->getPlayMode()== PM_KICK_OFF_LEFT))
-		|| ((worldModel->getSide() == SIDE_RIGHT)&&(worldModel->getPlayMode()== PM_KICK_OFF_RIGHT)))
-		&& (worldModel->getTeammateClosestTo(worldModel->getBall()) == worldModel->getUNum()))
-	{
-		return kickBall(KICK_FORWARD,((worldModel->getOppLeftGoalPost()+worldModel->getOppRightGoalPost())/2));
+	if ((((worldModel->getSide() == SIDE_LEFT)
+			&& (worldModel->getPlayMode() == PM_KICK_OFF_LEFT))
+			|| ((worldModel->getSide() == SIDE_RIGHT)
+					&& (worldModel->getPlayMode() == PM_KICK_OFF_RIGHT)))
+			&& (worldModel->getTeammateClosestTo(worldModel->getBall())
+					== worldModel->getUNum())) {
+		return kickBall(KICK_FORWARD,
+				((worldModel->getOppLeftGoalPost()
+						+ worldModel->getOppRightGoalPost()) / 2));
 	}
 	if (analyzer->getTopSkill().getType() == SKILL_PASS
 			&& worldModel->getBall().getDistanceTo(worldModel->getMyPosition())
@@ -149,64 +79,61 @@ SkillType NaoBehavior::selectSkill() {
 
 	}
 	if (analyzer->getTopSkill().getType() == SKILL_DRIBBLE
-				&& worldModel->getBall().getDistanceTo(worldModel->getMyPosition())
-						> 0.8) {
-			analyzer->resetCandidates();
+			&& worldModel->getBall().getDistanceTo(worldModel->getMyPosition())
+					> 0.8) {
+		analyzer->resetCandidates();
 
-		}
+	}
 	analyzer->generateCanditates();
 	skilldesc skilltarg = analyzer->getTopSkill();
 	SkillType ret;
 
 	if (skilltarg.getType() == SKILL_PASS) {
 		//cout<<"SKILL = SKILL_PASS"<<endl;
-		if (worldModel->getBall().getDistanceTo(skilltarg.getTarget()) > 5
-				)
+		if (worldModel->getBall().getDistanceTo(skilltarg.getTarget()) > 5)
 			ret = kickBall(KICK_FORWARD, skilltarg.getTarget());
 		else
 			ret = kickBall(KICK_IK, skilltarg.getTarget());
 		//if (ret != SKILL_STAND && ret != SKILL_WALK_OMNI)
 		//analyzer->resetCandidates();
 		return ret;
-	} else if (skilltarg.getType() == SKILL_WALK_OMNI || skilltarg.getType() == SKILL_INTERCEPT) {
+	} else if (skilltarg.getType() == SKILL_WALK_OMNI
+			|| skilltarg.getType() == SKILL_INTERCEPT) {
 		//cout<<"SKILL = SKILL_WALK_OMNI"<<endl;
 		analyzer->resetCandidates();
 		/*if(worldModel->getRole(worldModel->getUNum()) < 2) {
-			if(skilltarg.getTarget().getDistanceTo(loader->getDuePosition(worldModel->getUNum())) > 5
-					&& skilltarg.getTarget().getX() > loader->getDuePosition(worldModel->getUNum()).getX()+3
-					)
-					return SKILL_STAND;
-		}*/
+		 if(skilltarg.getTarget().getDistanceTo(loader->getDuePosition(worldModel->getUNum())) > 5
+		 && skilltarg.getTarget().getX() > loader->getDuePosition(worldModel->getUNum()).getX()+3
+		 )
+		 return SKILL_STAND;
+		 }*/
 		double distance, angle, targ;
 		getTargetDistanceAndAngle(skilltarg.getTarget(), distance, angle);
-	/*	if (abs(angle) > 10) {
-			return goToTargetRelative(VecPosition(), angle);
-		} else */
+		/*	if (abs(angle) > 10) {
+		 return goToTargetRelative(VecPosition(), angle);
+		 } else */
 
-			if (distance > 0.2) {
+		if (distance > 0.2) {
 			return goToTarget(skilltarg.getTarget());
 
-		}
-		else if(skilltarg.getType() == SKILL_INTERCEPT
-				&& (worldModel->getMyPosition().getX() > -12 ||
-				fabs(worldModel->getMyAngDeg()) < 90)
-				) {
+		} else if (skilltarg.getType() == SKILL_INTERCEPT
+				&& (worldModel->getMyPosition().getX() > -12
+						|| fabs(worldModel->getMyAngDeg()) < 90)) {
 			/*VecPosition target = (worldModel->getBall() - worldModel->getMyPosition())*1.5;
-			target += worldModel->getMyPosition();
-			ret = kickBall(KICK_DRIBBLE, skilltarg.getTarget());
+			 target += worldModel->getMyPosition();
+			 ret = kickBall(KICK_DRIBBLE, skilltarg.getTarget());
 
-			analyzer->resetCandidates();
-			return ret;*/
+			 analyzer->resetCandidates();
+			 return ret;*/
 			return intercept();
 
-		}
-		else if(worldModel->getMyPosition().getDistanceTo(loader->getDuePosition(worldModel->getUNum())) < 0.5){
+		} else if (worldModel->getMyPosition().getDistanceTo(
+				loader->getDuePosition(worldModel->getUNum())) < 0.5) {
 			double angle;
 			VecPosition ball = worldModel->getBall();
 			double dis;
-			getTargetDistanceAndAngle(ball,dis,angle);
-			return goToTargetRelative(VecPosition(),
-			angle);
+			getTargetDistanceAndAngle(ball, dis, angle);
+			return goToTargetRelative(VecPosition(), angle);
 		}
 		return SKILL_STAND;
 
