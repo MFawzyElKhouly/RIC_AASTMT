@@ -50,7 +50,7 @@ public:
 	skilldesc getTopSkill();
 	double calcCost(skilldesc scil);
 	void generatePassPoints(PassType type);
-		void resetCandidates();
+	void resetCandidates();
 	void generatePoints();
 	VecPosition generateThrough(int i);
 	void generatePlayers();
