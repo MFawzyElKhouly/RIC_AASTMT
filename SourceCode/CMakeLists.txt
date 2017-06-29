@@ -78,6 +78,12 @@ set(SRCS
 chain_Acion/defensive.cc
 goalie/Goalie.cc
   chain_Acion/dribble.cc
+
+  behaviors/AttackStrategy.cc
+
+  behaviors/DefensiveStrategy.cc
+
+  behaviors/playmodestrategy.cc
   ${CORE_FILES}
   kalman/BallKF.cpp
   kalman/PlayerKF.cpp 

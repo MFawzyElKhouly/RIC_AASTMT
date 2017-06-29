@@ -16,7 +16,7 @@
 #include<cassert>
 #include <fstream>
 using namespace std;
-SkillType NaoBehavior::getAttacksSkill() {
+SkillType NaoBehavior::getAttackSkill() {
 
 }
 

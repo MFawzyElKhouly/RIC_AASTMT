@@ -47,10 +47,27 @@ void NaoBehavior::beam(double& beamX, double& beamY, double& beamAngle) {
 //beamAngle = 0;
 
 }
+int i = 0;
 
 SkillType NaoBehavior::selectSkill() {
 
-	if (worldModel->getPlayMode() != PM_PLAY_ON) {
+	if(worldModel->getUNum() != 3)
+		return SKILL_STAND;
+	if(i == 0 && worldModel->getBall()
+			.getDistanceTo(worldModel->getMyPosition()) < 2)
+	{
+		return kickBall(KICK_IK,
+						((worldModel->getOppLeftGoalPost()
+								+ worldModel->getOppRightGoalPost()) / 2));
+
+	}
+	else if(i==0){
+		return goToTarget(worldModel->getBall());
+	}
+	cout<< worldModel->getBall();
+		return SKILL_STAND;
+
+	/*if (worldModel->getPlayMode() != PM_PLAY_ON) {
 		return getPlayModeSkill();
 	}
 	if (loader->getTeamState() == ATTACKING) {
@@ -60,7 +77,7 @@ SkillType NaoBehavior::selectSkill() {
 	if (loader->getTeamState() == DEFENDING) {
 			return getDefensiveSkill();
 
-		}
+		}*/
 
 	if ((((worldModel->getSide() == SIDE_LEFT)
 			&& (worldModel->getPlayMode() == PM_KICK_OFF_LEFT))

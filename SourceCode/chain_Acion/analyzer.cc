@@ -78,7 +78,7 @@ shootSkill::shootSkill(WorldModel *wm, formationLoader *fm) :
 Analyzer::Analyzer(WorldModel *wm) {
 	//freopen("f.txt", "w", stdout);
 	this->wm = wm;
-	this->maxShot = 7; //TODO get this from wm
+	this->maxShot = 10; //TODO get this from wm
 	loader = NULL;
 	max = (new skilldesc(SKILL_STAND));
 }

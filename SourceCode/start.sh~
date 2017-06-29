@@ -13,7 +13,7 @@ fi
 
 export LD_LIBRARY_PATH=$LIBS_DIR:$LD_LIBRARY_PATH
 
-opt=" --host=${host} --port ${port} --team ${team} --paramsfile paramfiles/defaultParams.txt --mhost=${mhost}"
+opt=" --host=${host} --port ${port} --paramsfile paramfiles/defaultParams.txt --mhost=${mhost}"
 
 for ((i=1;i<=$NUM_PLAYERS;i++)); do
     case $i in

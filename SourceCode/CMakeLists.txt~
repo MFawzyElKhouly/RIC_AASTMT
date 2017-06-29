@@ -71,6 +71,19 @@ set(SRCS
   headers/headers.cc
   audio/audio.cc 
   rvdraw/rvdraw.cc 
+  chain_Acion/analyzer.cc
+	debugger/debugger.cc
+  chain_Acion/support.cc
+  formations/formations.cc
+chain_Acion/defensive.cc
+goalie/Goalie.cc
+  chain_Acion/dribble.cc
+
+  behaviors/AttackStrategy.cc
+
+  behaviors/DefensiveStrategy.cc
+
+  chain_Acion/playmodestrategy.cc
   ${CORE_FILES}
   kalman/BallKF.cpp
   kalman/PlayerKF.cpp 
@@ -78,11 +91,11 @@ set(SRCS
   optimization/optimizationbehaviors.cc
 )
 
-add_executable(agentspark 
+add_executable(RICAASTMT 
 ${SRCS}
 )
 
-target_link_libraries(agentspark
+target_link_libraries(RICAASTMT
 ${RCSSNET3D_LIBRARY}
 ${Boost_SYSTEM_LIBRARY}
 dl
