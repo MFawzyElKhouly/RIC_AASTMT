@@ -57,9 +57,8 @@ SkillType NaoBehavior::selectSkill() {
 		return getAttackSkill();
 
 	}
-	if (loader->getTeamState() == DEFENDING) {
-			return getDefensiveSkill();
-		}
+	else
+		return getDefensiveSkill();
 
 	return SKILL_STAND;
 }

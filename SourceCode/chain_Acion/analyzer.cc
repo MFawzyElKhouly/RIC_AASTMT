@@ -264,7 +264,9 @@ void Analyzer::generateDefensiveSkills() {
 			else
 				targ = wm->getOpponent(i) - wm->getMyRightGoalPost();
 			targ *= 0.25;
-			targ = wm->getOpponent(i) - targ;
+			targ = wm->getOpponent(i)
+
+ - targ;
 		}
 		else if(wm->getRole(wm->getUNum() - 1) < 3){
 			if (wm->getOpponent(i).getDistanceTo(wm->getMyLeftGoalPost())
@@ -296,7 +298,7 @@ void Analyzer::generateintersect() {
 	if (wm->getMyPosition().getX() > wm->getBall().getX()
 			&& wm->distancetoBall(wm->getMyPosition()) > 1.5)
 		d += 50;
-	for (int i = WO_TEAMMATE2; i <= WO_TEAMMATE11; i++) {
+	for (int i = WO_TEAMMATE2; i <= WO_TEAMMATE11; i++) { // kam teammate a2rb ll kora
 		if (i - WO_TEAMMATE1 + 1 == wm->getUNum())
 			continue;
 		double di = wm->distancetoBall(wm->getTeammate(i));
@@ -312,8 +314,7 @@ void Analyzer::generateintersect() {
 
 		}
 	}
-	cout << "Player no " << (1-WO_TEAMMATE1 + wm->getUNum()) << " N = " << n << endl;
-	int i = WO_OPPONENT1 - 1 + wm->getOpponentClosestTo(wm->getBall());
+	int i = WO_OPPONENT1 - 1 + wm->getOpponentClosestTo(wm->getBall()); //a2rb opp ll kora
 	VecPosition v = wm->getMyRightGoalPost() + wm->getMyLeftGoalPost();
 	v /= 2;
 	double ang = wm->getWorldObject(i)->orien;
@@ -328,6 +329,7 @@ void Analyzer::generateintersect() {
 	}
 	if (n == 0 //|| ((wm->distanceToMyGoal(ball) < 10) && (wm->getUNum() < 6))
 			) {
+		cout << "Nearest Player is " << (1-WO_TEAMMATE1 + wm->getUNum()) << endl;
 		skilldesc scill = *(new skilldesc(SKILL_INTERCEPT));
 		if ((wm->getMyPosition() - tar).getMagnitude() < 0.25)
 			tar = wm->getBall();// - VecPosition(0.4,0,0,CARTESIAN);
@@ -390,9 +392,10 @@ void Analyzer::generateCanditates() {
 		generateAttackingSkills();
 		return;
 	}
+	else{
 	generateDefensiveSkills();
 	return;
-
+	}
 }
 VecPosition Analyzer::generateThrough(int i) {
 
@@ -472,6 +475,8 @@ void Analyzer::generatePlayers() {
 
 void Analyzer::generatePassPoints(PassType type) {
 	switch (type) {
+
+
 	case POINTS:
 		generatePoints();
 		break;
@@ -526,7 +531,9 @@ double throughSkill::dsurroundingOpponents(VecPosition target,
 	double ret = 0;
 	int n = 0;
 	for (int i = 0 + WO_OPPONENT1; i < WO_OPPONENT1 + NUM_AGENTS; i++) {
-		if (!wm->getWorldObject(i)->validPosition
+		if (!wm->getWorldObject(i)->
+
+validPosition
 				|| wm->isOut(wm->getWorldObject(i)->pos))
 			continue;
 		double cret = exponential(

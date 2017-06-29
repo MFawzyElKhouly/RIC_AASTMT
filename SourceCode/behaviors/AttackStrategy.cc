@@ -17,6 +17,11 @@
 #include <fstream>
 using namespace std;
 SkillType NaoBehavior::getAttackSkill() {
+
+	/*if(worldModel->getUNum() == worldModel->getTeammateClosestTo(worldModel->getBall()))
+		return kickBall(KICK_FORWARD,
+				((worldModel->getOppLeftGoalPost()
+						+ worldModel->getOppRightGoalPost()) / 2));*/
 	analyzer->generateCanditates();
 		skilldesc skilltarg = analyzer->getTopSkill();
 		SkillType ret;

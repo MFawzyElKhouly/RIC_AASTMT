@@ -6,37 +6,45 @@
 
 #IncludeRegexTransform: 
 
-/home/aastteam/git/RIC_AASTMT/SourceCode/behaviors/behavior.h
+/home/rc9/git/RIC_AASTMT/SourceCode/behaviors/DefensiveStrategy.cc
+naobehavior.h
+/home/rc9/git/RIC_AASTMT/SourceCode/behaviors/naobehavior.h
+../rvdraw/rvdraw.h
+/home/rc9/git/RIC_AASTMT/SourceCode/rvdraw/rvdraw.h
+../chain_Acion/analyzer.h
+/home/rc9/git/RIC_AASTMT/SourceCode/chain_Acion/analyzer.h
+iostream
+-
+vector
+-
+cassert
+-
+fstream
+-
+
+/home/rc9/git/RIC_AASTMT/SourceCode/behaviors/behavior.h
 string
 -
 
-/home/aastteam/git/RIC_AASTMT/SourceCode/behaviors/gazebobehavior.cc
-gazebobehavior.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/behaviors/gazebobehavior.h
-
-/home/aastteam/git/RIC_AASTMT/SourceCode/behaviors/gazebobehavior.h
-naobehavior.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/behaviors/naobehavior.h
-
-/home/aastteam/git/RIC_AASTMT/SourceCode/behaviors/naobehavior.h
+/home/rc9/git/RIC_AASTMT/SourceCode/behaviors/naobehavior.h
 behavior.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/behaviors/behavior.h
+/home/rc9/git/RIC_AASTMT/SourceCode/behaviors/behavior.h
 ../headers/headers.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/headers/headers.h
+/home/rc9/git/RIC_AASTMT/SourceCode/headers/headers.h
 ../parser/parser.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/parser/parser.h
+/home/rc9/git/RIC_AASTMT/SourceCode/parser/parser.h
 ../worldmodel/worldmodel.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/worldmodel/worldmodel.h
+/home/rc9/git/RIC_AASTMT/SourceCode/worldmodel/worldmodel.h
 ../bodymodel/bodymodel.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/bodymodel/bodymodel.h
+/home/rc9/git/RIC_AASTMT/SourceCode/bodymodel/bodymodel.h
 ../particlefilter/PFLocalization.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/particlefilter/PFLocalization.h
+/home/rc9/git/RIC_AASTMT/SourceCode/particlefilter/PFLocalization.h
 ../skills/skill.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/skills/skill.h
+/home/rc9/git/RIC_AASTMT/SourceCode/skills/skill.h
 ../chain_Acion/analyzer.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/chain_Acion/analyzer.h
+/home/rc9/git/RIC_AASTMT/SourceCode/chain_Acion/analyzer.h
 ../debugger/debugger.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/debugger/debugger.h
+/home/rc9/git/RIC_AASTMT/SourceCode/debugger/debugger.h
 MotionCore.h
 -
 memory/Memory.h
@@ -64,23 +72,23 @@ vector
 queue
 -
 ../formations/formation.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/formations/formation.h
+/home/rc9/git/RIC_AASTMT/SourceCode/formations/formation.h
 
-/home/aastteam/git/RIC_AASTMT/SourceCode/bodymodel/bodymodel.h
+/home/rc9/git/RIC_AASTMT/SourceCode/bodymodel/bodymodel.h
 ../headers/headers.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/headers/headers.h
+/home/rc9/git/RIC_AASTMT/SourceCode/headers/headers.h
 ../math/vecposition.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/math/vecposition.h
+/home/rc9/git/RIC_AASTMT/SourceCode/math/vecposition.h
 ../math/hctmatrix.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/math/hctmatrix.h
+/home/rc9/git/RIC_AASTMT/SourceCode/math/hctmatrix.h
 ../worldmodel/worldmodel.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/worldmodel/worldmodel.h
+/home/rc9/git/RIC_AASTMT/SourceCode/worldmodel/worldmodel.h
 ../ikfast/ikfast.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/ikfast/ikfast.h
+/home/rc9/git/RIC_AASTMT/SourceCode/ikfast/ikfast.h
 sstream
 -
 
-/home/aastteam/git/RIC_AASTMT/SourceCode/chain_Acion/analyzer.h
+/home/rc9/git/RIC_AASTMT/SourceCode/chain_Acion/analyzer.h
 iostream
 -
 string
@@ -94,27 +102,27 @@ queue
 boost/shared_ptr.hpp
 -
 ../skills/skill.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/skills/skill.h
+/home/rc9/git/RIC_AASTMT/SourceCode/skills/skill.h
 skillval.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/chain_Acion/skillval.h
+/home/rc9/git/RIC_AASTMT/SourceCode/chain_Acion/skillval.h
 map
 -
 fstream
 -
 
-/home/aastteam/git/RIC_AASTMT/SourceCode/chain_Acion/skillval.h
+/home/rc9/git/RIC_AASTMT/SourceCode/chain_Acion/skillval.h
 ../headers/headers.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/headers/headers.h
+/home/rc9/git/RIC_AASTMT/SourceCode/headers/headers.h
 ../math/vecposition.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/math/vecposition.h
+/home/rc9/git/RIC_AASTMT/SourceCode/math/vecposition.h
 
-/home/aastteam/git/RIC_AASTMT/SourceCode/debugger/debugger.h
+/home/rc9/git/RIC_AASTMT/SourceCode/debugger/debugger.h
 fstream
 -
 string
 -
 
-/home/aastteam/git/RIC_AASTMT/SourceCode/formations/formation.h
+/home/rc9/git/RIC_AASTMT/SourceCode/formations/formation.h
 vector
 -
 iostream
@@ -122,17 +130,17 @@ iostream
 string
 -
 ../math/vecposition.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/math/vecposition.h
+/home/rc9/git/RIC_AASTMT/SourceCode/math/vecposition.h
 
-/home/aastteam/git/RIC_AASTMT/SourceCode/headers/Field.h
+/home/rc9/git/RIC_AASTMT/SourceCode/headers/Field.h
 ../worldmodel/WorldObject.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/worldmodel/WorldObject.h
+/home/rc9/git/RIC_AASTMT/SourceCode/worldmodel/WorldObject.h
 ../math/Geometry.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/math/Geometry.h
+/home/rc9/git/RIC_AASTMT/SourceCode/math/Geometry.h
 stdio.h
 -
 
-/home/aastteam/git/RIC_AASTMT/SourceCode/headers/headers.h
+/home/rc9/git/RIC_AASTMT/SourceCode/headers/headers.h
 map
 -
 string
@@ -144,41 +152,41 @@ ostream
 sstream
 -
 
-/home/aastteam/git/RIC_AASTMT/SourceCode/ikfast/ikfast.h
+/home/rc9/git/RIC_AASTMT/SourceCode/ikfast/ikfast.h
 vector
 -
 
-/home/aastteam/git/RIC_AASTMT/SourceCode/math/Geometry.h
+/home/rc9/git/RIC_AASTMT/SourceCode/math/Geometry.h
 cmath
 -
 iostream
 -
 vecposition.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/math/vecposition.h
+/home/rc9/git/RIC_AASTMT/SourceCode/math/vecposition.h
 
-/home/aastteam/git/RIC_AASTMT/SourceCode/math/hctmatrix.h
+/home/rc9/git/RIC_AASTMT/SourceCode/math/hctmatrix.h
 ../headers/headers.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/headers/headers.h
+/home/rc9/git/RIC_AASTMT/SourceCode/headers/headers.h
 vecposition.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/math/vecposition.h
+/home/rc9/git/RIC_AASTMT/SourceCode/math/vecposition.h
 iostream
 -
 
-/home/aastteam/git/RIC_AASTMT/SourceCode/math/vecposition.h
+/home/rc9/git/RIC_AASTMT/SourceCode/math/vecposition.h
 math.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/math/math.h
+/home/rc9/git/RIC_AASTMT/SourceCode/math/math.h
 string.h
 -
 iostream
 -
 ../headers/headers.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/headers/headers.h
+/home/rc9/git/RIC_AASTMT/SourceCode/headers/headers.h
 
-/home/aastteam/git/RIC_AASTMT/SourceCode/parser/VisionObject.h
+/home/rc9/git/RIC_AASTMT/SourceCode/parser/VisionObject.h
 ../math/vecposition.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/math/vecposition.h
+/home/rc9/git/RIC_AASTMT/SourceCode/math/vecposition.h
 
-/home/aastteam/git/RIC_AASTMT/SourceCode/parser/parser.h
+/home/rc9/git/RIC_AASTMT/SourceCode/parser/parser.h
 iostream
 -
 string
@@ -190,27 +198,27 @@ vector
 boost/shared_ptr.hpp
 -
 ../headers/headers.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/headers/headers.h
+/home/rc9/git/RIC_AASTMT/SourceCode/headers/headers.h
 
-/home/aastteam/git/RIC_AASTMT/SourceCode/particlefilter/PFLocalization.h
+/home/rc9/git/RIC_AASTMT/SourceCode/particlefilter/PFLocalization.h
 Particle.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/particlefilter/Particle.h
+/home/rc9/git/RIC_AASTMT/SourceCode/particlefilter/Particle.h
 ../worldmodel/worldmodel.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/worldmodel/worldmodel.h
+/home/rc9/git/RIC_AASTMT/SourceCode/worldmodel/worldmodel.h
 ../bodymodel/bodymodel.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/bodymodel/bodymodel.h
+/home/rc9/git/RIC_AASTMT/SourceCode/bodymodel/bodymodel.h
 ../headers/Field.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/headers/Field.h
+/home/rc9/git/RIC_AASTMT/SourceCode/headers/Field.h
 MotionCore.h
 -
 
-/home/aastteam/git/RIC_AASTMT/SourceCode/particlefilter/Particle.h
+/home/rc9/git/RIC_AASTMT/SourceCode/particlefilter/Particle.h
 ../math/Geometry.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/math/Geometry.h
+/home/rc9/git/RIC_AASTMT/SourceCode/math/Geometry.h
 ../worldmodel/WorldObject.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/worldmodel/WorldObject.h
+/home/rc9/git/RIC_AASTMT/SourceCode/worldmodel/WorldObject.h
 
-/home/aastteam/git/RIC_AASTMT/SourceCode/rvdraw/rvdraw.h
+/home/rc9/git/RIC_AASTMT/SourceCode/rvdraw/rvdraw.h
 cstdio
 -
 cstring
@@ -248,47 +256,47 @@ sstream
 iomanip
 -
 
-/home/aastteam/git/RIC_AASTMT/SourceCode/skills/curve3d.h
+/home/rc9/git/RIC_AASTMT/SourceCode/skills/curve3d.h
 vector
 -
 ../math/vecposition.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/math/vecposition.h
+/home/rc9/git/RIC_AASTMT/SourceCode/math/vecposition.h
 
-/home/aastteam/git/RIC_AASTMT/SourceCode/skills/skill.h
+/home/rc9/git/RIC_AASTMT/SourceCode/skills/skill.h
 boost/shared_ptr.hpp
 -
 ../bodymodel/bodymodel.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/bodymodel/bodymodel.h
+/home/rc9/git/RIC_AASTMT/SourceCode/bodymodel/bodymodel.h
 curve3d.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/skills/curve3d.h
+/home/rc9/git/RIC_AASTMT/SourceCode/skills/curve3d.h
 
-/home/aastteam/git/RIC_AASTMT/SourceCode/worldmodel/WorldObject.h
+/home/rc9/git/RIC_AASTMT/SourceCode/worldmodel/WorldObject.h
 boost/assign/list_of.hpp
 -
 map
 -
 ../math/vecposition.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/math/vecposition.h
+/home/rc9/git/RIC_AASTMT/SourceCode/math/vecposition.h
 vector
 -
 ../math/Geometry.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/math/Geometry.h
+/home/rc9/git/RIC_AASTMT/SourceCode/math/Geometry.h
 ../parser/VisionObject.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/parser/VisionObject.h
+/home/rc9/git/RIC_AASTMT/SourceCode/parser/VisionObject.h
 
-/home/aastteam/git/RIC_AASTMT/SourceCode/worldmodel/worldmodel.h
+/home/rc9/git/RIC_AASTMT/SourceCode/worldmodel/worldmodel.h
 ../headers/headers.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/headers/headers.h
+/home/rc9/git/RIC_AASTMT/SourceCode/headers/headers.h
 ../math/Geometry.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/math/Geometry.h
+/home/rc9/git/RIC_AASTMT/SourceCode/math/Geometry.h
 ../math/hctmatrix.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/math/hctmatrix.h
+/home/rc9/git/RIC_AASTMT/SourceCode/math/hctmatrix.h
 WorldObject.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/worldmodel/WorldObject.h
+/home/rc9/git/RIC_AASTMT/SourceCode/worldmodel/WorldObject.h
 ../headers/Field.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/headers/Field.h
+/home/rc9/git/RIC_AASTMT/SourceCode/headers/Field.h
 ../rvdraw/rvdraw.h
-/home/aastteam/git/RIC_AASTMT/SourceCode/rvdraw/rvdraw.h
+/home/rc9/git/RIC_AASTMT/SourceCode/rvdraw/rvdraw.h
 
 utwalk/MotionCore.h
 memory/Memory.h

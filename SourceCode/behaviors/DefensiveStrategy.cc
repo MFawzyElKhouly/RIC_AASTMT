@@ -37,7 +37,7 @@ SkillType NaoBehavior::getDefensiveSkill() {
 			 } else */
 
 			if (distance > 0.2) {
-				return goToTarget(skilltarg.getTarget());
+			return goToTarget(skilltarg.getTarget());
 
 			} else if (skilltarg.getType() == SKILL_INTERCEPT
 					&& (worldModel->getMyPosition().getX() > -12
@@ -58,6 +58,7 @@ SkillType NaoBehavior::getDefensiveSkill() {
 				getTargetDistanceAndAngle(ball, dis, angle);
 				return goToTargetRelative(VecPosition(), angle);
 			}
+
 			return SKILL_STAND;
 
 		 }

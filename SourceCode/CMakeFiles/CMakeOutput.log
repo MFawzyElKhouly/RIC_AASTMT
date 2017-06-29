@@ -471,3 +471,33 @@ Linking C executable cmTryCompileExec2184947102
 make[1]: Leaving directory `/home/aastteam/git/RIC_AASTMT/SourceCode/CMakeFiles/CMakeTmp'
 
 
+Determining if files pthread.h exist passed with the following output:
+Change Dir: /home/rc9/git/RIC_AASTMT/SourceCode/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec1565505738/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1565505738.dir/build.make CMakeFiles/cmTryCompileExec1565505738.dir/build
+make[1]: Entering directory `/home/rc9/git/RIC_AASTMT/SourceCode/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/rc9/git/RIC_AASTMT/SourceCode/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1565505738.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec1565505738.dir/CheckIncludeFiles.c.o   -c /home/rc9/git/RIC_AASTMT/SourceCode/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+Linking C executable cmTryCompileExec1565505738
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1565505738.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec1565505738.dir/CheckIncludeFiles.c.o  -o cmTryCompileExec1565505738 -rdynamic 
+make[1]: Leaving directory `/home/rc9/git/RIC_AASTMT/SourceCode/CMakeFiles/CMakeTmp'
+
+
+Determining if the function pthread_create exists in the pthread passed with the following output:
+Change Dir: /home/rc9/git/RIC_AASTMT/SourceCode/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec3220379047/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3220379047.dir/build.make CMakeFiles/cmTryCompileExec3220379047.dir/build
+make[1]: Entering directory `/home/rc9/git/RIC_AASTMT/SourceCode/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/rc9/git/RIC_AASTMT/SourceCode/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3220379047.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec3220379047.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec3220379047
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3220379047.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec3220379047.dir/CheckFunctionExists.c.o  -o cmTryCompileExec3220379047 -rdynamic -lpthread 
+make[1]: Leaving directory `/home/rc9/git/RIC_AASTMT/SourceCode/CMakeFiles/CMakeTmp'
+
+

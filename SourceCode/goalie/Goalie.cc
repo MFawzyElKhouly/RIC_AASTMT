@@ -67,7 +67,7 @@ SkillType Goalie::selectSkill() {
 	VecPosition LeftPost = worldModel->getMyLeftGoalPost();
 	VecPosition RightPost = worldModel->getMyRightGoalPost();
 
-	cout<<ballPos<<endl;
+	//cout<<ballPos<<endl;
 	double ballangle, dis, r, t;
 	double x, y;
 	x = (ballPos.getX() - 14.5) / 2;
