@@ -36,5 +36,6 @@ Evaluator::Evaluator(WorldModel *wm,formationLoader *load) {
 }
 double Evaluator::evalPass(VecPosition v) {
 	double val = 0;
+
 	return val;
 }
