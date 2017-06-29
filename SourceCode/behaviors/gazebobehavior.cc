@@ -1,5 +1,6 @@
 #include "gazebobehavior.h"
 
+
 GazeboBehavior::
 GazeboBehavior( const std::string teamName,
                 int uNum,

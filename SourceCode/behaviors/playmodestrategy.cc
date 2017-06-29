@@ -17,6 +17,7 @@
 #include <fstream>
 using namespace std;
 SkillType NaoBehavior::getPlayModeSkill() {
-
+	return kickBall(KICK_FORWARD,
+					((worldModel->getOppLeftGoalPost()
+							+ worldModel->getOppRightGoalPost()) / 2));
 }
-

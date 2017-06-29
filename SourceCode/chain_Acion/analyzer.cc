@@ -247,7 +247,7 @@ void Analyzer::generateDefensiveSkills() {
 	for (int i = 0 + WO_OPPONENT2; i <= WO_OPPONENT11; i++) {
 		if (wm->getTeammateClosestTo(wm->getOpponent(i)) == wm->getUNum()
 				&& wm->getOpponentClosestTo(wm->getBall())
-						== i - WO_OPPONENT1 + 1) {
+						== i - WO_OPPONENT1 + 1) {                //if the nearest is me ..
 			continue;
 		}
 		mark scill = *(new mark(wm, loader));
@@ -264,12 +264,24 @@ void Analyzer::generateDefensiveSkills() {
 			else
 				targ = wm->getOpponent(i) - wm->getMyRightGoalPost();
 			targ *= 0.25;
-			targ = wm->getOpponent(i) - targ;}
+			targ = wm->getOpponent(i) - targ;
+		}
+		else if(wm->getRole(wm->getUNum() - 1) < 3){
+			if (wm->getOpponent(i).getDistanceTo(wm->getMyLeftGoalPost())
+								< wm->getOpponent(i).getDistanceTo(
+										wm->getMyRightGoalPost()))
+							targ = wm->getOpponent(i) - wm->getMyLeftGoalPost();
+						else
+							targ = wm->getOpponent(i) - wm->getMyRightGoalPost();
+						targ *= 0.15;
+						targ = wm->getOpponent(i) - targ;
+		}
 //		 else {
 //			targ = wm->getBall() - wm->getOpponent(i);
 //			targ *= 0.25;
 //			targ += wm->getOpponent(i);
 //		}
+
 		scill.setTarget(targ);
 
 		skillset.push_back(scill);
@@ -300,7 +312,7 @@ void Analyzer::generateintersect() {
 
 		}
 	}
-
+	cout << "Player no " << (1-WO_TEAMMATE1 + wm->getUNum()) << " N = " << n << endl;
 	int i = WO_OPPONENT1 - 1 + wm->getOpponentClosestTo(wm->getBall());
 	VecPosition v = wm->getMyRightGoalPost() + wm->getMyLeftGoalPost();
 	v /= 2;
