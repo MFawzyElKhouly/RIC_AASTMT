@@ -24,31 +24,22 @@ void load(string filename) {
 	while (of >> x >> y)
 		add(x, y);
 	of.close();
-	/*add(-1,0);
-	 add(0, 4);
-	 add(6, -4);
-	 add(6, 4);
-	 add(4, 0);*/
 }
 /*
  * Real game beaming.
  * Filling params x y angle
  */
 void NaoBehavior::beam(double& beamX, double& beamY, double& beamAngle) {
-	//cout<<" side is "<<worldModel->getSide();
-	//if (worldModel->getSide() == SIDE_LEFT)
+
 	loader->setStrategy("second");
 	VecPosition beamer = loader->getBeamingPosition(this->agentUNum);
 	beamX = beamer.getX();
 	beamY = beamer.getY();
 	beamAngle = beamer.getZ();
-//beamX = -15+agentUNum;
-//beamY = 0;
-//beamAngle = 0;
 
 }
 int i = 0;
-
+bool drib = false;
 SkillType NaoBehavior::selectSkill() {
 
 //	if(worldModel->getUNum() != 3)
@@ -95,22 +86,28 @@ SkillType NaoBehavior::selectSkill() {
 		analyzer->resetCandidates();
 
 	}
-	if (analyzer->getTopSkill().getType() == SKILL_DRIBBLE
-			&& worldModel->getBall().getDistanceTo(worldModel->getMyPosition())
-					>= worldModel->getBall().getDistanceTo(analyzer->getTopSkill().getTarget())
-					) {
-		analyzer->resetCandidates();
-		cout<<"Clear dribble\n";
-
-	}
+//	if (analyzer->getTopSkill().getType() == SKILL_DRIBBLE
+//			&& worldModel->getBall().getDistanceTo(worldModel->getMyPosition())
+//					>= worldModel->getBall().getDistanceTo(analyzer->getTopSkill().getTarget())
+//					) {
 	analyzer->generateCanditates();
-	skilldesc skilltarg = analyzer->getTopSkill();
+		skilldesc skilltarg = analyzer->getTopSkill();
+
+	if(drib == true && worldModel->getBall().getDistanceTo(worldModel->getMyPosition()) > 0.2)
+		{
+		analyzer->resetCandidates();
+		//cout<<"Clear dribble\n";
+		drib = false;
+	}
+	if(drib == false && skilltarg.getType() == SKILL_DRIBBLE){
+		drib = (worldModel->getBall().getDistanceTo(worldModel->getMyPosition()) < 0.2);
+	}
 
 
 	SkillType ret;
 
 	if (skilltarg.getType() == SKILL_PASS) {
-		cout<<"SKILL = SKILL_PASS"<<endl;
+		//cout<<"SKILL = SKILL_PASS"<<endl;
 		if (worldModel->getBall().getDistanceTo(skilltarg.getTarget()) > 5)
 			ret = kickBall(KICK_FORWARD, skilltarg.getTarget());
 		else
@@ -132,12 +129,6 @@ SkillType NaoBehavior::selectSkill() {
 		} else if (skilltarg.getType() == SKILL_INTERCEPT
 				&& (worldModel->getMyPosition().getX() > -12
 						|| fabs(worldModel->getMyAngDeg()) < 90)) {
-			/*VecPosition target = (worldModel->getBall() - worldModel->getMyPosition())*1.5;
-			 target += worldModel->getMyPosition();
-			 ret = kickBall(KICK_DRIBBLE, skilltarg.getTarget());
-
-			 analyzer->resetCandidates();
-			 return ret;*/
 			return intercept();
 
 		} else if (worldModel->getMyPosition().getDistanceTo(

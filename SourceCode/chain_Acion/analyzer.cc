@@ -165,7 +165,7 @@ void Analyzer::generateBallHolderSkills() {
 	double threatTime = wm->getPlayerTimeTo(threat, wm->getBall());
 	if (wm->distancetoBall(wm->getMyPosition()) < 1) {
 		od = false;
-		if (clos > 3
+		if (clos > 2.2
 		//threatTime > 5 //TODO change this
 				) {
 			of = false;
@@ -174,7 +174,7 @@ void Analyzer::generateBallHolderSkills() {
 			generateKick();
 			//return ; //delete
 		}
-		if (clos > 1
+		if (clos > 0.1
 		//threatTime >1
 				) {
 			generateDribble();
@@ -340,6 +340,7 @@ void Analyzer::generateCanditates() {
 
 	if (!skillset.empty())
 		return;
+	cout<<"..x\n";
 	int ballHolder = wm->getTeammateClosestTo(wm->getBall());
 
 	if (ballHolder == wm->getUNum()
@@ -435,9 +436,9 @@ skilldesc Analyzer::getTopSkill() {
 	for (int i = 0; i < (int) skillset.size(); i++) {
 		if (skillset[i].getCost() < max->getCost())
 			max = &skillset[i];
-		if(wm->getTeammateClosestTo(wm->getBall()) == wm->getUNum()
-				&& skillset[i].getType() == SKILL_PASS)
-				cout<<skillset[i].getCost()<<" Is my pass cost\n";
+//		if(wm->getTeammateClosestTo(wm->getBall()) == wm->getUNum()
+//				&& skillset[i].getType() == SKILL_PASS)
+				//cout<<skillset[i].getCost()<<" Is my pass cost\n";
 
 	}
 
@@ -449,8 +450,8 @@ skilldesc Analyzer::getTopSkill() {
 	if (t.getCost() - max->getCost() < 0.7 && t.getType() == max->getType()
 			&& (t.getType() == SKILL_PASS || t.getType() == SKILL_DRIBBLE))
 		max = &t;
-	if(wm->getTeammateClosestTo(wm->getBall()) == wm->getUNum() )
-		cout<<max->getType()<<" Is my skill and "<<max->getCost() <<"\n";
+//	if(wm->getTeammateClosestTo(wm->getBall()) == wm->getUNum() )
+//		cout<<max->getType()<<" Is my skill and "<<max->getCost() <<"\n";
 
 
 
@@ -544,8 +545,8 @@ double passSkill::evaluatePass(VecPosition passer, VecPosition target) {
 	target.setZ(0);
 	double e = effectiveness(passer, target);
 	double s = passSafety(passer, target);
-	cost = (4*e + s);
-	//cout << "PE = " << e << " PS = " << s << " PC = " << cost << "\n";
+	cost = (6*e + s);
+	cout << ">>>>>>>>>>PE = " << e << " PS = " << s << " PC = " << cost << "\n";
 
 	return cost;
 }

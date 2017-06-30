@@ -400,7 +400,17 @@ void NaoBehavior::act() {
 				|| bodyModel->useOmniWalk()) {
 			skills[skill]->reset();
 			resetScales();
-			SkillType currentSkill = selectSkill();
+			SkillType currentSkill;
+			if (currentSkillDribble && me.getDistanceTo(ball) <= lastDistance){
+				currentSkill = kickBall(KICK_DRIBBLE, kickTarget);
+				lastDistance = me.getDistanceTo(ball);
+			}
+			else
+			{
+				currentSkillDribble = false;
+				currentSkill = selectSkill();
+			}
+
 
 			if (currentSkill != SKILL_WALK_OMNI) {
 				velocity.paramSet = WalkRequestBlock::PARAMS_DEFAULT;

@@ -133,10 +133,11 @@ SkillType NaoBehavior::kickBallAtPresetTarget() {
         return kickBallAtTargetSimplePositioning(currentTarget, currentKick, currentKickType);
     } else {
         // Here is how we dribble
-
+    	//cout<<me.getDistanceTo(ball)<<endl;
         currentKickType = KICK_DRIBBLE;
         angleThreshold = 10;
-
+        currentSkillDribble = true;
+        lastDistance = me.getDistanceTo(ball);
         VecPosition localBall = worldModel->g2l(ball);
         localBall.setZ(0);
         SIM::AngDeg localBallAngle = atan2Deg(localBall.getY(), localBall.getX());
@@ -174,7 +175,33 @@ SkillType NaoBehavior::kickBallAtPresetTarget() {
     }
 }
 
+SkillType NaoBehavior::intercept(){
+	if (me.getDistanceTo(ball) > 0.5) {
+	        // Far away from the ball so walk toward target offset from the ball
+		VecPosition target =ball;
+		target = collisionAvoidance(false/*Avoid teammate*/,true/*Avoid opponent*/,false/*Avoid ball*/,.5,.5,target, false /*fKeepDistance*/);
+	        return goToTarget(target);
+	    }
 
+    int opponent = worldModel->getOpponentClosestTo(worldModel ->getBall())+WO_OPPONENT1-1;
+    double anglehldr,dishldr;
+    WorldObject* ballholder = worldModel->getWorldObject(opponent);
+    VecPosition ballholdr =  ballholder ->pos;
+    getTargetDistanceAndAngle(ballholdr, dishldr, anglehldr);
+
+
+	   double ballangle,dis;
+	   getTargetDistanceAndAngle(ball, dis, ballangle);
+
+        if(fabs(ballangle)>10)
+        {
+        	return goToTargetRelative(VecPosition(),ballangle);
+        }
+        if(ballangle > 0)
+        	return SKILL_KICK_IK_0_LEFT_LEG;
+        else
+        	return SKILL_KICK_IK_0_RIGHT_LEG;
+}
 
 
 void NaoBehavior::resetKickState() {
@@ -408,33 +435,4 @@ VecPosition NaoBehavior::navigateAroundBall(VecPosition target, double PROXIMITY
     target = collisionAvoidance(true/*Avoid teammate*/,false/*Avoid opponent*/,false/*Avoid ball*/,.5,.5,target, false /*fKeepDistance*/);
     target = collisionAvoidance(false/*Avoid teammate*/,false/*Avoid opponent*/,true/*Avoid ball*/,PROXIMITY_THRESH,atof(namedParams.find("drib_coll_thresh")->second.c_str()),target);
     return target;
-}
-
-
-SkillType NaoBehavior::intercept(){
-	if (me.getDistanceTo(ball) > 0.5) {
-	        // Far away from the ball so walk toward target offset from the ball
-		VecPosition target =ball;
-		target = collisionAvoidance(false/*Avoid teammate*/,true/*Avoid opponent*/,false/*Avoid ball*/,.5,.5,target, false /*fKeepDistance*/);
-	        return goToTarget(target);
-	    }
-
-    int opponent = worldModel->getOpponentClosestTo(worldModel ->getBall())+WO_OPPONENT1-1;
-    double anglehldr,dishldr;
-    WorldObject* ballholder = worldModel->getWorldObject(opponent);
-    VecPosition ballholdr =  ballholder ->pos;
-    getTargetDistanceAndAngle(ballholdr, dishldr, anglehldr);
-
-
-	   double ballangle,dis;
-	   getTargetDistanceAndAngle(ball, dis, ballangle);
-
-        if(fabs(ballangle)>10)
-        {
-        	return goToTargetRelative(VecPosition(),ballangle);
-        }
-        if(ballangle > 0)
-        	return SKILL_KICK_IK_0_LEFT_LEG;
-        else
-        	return SKILL_KICK_IK_0_RIGHT_LEG;
 }

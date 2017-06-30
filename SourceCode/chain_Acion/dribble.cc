@@ -109,8 +109,8 @@ double myGoal = exponential(wm->distanceToMyGoal(target), 130);
 double dribble::calcCost() {
 	double e = effectiveness();
 	double s = dribbleSafety();
-	double ret =4* e + s;// + surrP*dribbleReliability();
-	//cout<< "DE = "<<e<< " DS = "<<s <<" DC = "<<ret<<"\n";
+	double ret =6* e + s;// + surrP*dribbleReliability();
+	cout<< "DE = "<<e<< " DS = "<<s <<" DC = "<<ret<<"\n";
 	//ret /= (effP+safeP+surrP);
 	//ret*=factor;
 	if(wm->getPlayMode() != PM_PLAY_ON)
