@@ -52,7 +52,7 @@ public:
 	void generatePassPoints(PassType type);
 	void resetCandidates();
 	void generatePoints();
-	VecPosition generateThrough(int i);
+	//VecPosition generateThrough(int i);
 	void generatePlayers();
 	void generateKick() ;
 	void generateintersect();

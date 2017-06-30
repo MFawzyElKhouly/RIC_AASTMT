@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-NUM_PLAYERS=6
+NUM_PLAYERS=11
 host="localhost"
 port=3100
 mhost="localhost"

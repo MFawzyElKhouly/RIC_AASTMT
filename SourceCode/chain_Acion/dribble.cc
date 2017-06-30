@@ -48,87 +48,71 @@ loadParameters(fm->getStrategy() + "/dribble.io", factors);
 }
 double dribble::surroundingOpponents(){
 	double ret = 0;
-		int n = 0;
-		for (int i = 0 + WO_OPPONENT1; i < WO_OPPONENT1 + NUM_AGENTS; i++) {
-			if (!wm->getWorldObject(i)->validPosition || target.getX() > wm->getOpponent(i).getX())
-				continue;
-			ret += exponential(
-					wm->getPlayerTimeTo(i,target)
-							, Cnear);
-			n++;
-		}
-		return n == 0 ? 0 : ret / n;
-}
-
-double dribble::dribbleReliability() {
-	double ret = 0;
-		int n = 0;
-		for (int i = 0 + WO_OPPONENT1; i < WO_OPPONENT1 + NUM_AGENTS; i++) {
-
-			double t =wm->getPlayerTimeTo(i, target);
-			if (!wm->getWorldObject(i)->validPosition
-					|| wm->isOut(wm->getWorldObject(i)->pos) || t > 6)
-				continue;
-			ret += exponential(t ,
-					Cnear);
-			n++;
-		}
-		return n == 0 ? 0 : ret / n;
-}
-double dribble::dribbleSafety() {
-	//double myTime =  wm->getPlayerTimeTo(WO_TEAMMATE1-1+wm->getUNum(),target);
-	//double theirTime = wm->getPlayerTimeTo(wm->getOpponentFastestTo(target)
-			//+WO_OPPONENT1-1,target);
-	//double theirTime2 = wm->getPlayerTimeTo(wm->getOpponentFastestTo((target+wm->getBall())/2)
-				//+WO_OPPONENT1-1,(target+wm->getBall())/2);
-//	double myTime2 =  wm->getPlayerTimeTo(WO_TEAMMATE1-1+wm->getUNum(),(target+wm->getBall())/2);
-	double theirTime3 = wm->getPlayerTimeTo(wm->getOpponentFastestTo(wm->getBall())
-					+WO_OPPONENT1-1,wm->getBall());
-	double sum_Opp_Per = 0;
 	int n = 0;
-	for(int i = WO_OPPONENT1 ; i <= WO_OPPONENT11 ; i++)
-	{
-		if(!wm->getWorldObject(i)->validPosition)
+	for (int i = 0 + WO_OPPONENT1; i < WO_OPPONENT1 + NUM_AGENTS; i++) {
+		if (!wm->getWorldObject(i)->validPosition
+				|| wm->isOut(wm->getWorldObject(i)->pos))
 			continue;
-		double opp_per= perp( wm->getOpponent(i), wm->getBall() , target );
-		//Min_Opp_Per = min(Min_Opp_Per , opp_per);
-		sum_Opp_Per += exponential(opp_per,0.25);
+		ret += exponential(
+				wm->getPlayerTimeTo(i, target) ,
+				Cnear);
 		n++;
 	}
-	//if(theirTime  < myTime )
-	//	return INF;
-//	if(theirTime2 < myTime2)
-	//	return INF;
-	double ang = (target - wm->getMyPosition()).getAngleWithVector(
-			VecPosition(1,wm->getMyAngRad(),0,POLAR));
+	return n == 0 ? 0 : ret;
+}
 
-	//if( theirTime3 < ang / 35)
-		//return INF;
-/*
-	if(Min_Opp_Per < 0.3) {
-		return INF;
+
+double dribble::dribbleSafety() {
+
+	double length = (target - wm->getMyPosition()).getMagnitude();
+
+	double nearest = 1e9;
+
+	int targetPlayer = wm->getTeammateClosestTo(target);
+
+	for (int i = 0 + WO_TEAMMATE1; i < WO_TEAMMATE1 + NUM_AGENTS; i++) {
+		int curUNum = i - WO_TEAMMATE1 + 1;
+		if (wm->getWorldObject(i)->validPosition && wm->getUNum() != curUNum
+				&& targetPlayer != curUNum)
+
+			nearest = min(nearest, perp(wm->getTeammate(i), wm->getMyPosition(), target));
 	}
-*/
-		/*if(theirTime < 1.5)
-		return INF;*/
-	if(wm->isOut(target+VecPosition(-0.5,0,0,POLAR))) {
-		NaoBehavior::debug->success(wm->getCycle(),"OUTTTt");
-		return INF;
+
+	for (int i =  WO_OPPONENT1; i < WO_OPPONENT1 + NUM_AGENTS; i++)
+		if (wm->getWorldObject(i)->validPosition)
+			nearest = min(nearest, perp(wm->getOpponent(i), wm->getMyPosition(), target));
+
+	const double th = 0.2;
+
+	if (nearest <= th) {
+		return 1;
 	}
-return (n==0)?0:sum_Opp_Per/n;
+	double ret = exponential(nearest, 0.5) ;
+
+	return ret;
+
  }
 double dribble::effectiveness() {
-	VecPosition oppGoal = wm->getOppLeftGoalPost()+wm->getOppRightGoalPost();
-	oppGoal/=2;
-	double theirGoal =1 - exponential(target.getDistanceTo(oppGoal) ,C_TheirGoal );
-	//double surroundingOpponent = surroundingOpponents();
-	return (theirGoal);// + surroundingOpponent * surrP)/(TheirGoalP+surrP);
+double myGoal = exponential(wm->distanceToMyGoal(target), 130);
+		double theirGoal = 1
+				- exponential(wm->distanceToOppGoal(target), TheirGoalP);
+		double surrounding_Opponents = surroundingOpponents();
+	//	double supporting_TeamMates = supportingTeamMates(target);
+
+		double ret =
+				(myGoal+ theirGoal
+						+ surrounding_Opponents
+						);
+		return ret;
 }
 
 double dribble::calcCost() {
-	double ret = effP * effectiveness()+safeP*dribbleSafety() + surrP*dribbleReliability();
-	ret /= (effP+safeP+surrP);
-	ret*=factor;
+	double e = effectiveness();
+	double s = dribbleSafety();
+	double ret =4* e + s;// + surrP*dribbleReliability();
+	//cout<< "DE = "<<e<< " DS = "<<s <<" DC = "<<ret<<"\n";
+	//ret /= (effP+safeP+surrP);
+	//ret*=factor;
 	if(wm->getPlayMode() != PM_PLAY_ON)
 		return INF;
 	return cost =ret;

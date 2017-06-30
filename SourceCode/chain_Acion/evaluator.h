@@ -38,6 +38,7 @@ private:
 	formationLoader *loader;
 	vector<skilldesc> skillset;
 	skilldesc *max;
+	VecPosition target;
 
 	double maxShot;
 	double maxPass;
@@ -46,7 +47,9 @@ public:
 
 	Evaluator(WorldModel *wm,formationLoader *loader);
 
-	double evalPass(VecPosition v);
+	double evalPass(VecPosition v,int PlUnum);
+	double posEffect();
+
 };
 
 

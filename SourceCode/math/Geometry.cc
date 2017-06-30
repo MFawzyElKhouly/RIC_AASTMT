@@ -81,6 +81,10 @@ double exponential(double x, double c){
  return exp(-x/c);
 }
 
+double sigmoid(double x, double shift,double scale) {
+	return exponential(x-shift,scale)/(1+exponential(x-shift,scale));
+}
+
 /**
  * Function that finds the minmax of three values, x, min limit and
  * max limit...

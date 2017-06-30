@@ -51,21 +51,21 @@ int i = 0;
 
 SkillType NaoBehavior::selectSkill() {
 
-	if(worldModel->getUNum() != 3)
-		return SKILL_STAND;
-	if(i == 0 && worldModel->getBall()
-			.getDistanceTo(worldModel->getMyPosition()) < 2)
-	{
-		return kickBall(KICK_IK,
-						((worldModel->getOppLeftGoalPost()
-								+ worldModel->getOppRightGoalPost()) / 2));
-
-	}
-	else if(i==0){
-		return goToTarget(worldModel->getBall());
-	}
-	cout<< worldModel->getBall();
-		return SKILL_STAND;
+//	if(worldModel->getUNum() != 3)
+//		return SKILL_STAND;
+//	if(i == 0 && worldModel->getBall()
+//			.getDistanceTo(worldModel->getMyPosition()) < 2)
+//	{
+//		return kickBall(KICK_IK,
+//						((worldModel->getOppLeftGoalPost()
+//								+ worldModel->getOppRightGoalPost()) / 2));
+//
+//	}
+//	else if(i==0){
+//		return goToTarget(worldModel->getBall());
+//	}
+//	cout<< worldModel->getBall();
+//		return SKILL_STAND;
 
 	/*if (worldModel->getPlayMode() != PM_PLAY_ON) {
 		return getPlayModeSkill();
@@ -86,8 +86,8 @@ SkillType NaoBehavior::selectSkill() {
 			&& (worldModel->getTeammateClosestTo(worldModel->getBall())
 					== worldModel->getUNum())) {
 		return kickBall(KICK_FORWARD,
-				((worldModel->getOppLeftGoalPost()
-						+ worldModel->getOppRightGoalPost()) / 2));
+				((worldModel->getMyLeftGoalPost()
+						+ worldModel->getMyRightGoalPost()) / 2));
 	}
 	if (analyzer->getTopSkill().getType() == SKILL_PASS
 			&& worldModel->getBall().getDistanceTo(worldModel->getMyPosition())
@@ -97,38 +97,34 @@ SkillType NaoBehavior::selectSkill() {
 	}
 	if (analyzer->getTopSkill().getType() == SKILL_DRIBBLE
 			&& worldModel->getBall().getDistanceTo(worldModel->getMyPosition())
-					> 0.8) {
+					>= worldModel->getBall().getDistanceTo(analyzer->getTopSkill().getTarget())
+					) {
 		analyzer->resetCandidates();
+		cout<<"Clear dribble\n";
 
 	}
 	analyzer->generateCanditates();
 	skilldesc skilltarg = analyzer->getTopSkill();
+
+
 	SkillType ret;
 
 	if (skilltarg.getType() == SKILL_PASS) {
-		//cout<<"SKILL = SKILL_PASS"<<endl;
+		cout<<"SKILL = SKILL_PASS"<<endl;
 		if (worldModel->getBall().getDistanceTo(skilltarg.getTarget()) > 5)
 			ret = kickBall(KICK_FORWARD, skilltarg.getTarget());
 		else
 			ret = kickBall(KICK_IK, skilltarg.getTarget());
 		//if (ret != SKILL_STAND && ret != SKILL_WALK_OMNI)
-		//analyzer->resetCandidates();
+		analyzer->resetCandidates();
 		return ret;
 	} else if (skilltarg.getType() == SKILL_WALK_OMNI
 			|| skilltarg.getType() == SKILL_INTERCEPT) {
 		//cout<<"SKILL = SKILL_WALK_OMNI"<<endl;
 		analyzer->resetCandidates();
-		/*if(worldModel->getRole(worldModel->getUNum()) < 2) {
-		 if(skilltarg.getTarget().getDistanceTo(loader->getDuePosition(worldModel->getUNum())) > 5
-		 && skilltarg.getTarget().getX() > loader->getDuePosition(worldModel->getUNum()).getX()+3
-		 )
-		 return SKILL_STAND;
-		 }*/
+
 		double distance, angle, targ;
 		getTargetDistanceAndAngle(skilltarg.getTarget(), distance, angle);
-		/*	if (abs(angle) > 10) {
-		 return goToTargetRelative(VecPosition(), angle);
-		 } else */
 
 		if (distance > 0.2) {
 			return goToTarget(skilltarg.getTarget());
