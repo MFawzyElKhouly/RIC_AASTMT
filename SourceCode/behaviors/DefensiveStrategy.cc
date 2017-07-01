@@ -39,17 +39,19 @@ SkillType NaoBehavior::getDefensiveSkill() {
 			if (distance > 0.2) {
 			return goToTarget(skilltarg.getTarget());
 
-			} else if (skilltarg.getType() == SKILL_INTERCEPT
-					&& (worldModel->getMyPosition().getX() > -12
-							|| fabs(worldModel->getMyAngDeg()) < 90)) {
+			} else if (skilltarg.getType() == SKILL_INTERCEPT){
+				cout << "IN CONDITION" << endl;
+					if (worldModel->getMyPosition().getX() > -12
+							|| fabs(worldModel->getMyAngDeg()) < 90) {
 				/*VecPosition target = (worldModel->getBall() - worldModel->getMyPosition())*1.5;
 				 target += worldModel->getMyPosition();
 				 ret = kickBall(KICK_DRIBBLE, skilltarg.getTarget());
 
 				 analyzer->resetCandidates();
 				 return ret;*/
-				return intercept();
 
+				return intercept();
+							}
 			} else if (worldModel->getMyPosition().getDistanceTo(
 					loader->getDuePosition(worldModel->getUNum())) < 0.5) {
 				double angle;
