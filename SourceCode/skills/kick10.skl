@@ -1,7 +1,7 @@
 # Time is in seconds.
 # Angles are in degrees.
 
-STARTSKILL SKILL_KICK11_LEFT_LEG
+STARTSKILL SKILL_KICK10_LEFT_LEG
 
 # State 0
 STARTSTATE
@@ -95,7 +95,7 @@ ENDSTATE
 # State 15 changed 
 STARTSTATE
 setscale EFF_LL3 ( 3 + $kick_scale1 ) EFF_LL4 ( 3 + $kick_scale2 ) EFF_LL5 ( 3 + $kick_scale3 ) end
-settar EFF_RL3 ( -30 + $kick_p8 )  EFF_RL4 ( -130 + $kick_p9) EFF_LL3 ( 90 + $kick_p4 ) EFF_LL4 ( 0 + $kick_p5 ) EFF_LL5 ( -15 + $kick_p6 ) end
+settar EFF_RL3 ( -30 + $kick_p8 )  EFF_RL4 ( -130 + $kick_p9) EFF_LL3 ( -10.5 + $kick_p4 ) EFF_LL4 ( 0 + $kick_p5 ) EFF_LL5 ( -15 + $kick_p6 ) end
 wait 0.4 end  #0.4
 ENDSTATE
 
@@ -115,5 +115,5 @@ ENDSTATE
 
 ENDSKILL 
 
-REFLECTSKILL SKILL_KICK11_LEFT_LEG SKILL_KICK11_RIGHT_LEG
+REFLECTSKILL SKILL_KICK10_LEFT_LEG SKILL_KICK10_RIGHT_LEG
 

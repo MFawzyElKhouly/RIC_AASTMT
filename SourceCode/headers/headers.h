@@ -14,47 +14,40 @@ using std::stringstream;
 // TODO: is there a better way to map string to enum??????
 // What is this class? see: http://stackoverflow.com/questions/726664/string-to-enum
 template<typename T>
-class EnumParser
-{
-    map<string, T> string2enum;
-    map<T, string> enum2String;
-    EnumParser();
-    EnumParser(const EnumParser& that); // [nstiurca] disable copy constructor
+class EnumParser {
+	map<string, T> string2enum;
+	map<T, string> enum2String;
+	EnumParser();
+	EnumParser(const EnumParser& that); // [nstiurca] disable copy constructor
 
-    T
-    _getEnumFromString(const string &value) const
-    {
-        if( string2enum.find( value ) != string2enum.end() ) {
-            return string2enum.find( value )->second;
-        } else {
-            throw "string->enum mapping doesn't exist for " + value;
-        }
-    }
+	T _getEnumFromString(const string &value) const {
+		if (string2enum.find(value) != string2enum.end()) {
+			return string2enum.find(value)->second;
+		} else {
+			throw "string->enum mapping doesn't exist for " + value;
+		}
+	}
 
-    string
-    _getStringFromEnum(const T &value) const
-    {
-        if( enum2String.find( value ) != enum2String.end() ) {
-            return enum2String.find( value )->second;
-        } else {
-            stringstream ss;
-            ss << "enum->string mapping doesn't exist. ";
-            ss << value;
-            throw ss.str();
-        }
-    }
+	string _getStringFromEnum(const T &value) const {
+		if (enum2String.find(value) != enum2String.end()) {
+			return enum2String.find(value)->second;
+		} else {
+			stringstream ss;
+			ss << "enum->string mapping doesn't exist. ";
+			ss << value;
+			throw ss.str();
+		}
+	}
 
 public:
-    // [nstiurca] implement singleton pattern
-    static const EnumParser<T> parser;
-    static string getStringFromEnum(const T &value)
-    {
-        return parser._getStringFromEnum(value);
-    }
-    static T getEnumFromString(const string &value)
-    {
-        return parser._getEnumFromString(value);
-    }
+	// [nstiurca] implement singleton pattern
+	static const EnumParser<T> parser;
+	static string getStringFromEnum(const T &value) {
+		return parser._getStringFromEnum(value);
+	}
+	static T getEnumFromString(const string &value) {
+		return parser._getEnumFromString(value);
+	}
 };
 
 //Hinge Joints
@@ -90,40 +83,39 @@ public:
 
 #define HJ_NUM 24
 
-
 //Effectors
 enum Effectors {
-    // NOTE!!! In any change to the enum please update the mappings in headers.cc
-    EFF_H1,
-    EFF_H2,
+	// NOTE!!! In any change to the enum please update the mappings in headers.cc
+	EFF_H1,
+	EFF_H2,
 
-    EFF_LA1,
-    EFF_LA2,
-    EFF_LA3,
-    EFF_LA4,
+	EFF_LA1,
+	EFF_LA2,
+	EFF_LA3,
+	EFF_LA4,
 
-    EFF_RA1,
-    EFF_RA2,
-    EFF_RA3,
-    EFF_RA4,
+	EFF_RA1,
+	EFF_RA2,
+	EFF_RA3,
+	EFF_RA4,
 
-    EFF_LL1,
-    EFF_LL2,
-    EFF_LL3,
-    EFF_LL4,
-    EFF_LL5,
-    EFF_LL6,
-    EFF_LL7,
+	EFF_LL1,
+	EFF_LL2,
+	EFF_LL3,
+	EFF_LL4,
+	EFF_LL5,
+	EFF_LL6,
+	EFF_LL7,
 
-    EFF_RL1,
-    EFF_RL2,
-    EFF_RL3,
-    EFF_RL4,
-    EFF_RL5,
-    EFF_RL6,
-    EFF_RL7,
+	EFF_RL1,
+	EFF_RL2,
+	EFF_RL3,
+	EFF_RL4,
+	EFF_RL5,
+	EFF_RL6,
+	EFF_RL7,
 
-    EFF_NUM
+	EFF_NUM
 };
 /*
  * and the mapping from string to enum in headers.cc (TODO: better way?)
@@ -149,7 +141,6 @@ enum Effectors {
 
 #define TEAMMATE_NUM 11
 #define OPPONENT_NUM 11
-
 
 //Body Components
 #define COMP_TORSO     0
@@ -183,37 +174,37 @@ enum Effectors {
 
 #define COMP_NUM       23
 
-
 //INDICES for body segments
 enum BodyParts {
-    // NOTE!!! In any change to the enum please update the mappings in headers.cc
-    TORSO,
-    HEAD,
-    ARM_LEFT,
-    ARM_RIGHT,
-    LEG_LEFT,
-    LEG_RIGHT,
-    FOOT_LEFT,
-    FOOT_RIGHT,
-    TOE_LEFT,
-    TOE_RIGHT
+	// NOTE!!! In any change to the enum please update the mappings in headers.cc
+	TORSO,
+	HEAD,
+	ARM_LEFT,
+	ARM_RIGHT,
+	LEG_LEFT,
+	LEG_RIGHT,
+	FOOT_LEFT,
+	FOOT_RIGHT,
+	TOE_LEFT,
+	TOE_RIGHT
 };
 
-class bad_leg_index : public std::exception {
-    std::string what_;
+class bad_leg_index: public std::exception {
+	std::string what_;
 public:
-    bad_leg_index(const int &legIndex) throw() {
-        stringstream ss;
-        ss << "Bad leg index: " << legIndex << ". Expected LEG_LEFT("
-           << LEG_LEFT << ") or LEG_RIGHT(" << LEG_RIGHT << ").";
-        what_ = ss.str();
-    }
+	bad_leg_index(const int &legIndex) throw () {
+		stringstream ss;
+		ss << "Bad leg index: " << legIndex << ". Expected LEG_LEFT("
+				<< LEG_LEFT << ") or LEG_RIGHT(" << LEG_RIGHT << ").";
+		what_ = ss.str();
+	}
 
-    virtual const char* what() const throw() {
-        return what_.c_str();
-    }
+	virtual const char* what() const throw () {
+		return what_.c_str();
+	}
 
-    virtual ~bad_leg_index() throw() {}
+	virtual ~bad_leg_index() throw () {
+	}
 };
 /*
  * and the mapping from string to enum in headers.cc (TODO: better way?)
@@ -223,7 +214,6 @@ public:
 //#define EPSILON 0.0001
 const double EPSILON = 0.0001;
 #define INF 1e16
-
 
 //HCT Matrix Creation modes
 #define HCT_IDENTITY            0
@@ -263,48 +253,73 @@ const double EPSILON = 0.0001;
 
 //Skills
 enum SkillType {
-    SKILL_WALK_OMNI,//0
+	SKILL_WALK_OMNI, //0
 
-    SKILL_STAND,//1
+	SKILL_STAND, //1
 	SKILL_SPLIT,
 
-    SKILL_KICK_LEFT_LEG,//2
-    SKILL_KICK_RIGHT_LEG,//3
+	SKILL_KICK11_LEFT_LEG, //2
+	SKILL_KICK11_RIGHT_LEG, //3
 
-    SKILL_KICK_IK_0_LEFT_LEG,//4
-    SKILL_KICK_IK_0_RIGHT_LEG,//5
+	SKILL_KICK_IK_0_LEFT_LEG, //4
+	SKILL_KICK_IK_0_RIGHT_LEG, //5
 	//concrete skills added by Danial
-	SKILL_PASS,//6
-	SKILL_SHOOT,//7
-	SKILL_SUPPORT,//8
-	SKILL_OPENCHANCE,//9
-	SKILL_DRIBBLE,//10
-	SKILL_INTERCEPT,//11
-	SKILL_NONE//13
+	SKILL_PASS,	//6
+	SKILL_SHOOT,	//7
+	SKILL_SUPPORT,	//8
+	SKILL_OPENCHANCE,	//9
+	SKILL_DRIBBLE,	//10
+	SKILL_INTERCEPT,	//11
+	SKILL_NONE,	//13
+	SKILL_KICK10_5_LEFT_LEG,	//14
+	SKILL_KICK10_5_RIGHT_LEG,	//14
+	SKILL_KICK10_LEFT_LEG,	//15
+	SKILL_KICK10_RIGHT_LEG,	//15
+	SKILL_KICK9_5_LEFT_LEG,	//16
+	SKILL_KICK9_5_RIGHT_LEG,	//16
+	SKILL_KICK9_LEFT_LEG,	//17
+	SKILL_KICK9_RIGHT_LEG,	//17
+	SKILL_KICK8_5_LEFT_LEG,	//18
+	SKILL_KICK8_5_RIGHT_LEG,	//18
+	SKILL_KICK8_LEFT_LEG,	//19
+	SKILL_KICK8_RIGHT_LEG,	//19
+	SKILL_KICK7_5_LEFT_LEG,	//20
+	SKILL_KICK7_5_RIGHT_LEG,	//20
+	SKILL_KICK7_LEFT_LEG,	//21
+	SKILL_KICK7_RIGHT_LEG,	//21
+	SKILL_KICK6_5_LEFT_LEG,	//22
+	SKILL_KICK6_5_RIGHT_LEG,	//22
 
 };
-
 
 //Kick Parameters
 #define KICK_NONE -1
 #define KICK_DRIBBLE 0
 #define KICK_FORWARD 1
 #define KICK_IK 2
-
+#define KICK_FORWARD_10_5 3
+#define KICK_FORWARD_10 4
+#define KICK_FORWARD_9_5 5
+#define KICK_FORWARD_9 6
+#define KICK_FORWARD_8_5 7
+#define KICK_FORWARD_8 8
+#define KICK_FORWARD_7_5 9
+#define KICK_FORWARD_7 10
+#define KICK_FORWARD_6_5 11
 
 // Number of agents on the team
 #define NUM_AGENTS 11
 
 #define GAZEBO_AGENT_TYPE -1
 
-
 template<typename T>
 std::ostream& operator<<(std::ostream& out, const std::vector<T>& t) {
-    out << "[";
-    for(typename std::vector<T>::const_iterator it = t.begin(); it != t.end(); ++it) {
-        out << (*it) << ", ";
-    }
-    return out << "]";
+	out << "[";
+	for (typename std::vector<T>::const_iterator it = t.begin(); it != t.end();
+			++it) {
+		out << (*it) << ", ";
+	}
+	return out << "]";
 }
 
 #define LOG_BASE        clog << __FILE__ << ":" << __FUNCTION__ << "():" << __LINE__ << ":: "
@@ -314,11 +329,8 @@ std::ostream& operator<<(std::ostream& out, const std::vector<T>& t) {
 #define LOG_ST(var)     LOG_BASE << #var << ": " \
 						<< EnumParser<SkillType>::getStringFromEnum(var) << endl
 
-
-
 bool isKickSkill(SkillType skill);
 bool isKickIKSkill(SkillType skill);
-
 
 #endif // HEADERS_H
 
