@@ -1,12 +1,12 @@
 #include "naobehavior.h"
 #include "../rvdraw/rvdraw.h"
 
-#include "../chain_Acion/analyzer.h"
-
 #include <iostream>
 #include <vector>
 #include<cassert>
 #include <fstream>
+
+#define wm worldModel
 using namespace std;
 
 vector<VecPosition> sttaics;
@@ -50,15 +50,31 @@ void NaoBehavior::beam(double& beamX, double& beamY, double& beamAngle) {
 
 SkillType NaoBehavior::selectSkill() {
 
+	double oppDis = ball.getDistanceTo(wm->getOpponent(wm->getOpponentClosestTo(ball)+WO_OPPONENT1-1));
+		//cout << "Player " << wm->getUNum() << endl;
+	double MeDisToBall = ball.getDistanceTo(wm->getMyPosition()+WO_TEAMMATE1-1);
+	for(int i=WO_OPPONENT1;i<=WO_OPPONENT11;i++){
+		VecPosition opp = wm->getOpponent(i);
+		double DisToOpp = me.getDistanceTo(opp);
+		int AngleWithOpp = me.getAngleWithVector(opp);
+		//cout << "Me " << AngleWithOpp << endl;
+		if(DisToOpp < 0.5 && fabs(AngleWithOpp) < 10 && wm->getTeammateClosestTo(ball) == wm->getUNum()){
+			cout << "Opp Player issssssssssssss " << (i-11) << endl;
+			VecPosition vec = me.getVecPositionFromPolar(1,me.getTheta(),0);
+			return kickBall(KICK_IK,vec);
+		}
+	}
 	if (worldModel->getPlayMode() != PM_PLAY_ON) {
 		return getPlayModeSkill();
 	}
-	if (loader->getTeamState() == ATTACKING) {
+	if (MeDisToBall < oppDis) {
+		//cout << "ATT STATEEEEEEEEEEEEEEE" << endl;
 		return getAttackSkill();
-
 	}
-	else
+	else{
+	//	cout << "DEF" << endl;
 		return getDefensiveSkill();
+	}
 
 	return SKILL_STAND;
 }

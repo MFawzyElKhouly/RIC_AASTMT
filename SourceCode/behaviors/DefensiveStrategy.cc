@@ -51,7 +51,7 @@ SkillType NaoBehavior::getDefensiveSkill() {
 				 return ret;*/
 
 				return intercept();
-							}
+				}
 			} else if (worldModel->getMyPosition().getDistanceTo(
 					loader->getDuePosition(worldModel->getUNum())) < 0.5) {
 				double angle;

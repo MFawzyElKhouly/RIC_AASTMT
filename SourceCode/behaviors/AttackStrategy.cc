@@ -36,7 +36,6 @@ SkillType NaoBehavior::getAttackSkill() {
 					&& worldModel->getBall().getDistanceTo(worldModel->getMyPosition())
 							> 0.8) {
 				analyzer->resetCandidates();
-
 			}
 
 			if (skilltarg.getType() == SKILL_PASS) {

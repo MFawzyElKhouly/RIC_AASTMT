@@ -386,13 +386,42 @@ void Analyzer::generateCanditates() {
 		generateBallHolderSkills();
 		return;
 	}
-	if ((loader->getTeamState() == ATTACKING)
-			&& (wm->distanceToMyGoal(ball)) > 8) {
+	/*int n=0;
+	double d = wm->distancetoBall(wm->getMyPosition());
+		if (wm->getMyPosition().getX() > wm->getBall().getX()
+				&& wm->distancetoBall(wm->getMyPosition()) > 1.5)
+			d += 50;
+	for (int i = WO_TEAMMATE2; i <= WO_TEAMMATE11; i++) {// kam teammate a2rb ll kora
+			if (i - WO_TEAMMATE1 + 1 == wm->getUNum())
+				continue;
+			double di = wm->distancetoBall(wm->getTeammate(i));
+			if (wm->getTeammate(i).getX() > wm->getBall().getX()// && wm->distancetoBall(wm->getTeammate(i)) > 1.5
+					)
+				di += 50;
 
+			if ((di < d || (di == d && i - (WO_TEAMMATE1 < wm->getUNum() - 1)))
+					&& wm->getWorldObject(i)->validPosition
+					//&& !wm->getFallenTeammate(i)
+					) {
+				n++;
+			}
+		}*/
+//	VecPosition ball = wm->getBall();
+	 double oppDis = ball.getDistanceTo(wm->getOpponent(wm->getOpponentClosestTo(ball)+WO_OPPONENT1-1));
+	//cout << "Player " << wm->getUNum() << endl;
+	 double MeDisToBall = ball.getDistanceTo(wm->getMyPosition()+WO_TEAMMATE1-1);
+	//cout << "OppDis = "<< oppDis << " " << "TeammateDis = " << MeDisToBall << endl;
+
+		//if ((loader->getTeamState() == ATTACKING)
+		//	&& (wm->distanceToMyGoal(ball)) > 8)
+	if(MeDisToBall < oppDis){
+	//if(TeammateDis < oppDis){
 		generateAttackingSkills();
 		return;
 	}
 	else{
+		//cout << "OPPDis = " << oppDis << "  " << "TeamDis = "<<TeammateDis << endl;
+		//cout << "DEF" << endl;
 	generateDefensiveSkills();
 	return;
 	}
