@@ -49,7 +49,7 @@ void NaoBehavior::beam(double& beamX, double& beamY, double& beamAngle) {
 }
 
 SkillType NaoBehavior::selectSkill() {
-
+/*   Removed as Hamdy's order ==>> Done by Ehab
 	if (worldModel->getPlayMode() != PM_PLAY_ON) {
 		return getPlayModeSkill();
 	}
@@ -61,6 +61,7 @@ SkillType NaoBehavior::selectSkill() {
 			return getDefensiveSkill();
 
 		}
+*/
 
 	if ((((worldModel->getSide() == SIDE_LEFT)
 			&& (worldModel->getPlayMode() == PM_KICK_OFF_LEFT))
