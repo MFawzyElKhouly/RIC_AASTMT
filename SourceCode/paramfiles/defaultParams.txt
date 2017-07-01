@@ -202,8 +202,10 @@ getup_parms_stateUp15MinTime	0.6
 ### KICK PARAMETERS ###
 #######################
 
+
 kick_xoffset	-0.175
 kick_yoffset	-0.03
+
 kick_p1	-19.557993714343954
 kick_p2	-116.33168663169225
 kick_p3	-46.494524238808935
