@@ -163,7 +163,7 @@ void Analyzer::generateBallHolderSkills() {
 				fact * (wm->getBall() - wm->getOpponent(i)).getMagnitude());
 	}
 	double threatTime = wm->getPlayerTimeTo(threat, wm->getBall());
-	if (wm->distancetoBall(wm->getMyPosition()) < 1) {
+	if (wm->distancetoBall(wm->getMyPosition()) < 2) {
 		od = false;
 		if (clos > 2.2
 		//threatTime > 5 //TODO change this
