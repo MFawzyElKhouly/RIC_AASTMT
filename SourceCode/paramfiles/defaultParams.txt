@@ -152,16 +152,21 @@ app_utwalk_ankle_phase_offset	0
 ########################
 
 # default getup off front params
+// have been changed
 getup_parms_stateDownInitialWait	0.5
 getup_parms_stateDown3A1	30.0
+getup_parms_stateDown3A2	0.0
+getup_parms_stateDown3L1	-35.0
 getup_parms_stateDown3L3	110.0
-getup_parms_stateDown3MinTime	0.04
-getup_parms_stateDown5L1	-45.0
-getup_parms_stateDown5MinTime	0.9
-getup_parms_stateDown7L1	-25.0
-getup_parms_stateDown7L3	60.0
-getup_parms_stateDown7MinTime	0.3
-getup_parms_stateDown10MinTime	0.8
+getup_parms_stateDown3L5	0.0
+getup_parms_stateDown3MinTime	0.8   
+getup_parms_stateDown4L1	-55.0
+getup_parms_stateDown4L3	100.0
+getup_parms_stateDown4MinTime	0.09
+getup_parms_stateDown5L1	-25.0
+getup_parms_stateDown5L3	60.0
+getup_parms_stateDown5MinTime	0.04 
+getup_parms_stateDown6MinTime	1.0
 
 # default getup off back params
 getup_parms_stateUpInitialWait	0.5
@@ -197,21 +202,21 @@ getup_parms_stateUp15MinTime	0.6
 ### KICK PARAMETERS ###
 #######################
 
+kick_xoffset	-0.172337981127
+kick_yoffset	-0.035001659630
 kick_p1	-19.557993714343954
 kick_p2	-116.33168663169225
 kick_p3	-46.494524238808935
 kick_p4	114.34191464255687
 kick_p5	8.009471678103255
 kick_p6	76.4847755838874
-kick_p7	-31.637611686590287
-kick_p8	24.56402804393056
-kick_p9	22.447324354397427
+kick_p7	0.0
+kick_p8	0.0
+kick_p9	0.0
 kick_p11	12.412258757088757
 kick_p12	2.9108536812695958
 kick_p13	-4.139927460294173
 kick_p14	2.5793464431419877
-kick_xoffset	-0.18758631052473101
-kick_yoffset	-0.08133614974057074
 kick_scale1	5.295086273579072
 kick_scale2	1.9096575829831766
 kick_scale3	0.7896144070184505
