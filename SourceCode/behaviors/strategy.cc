@@ -93,14 +93,16 @@ SkillType NaoBehavior::selectSkill() {
 	analyzer->generateCanditates();
 		skilldesc skilltarg = analyzer->getTopSkill();
 
-	if(drib == true && worldModel->getBall().getDistanceTo(worldModel->getMyPosition()) > 0.2)
+	if((drib == true && worldModel->getBall().getDistanceTo(worldModel->getMyPosition()) > 0.3)
+		||(skilltarg.getType() == SKILL_DRIBBLE && worldModel->getBall().getDistanceTo(worldModel->getMyPosition()) > 3)	)
 		{
 		analyzer->resetCandidates();
-		//cout<<"Clear dribble\n";
+		cout<<"Clear dribble\n";
 		drib = false;
 	}
 	if(drib == false && skilltarg.getType() == SKILL_DRIBBLE){
-		drib = (worldModel->getBall().getDistanceTo(worldModel->getMyPosition()) < 0.2);
+		drib = (worldModel->getBall().getDistanceTo(worldModel->getMyPosition()) <= 0.5);
+		cout<<"Start Dribble"<<worldModel->getBall().getDistanceTo(worldModel->getMyPosition())<<"\n";
 	}
 if(skilltarg.getType() != SKILL_DRIBBLE)
 	drib = false;

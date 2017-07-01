@@ -16,6 +16,7 @@ CMakeFiles/RICAASTMT.dir/behaviors/AttackStrategy.cc.o: behaviors/naobehavior.h
 CMakeFiles/RICAASTMT.dir/behaviors/AttackStrategy.cc.o: bodymodel/bodymodel.h
 CMakeFiles/RICAASTMT.dir/behaviors/AttackStrategy.cc.o: chain_Acion/analyzer.h
 CMakeFiles/RICAASTMT.dir/behaviors/AttackStrategy.cc.o: chain_Acion/skillval.h
+CMakeFiles/RICAASTMT.dir/behaviors/AttackStrategy.cc.o: debugger/debugger.h
 CMakeFiles/RICAASTMT.dir/behaviors/AttackStrategy.cc.o: formations/formation.h
 CMakeFiles/RICAASTMT.dir/behaviors/AttackStrategy.cc.o: headers/Field.h
 CMakeFiles/RICAASTMT.dir/behaviors/AttackStrategy.cc.o: headers/headers.h
@@ -339,6 +340,7 @@ CMakeFiles/RICAASTMT.dir/behaviors/playmodestrategy.cc.o: behaviors/playmodestra
 CMakeFiles/RICAASTMT.dir/behaviors/playmodestrategy.cc.o: bodymodel/bodymodel.h
 CMakeFiles/RICAASTMT.dir/behaviors/playmodestrategy.cc.o: chain_Acion/analyzer.h
 CMakeFiles/RICAASTMT.dir/behaviors/playmodestrategy.cc.o: chain_Acion/skillval.h
+CMakeFiles/RICAASTMT.dir/behaviors/playmodestrategy.cc.o: debugger/debugger.h
 CMakeFiles/RICAASTMT.dir/behaviors/playmodestrategy.cc.o: formations/formation.h
 CMakeFiles/RICAASTMT.dir/behaviors/playmodestrategy.cc.o: headers/Field.h
 CMakeFiles/RICAASTMT.dir/behaviors/playmodestrategy.cc.o: headers/headers.h
@@ -566,6 +568,7 @@ CMakeFiles/RICAASTMT.dir/chain_Acion/support.cc.o: worldmodel/WorldObject.h
 CMakeFiles/RICAASTMT.dir/chain_Acion/support.cc.o: worldmodel/worldmodel.h
 
 CMakeFiles/RICAASTMT.dir/debugger/debugger.cc.o: debugger/debugger.cc
+CMakeFiles/RICAASTMT.dir/debugger/debugger.cc.o: debugger/debugger.h
 
 CMakeFiles/RICAASTMT.dir/formations/formations.cc.o: behaviors/behavior.h
 CMakeFiles/RICAASTMT.dir/formations/formations.cc.o: behaviors/naobehavior.h
@@ -720,6 +723,7 @@ CMakeFiles/RICAASTMT.dir/main.cc.o: behaviors/pkbehaviors.h
 CMakeFiles/RICAASTMT.dir/main.cc.o: bodymodel/bodymodel.h
 CMakeFiles/RICAASTMT.dir/main.cc.o: chain_Acion/analyzer.h
 CMakeFiles/RICAASTMT.dir/main.cc.o: chain_Acion/skillval.h
+CMakeFiles/RICAASTMT.dir/main.cc.o: debugger/debugger.h
 CMakeFiles/RICAASTMT.dir/main.cc.o: formations/formation.h
 CMakeFiles/RICAASTMT.dir/main.cc.o: goalie/Goalie.h
 CMakeFiles/RICAASTMT.dir/main.cc.o: headers/Field.h

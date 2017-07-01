@@ -546,7 +546,7 @@ double passSkill::evaluatePass(VecPosition passer, VecPosition target) {
 	double e = effectiveness(passer, target);
 	double s = passSafety(passer, target);
 	cost = (6*e + s);
-	cout << ">>>>>>>>>>PE = " << e << " PS = " << s << " PC = " << cost << "\n";
+	//cout << ">>>>>>>>>>PE = " << e << " PS = " << s << " PC = " << cost << "\n";
 
 	return cost;
 }

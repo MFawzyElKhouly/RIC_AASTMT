@@ -17,6 +17,7 @@ CMakeFiles/RICAASTMT.dir/behaviors/AttackStrategy.cc.o
  /home/rc9/git/RIC_AASTMT/SourceCode/bodymodel/bodymodel.h
  /home/rc9/git/RIC_AASTMT/SourceCode/chain_Acion/analyzer.h
  /home/rc9/git/RIC_AASTMT/SourceCode/chain_Acion/skillval.h
+ /home/rc9/git/RIC_AASTMT/SourceCode/debugger/debugger.h
  /home/rc9/git/RIC_AASTMT/SourceCode/formations/formation.h
  /home/rc9/git/RIC_AASTMT/SourceCode/headers/Field.h
  /home/rc9/git/RIC_AASTMT/SourceCode/headers/headers.h
@@ -340,6 +341,7 @@ CMakeFiles/RICAASTMT.dir/behaviors/playmodestrategy.cc.o
  /home/rc9/git/RIC_AASTMT/SourceCode/bodymodel/bodymodel.h
  /home/rc9/git/RIC_AASTMT/SourceCode/chain_Acion/analyzer.h
  /home/rc9/git/RIC_AASTMT/SourceCode/chain_Acion/skillval.h
+ /home/rc9/git/RIC_AASTMT/SourceCode/debugger/debugger.h
  /home/rc9/git/RIC_AASTMT/SourceCode/formations/formation.h
  /home/rc9/git/RIC_AASTMT/SourceCode/headers/Field.h
  /home/rc9/git/RIC_AASTMT/SourceCode/headers/headers.h
@@ -567,6 +569,7 @@ CMakeFiles/RICAASTMT.dir/chain_Acion/support.cc.o
  /home/rc9/git/RIC_AASTMT/SourceCode/worldmodel/worldmodel.h
 CMakeFiles/RICAASTMT.dir/debugger/debugger.cc.o
  /home/rc9/git/RIC_AASTMT/SourceCode/debugger/debugger.cc
+ /home/rc9/git/RIC_AASTMT/SourceCode/debugger/debugger.h
 CMakeFiles/RICAASTMT.dir/formations/formations.cc.o
  /home/rc9/git/RIC_AASTMT/SourceCode/behaviors/behavior.h
  /home/rc9/git/RIC_AASTMT/SourceCode/behaviors/naobehavior.h
@@ -721,6 +724,7 @@ CMakeFiles/RICAASTMT.dir/main.cc.o
  /home/rc9/git/RIC_AASTMT/SourceCode/bodymodel/bodymodel.h
  /home/rc9/git/RIC_AASTMT/SourceCode/chain_Acion/analyzer.h
  /home/rc9/git/RIC_AASTMT/SourceCode/chain_Acion/skillval.h
+ /home/rc9/git/RIC_AASTMT/SourceCode/debugger/debugger.h
  /home/rc9/git/RIC_AASTMT/SourceCode/formations/formation.h
  /home/rc9/git/RIC_AASTMT/SourceCode/goalie/Goalie.h
  /home/rc9/git/RIC_AASTMT/SourceCode/headers/Field.h
