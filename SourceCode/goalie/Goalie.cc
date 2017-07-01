@@ -52,7 +52,7 @@ double getMagnitude(double p1, double q1, double p2, double q2) {
 }
 
 bool Goalie::splitDecision(double distance) {
-	cerr << (distance / ballv);
+	//cerr << (distance / ballv);
 	if ((distance / ballv) <= 1) {
 		return 1;
 	}
@@ -67,7 +67,7 @@ SkillType Goalie::selectSkill() {
 	VecPosition LeftPost = worldModel->getMyLeftGoalPost();
 	VecPosition RightPost = worldModel->getMyRightGoalPost();
 
-	cout<<ballPos<<endl;
+	//cout<<ballPos<<endl;
 	double ballangle, dis, r, t;
 	double x, y;
 	x = (ballPos.getX() - 14.5) / 2;
