@@ -58,6 +58,22 @@ queue
 ../formations/formation.h
 /home/rc9/git/RIC_AASTMT/SourceCode/formations/formation.h
 
+/home/rc9/git/RIC_AASTMT/SourceCode/behaviors/strategy.cc
+naobehavior.h
+/home/rc9/git/RIC_AASTMT/SourceCode/behaviors/naobehavior.h
+../rvdraw/rvdraw.h
+/home/rc9/git/RIC_AASTMT/SourceCode/rvdraw/rvdraw.h
+../chain_Acion/analyzer.h
+/home/rc9/git/RIC_AASTMT/SourceCode/chain_Acion/analyzer.h
+iostream
+-
+vector
+-
+cassert
+-
+fstream
+-
+
 /home/rc9/git/RIC_AASTMT/SourceCode/bodymodel/bodymodel.h
 ../headers/headers.h
 /home/rc9/git/RIC_AASTMT/SourceCode/headers/headers.h

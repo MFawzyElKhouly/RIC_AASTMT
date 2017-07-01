@@ -102,7 +102,8 @@ SkillType NaoBehavior::selectSkill() {
 	if(drib == false && skilltarg.getType() == SKILL_DRIBBLE){
 		drib = (worldModel->getBall().getDistanceTo(worldModel->getMyPosition()) < 0.2);
 	}
-
+if(skilltarg.getType() != SKILL_DRIBBLE)
+	drib = false;
 
 	SkillType ret;
 

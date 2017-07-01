@@ -51,14 +51,15 @@ double dribble::surroundingOpponents(){
 	int n = 0;
 	for (int i = 0 + WO_OPPONENT1; i < WO_OPPONENT1 + NUM_AGENTS; i++) {
 		if (!wm->getWorldObject(i)->validPosition
-				|| wm->isOut(wm->getWorldObject(i)->pos))
+				|| wm->isOut(wm->getWorldObject(i)->pos)
+				||wm->getWorldObject(i)->pos.getDistanceTo(target) > 4)
 			continue;
 		ret += exponential(
 				wm->getPlayerTimeTo(i, target) ,
 				Cnear);
 		n++;
 	}
-	return n == 0 ? 0 : ret;
+	return n == 0 ? 0 : ret/6;
 }
 
 

@@ -24,6 +24,7 @@ public:
 	double currentSupport();
 	double currentPressure();
 	double calcCost() ;
+	double generateTarget(double theta);
 	~supportSkill()  {
 		//~base();
 	}

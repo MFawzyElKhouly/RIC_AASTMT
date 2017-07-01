@@ -78,13 +78,13 @@ shootSkill::shootSkill(WorldModel *wm, formationLoader *fm) :
 Analyzer::Analyzer(WorldModel *wm) {
 	//freopen("f.txt", "w", stdout);
 	this->wm = wm;
-	this->maxShot = 10; //TODO get this from wm
+	this->maxShot = 10+3; //TODO get this from wm
 	loader = NULL;
 	max = (new skilldesc(SKILL_STAND));
 }
 Analyzer::Analyzer(WorldModel *wm, formationLoader*loader) {
 	this->wm = wm;
-	this->maxShot = 10; //TODO get this from wm
+	this->maxShot = 10+3; //TODO get this from wm
 	this->loader = loader;
 	strategyFile = loader->getStrategy();
 
@@ -195,19 +195,22 @@ void Analyzer::generateBallHolderSkills() {
 
 }
 void Analyzer::generateAttackingSkills() {
-	skilldesc scill = *(new skilldesc(SKILL_WALK_OMNI));
-	scill.setTarget(loader->getDuePosition(wm->getUNum()));
-	scill.setCost(0.78);
+
+	if(wm->getMyPosition().getDistanceTo(loader->getDuePosition(wm->getUNum())) >
+	loader->getDueRadius(wm->getUNum())) {
+		skilldesc scill = *(new skilldesc(SKILL_WALK_OMNI));
+			scill.setTarget(loader->getDuePosition(wm->getUNum()));
+			scill.setCost(0.0);
 	skillset.push_back(scill);
+		return;
+	}
 	int theirh = wm->getOpponentFastestTo(wm->getBall());
 	int mate = wm->getTeammateFastestTo(wm->getBall());
 	if (theirh == -1
 			|| wm->getPlayerTimeTo(theirh + WO_OPPONENT1, wm->getBall())
 					> wm->getPlayerTimeTo(mate + WO_TEAMMATE1, wm->getBall())) {
 		supportSkill scill2 = *(new supportSkill(this->wm, this->loader));
-
-		scill2.calcCost();
-		//skillset.push_back(scill2);
+		skillset.push_back(scill2);
 		of = true;
 	}
 }
@@ -238,12 +241,8 @@ void Analyzer::generateDefensiveSkills() {
 				targ = wm->getOpponent(i) - wm->getMyRightGoalPost();
 			targ *= 0.25;
 			targ = wm->getOpponent(i) - targ;
-		}
-//		 else {
-//			targ = wm->getBall() - wm->getOpponent(i);
-//			targ *= 0.25;
-//			targ += wm->getOpponent(i);
-//		}
+		};
+
 		scill.setTarget(targ);
 
 		skillset.push_back(scill);
@@ -340,7 +339,7 @@ void Analyzer::generateCanditates() {
 
 	if (!skillset.empty())
 		return;
-	cout<<"..x\n";
+	//cout<<"..x\n";
 	int ballHolder = wm->getTeammateClosestTo(wm->getBall());
 
 	if (ballHolder == wm->getUNum()
@@ -471,7 +470,8 @@ double kickSkill::surroundingOpponents(VecPosition target,
 	int n = 0;
 	for (int i = 0 + WO_OPPONENT1; i < WO_OPPONENT1 + NUM_AGENTS; i++) {
 		if (!wm->getWorldObject(i)->validPosition
-				|| wm->isOut(wm->getWorldObject(i)->pos))
+				|| wm->isOut(wm->getWorldObject(i)->pos)
+				||wm->getWorldObject(i)->pos.getDistanceTo(target) > 4)
 			continue;
 		ret += exponential(wm->getPlayerTimeTo(i, target), Cnear);
 		n++;
@@ -574,14 +574,14 @@ void Analyzer::generateKick() {
 
 			skillset.push_back(*scilll);
 		}
-		Pos_ToShot = VecPosition(15.2, -0.7, 0);
+		Pos_ToShot = VecPosition(15.2, -0.3, 0);
 		scilll->setTarget(Pos_ToShot);
 		scilll->calcCost();
 
 		if (scilll->getCost() < cost) {
 			skillset.push_back(*scilll);
 		}
-		Pos_ToShot = VecPosition(15.2, 0.7, 0);
+		Pos_ToShot = VecPosition(15.2, 0.3, 0);
 		scilll->setTarget(Pos_ToShot);
 		scilll->calcCost();
 
