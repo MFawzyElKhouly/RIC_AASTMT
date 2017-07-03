@@ -105,7 +105,9 @@ protected:
     bool fallenLeft, fallenRight, fallenDown, fallenUp;
     double fallTimeStamp;
     double fallTimeWait;
-
+    //handling dribbles
+        double lastDistance;
+        bool currentSkillDribble;
     VecPosition kickDirection;
     int kickType;
     VecPosition kickTarget;

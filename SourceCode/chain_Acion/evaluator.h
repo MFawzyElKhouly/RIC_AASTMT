@@ -1,8 +1,8 @@
 /*
  * evaluator.h
  *
- *  Created on: Jun 26, 2017
- *      Author: Ahmed Hamdy
+ *  Created on: Jun 29, 2017
+ *      Author: rc9
  */
 
 #ifndef SOURCECODE_CHAIN_ACION_EVALUATOR_H_
@@ -20,7 +20,6 @@
 #include "skillval.h"
 #include <map>
 #include <fstream>
-using namespace std;
 
 
 
@@ -38,22 +37,20 @@ private:
 	WorldModel *wm;
 	formationLoader *loader;
 	vector<skilldesc> skillset;
-	//skilldesc *max;
+	skilldesc *max;
+	VecPosition target;
 
 	double maxShot;
-protected:
+	double maxPass;
 public:
 	Evaluator(WorldModel *wm);
 
 	Evaluator(WorldModel *wm,formationLoader *loader);
-	double positionValue(VecPosition target);
-	double passSafety(VecPosition target);
-	virtual ~Evaluator() {
 
-	}
+	double evalPass(VecPosition v,int PlUnum);
+	double posEffect();
 
 };
-
 
 
 

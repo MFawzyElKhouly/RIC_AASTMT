@@ -42,10 +42,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/noran/Desktop/taban
+CMAKE_SOURCE_DIR = /home/rc9/git/RIC_AASTMT/SourceCode
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/noran/Desktop/taban
+CMAKE_BINARY_DIR = /home/rc9/git/RIC_AASTMT/SourceCode
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -72,9 +72,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/noran/Desktop/taban/CMakeFiles /home/noran/Desktop/taban/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rc9/git/RIC_AASTMT/SourceCode/CMakeFiles /home/rc9/git/RIC_AASTMT/SourceCode/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/noran/Desktop/taban/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rc9/git/RIC_AASTMT/SourceCode/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -137,6 +137,54 @@ audio/audio.s: audio/audio.cc.s
 audio/audio.cc.s:
 	$(MAKE) -f CMakeFiles/RICAASTMT.dir/build.make CMakeFiles/RICAASTMT.dir/audio/audio.cc.s
 .PHONY : audio/audio.cc.s
+
+behaviors/AttackStrategy.o: behaviors/AttackStrategy.cc.o
+.PHONY : behaviors/AttackStrategy.o
+
+# target to build an object file
+behaviors/AttackStrategy.cc.o:
+	$(MAKE) -f CMakeFiles/RICAASTMT.dir/build.make CMakeFiles/RICAASTMT.dir/behaviors/AttackStrategy.cc.o
+.PHONY : behaviors/AttackStrategy.cc.o
+
+behaviors/AttackStrategy.i: behaviors/AttackStrategy.cc.i
+.PHONY : behaviors/AttackStrategy.i
+
+# target to preprocess a source file
+behaviors/AttackStrategy.cc.i:
+	$(MAKE) -f CMakeFiles/RICAASTMT.dir/build.make CMakeFiles/RICAASTMT.dir/behaviors/AttackStrategy.cc.i
+.PHONY : behaviors/AttackStrategy.cc.i
+
+behaviors/AttackStrategy.s: behaviors/AttackStrategy.cc.s
+.PHONY : behaviors/AttackStrategy.s
+
+# target to generate assembly for a file
+behaviors/AttackStrategy.cc.s:
+	$(MAKE) -f CMakeFiles/RICAASTMT.dir/build.make CMakeFiles/RICAASTMT.dir/behaviors/AttackStrategy.cc.s
+.PHONY : behaviors/AttackStrategy.cc.s
+
+behaviors/DefensiveStrategy.o: behaviors/DefensiveStrategy.cc.o
+.PHONY : behaviors/DefensiveStrategy.o
+
+# target to build an object file
+behaviors/DefensiveStrategy.cc.o:
+	$(MAKE) -f CMakeFiles/RICAASTMT.dir/build.make CMakeFiles/RICAASTMT.dir/behaviors/DefensiveStrategy.cc.o
+.PHONY : behaviors/DefensiveStrategy.cc.o
+
+behaviors/DefensiveStrategy.i: behaviors/DefensiveStrategy.cc.i
+.PHONY : behaviors/DefensiveStrategy.i
+
+# target to preprocess a source file
+behaviors/DefensiveStrategy.cc.i:
+	$(MAKE) -f CMakeFiles/RICAASTMT.dir/build.make CMakeFiles/RICAASTMT.dir/behaviors/DefensiveStrategy.cc.i
+.PHONY : behaviors/DefensiveStrategy.cc.i
+
+behaviors/DefensiveStrategy.s: behaviors/DefensiveStrategy.cc.s
+.PHONY : behaviors/DefensiveStrategy.s
+
+# target to generate assembly for a file
+behaviors/DefensiveStrategy.cc.s:
+	$(MAKE) -f CMakeFiles/RICAASTMT.dir/build.make CMakeFiles/RICAASTMT.dir/behaviors/DefensiveStrategy.cc.s
+.PHONY : behaviors/DefensiveStrategy.cc.s
 
 behaviors/behavior.o: behaviors/behavior.cc.o
 .PHONY : behaviors/behavior.o
@@ -281,6 +329,30 @@ behaviors/pkbehaviors.s: behaviors/pkbehaviors.cc.s
 behaviors/pkbehaviors.cc.s:
 	$(MAKE) -f CMakeFiles/RICAASTMT.dir/build.make CMakeFiles/RICAASTMT.dir/behaviors/pkbehaviors.cc.s
 .PHONY : behaviors/pkbehaviors.cc.s
+
+behaviors/playmodestrategy.o: behaviors/playmodestrategy.cc.o
+.PHONY : behaviors/playmodestrategy.o
+
+# target to build an object file
+behaviors/playmodestrategy.cc.o:
+	$(MAKE) -f CMakeFiles/RICAASTMT.dir/build.make CMakeFiles/RICAASTMT.dir/behaviors/playmodestrategy.cc.o
+.PHONY : behaviors/playmodestrategy.cc.o
+
+behaviors/playmodestrategy.i: behaviors/playmodestrategy.cc.i
+.PHONY : behaviors/playmodestrategy.i
+
+# target to preprocess a source file
+behaviors/playmodestrategy.cc.i:
+	$(MAKE) -f CMakeFiles/RICAASTMT.dir/build.make CMakeFiles/RICAASTMT.dir/behaviors/playmodestrategy.cc.i
+.PHONY : behaviors/playmodestrategy.cc.i
+
+behaviors/playmodestrategy.s: behaviors/playmodestrategy.cc.s
+.PHONY : behaviors/playmodestrategy.s
+
+# target to generate assembly for a file
+behaviors/playmodestrategy.cc.s:
+	$(MAKE) -f CMakeFiles/RICAASTMT.dir/build.make CMakeFiles/RICAASTMT.dir/behaviors/playmodestrategy.cc.s
+.PHONY : behaviors/playmodestrategy.cc.s
 
 behaviors/strategy.o: behaviors/strategy.cc.o
 .PHONY : behaviors/strategy.o
@@ -1446,6 +1518,12 @@ help:
 	@echo "... audio/audio.o"
 	@echo "... audio/audio.i"
 	@echo "... audio/audio.s"
+	@echo "... behaviors/AttackStrategy.o"
+	@echo "... behaviors/AttackStrategy.i"
+	@echo "... behaviors/AttackStrategy.s"
+	@echo "... behaviors/DefensiveStrategy.o"
+	@echo "... behaviors/DefensiveStrategy.i"
+	@echo "... behaviors/DefensiveStrategy.s"
 	@echo "... behaviors/behavior.o"
 	@echo "... behaviors/behavior.i"
 	@echo "... behaviors/behavior.s"
@@ -1464,6 +1542,9 @@ help:
 	@echo "... behaviors/pkbehaviors.o"
 	@echo "... behaviors/pkbehaviors.i"
 	@echo "... behaviors/pkbehaviors.s"
+	@echo "... behaviors/playmodestrategy.o"
+	@echo "... behaviors/playmodestrategy.i"
+	@echo "... behaviors/playmodestrategy.s"
 	@echo "... behaviors/strategy.o"
 	@echo "... behaviors/strategy.i"
 	@echo "... behaviors/strategy.s"

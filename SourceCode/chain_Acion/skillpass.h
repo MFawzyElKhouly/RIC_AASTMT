@@ -47,13 +47,13 @@ class throughSkill: public passSkill {
 
 public:
 	throughSkill(WorldModel *wm, formationLoader *fm);
-	double devaluatePass(VecPosition passer, VecPosition target,int r,bool x);
-	double deffectiveness(VecPosition passer, VecPosition target,int receiver,bool x);
-	double dsupportingTeamMates(VecPosition target,bool x);
-		double dsurroundingOpponents(VecPosition target,
-				double Distance_NearestOpp_To_Ball,bool x);
-
-		double dpassSafety(VecPosition passer, VecPosition target,bool x);
+//	double devaluatePass(VecPosition passer, VecPosition target,int r,bool x);
+//	double deffectiveness(VecPosition passer, VecPosition target,int receiver,bool x);
+//	double dsupportingTeamMates(VecPosition target,bool x);
+//		double dsurroundingOpponents(VecPosition target,
+//				double Distance_NearestOpp_To_Ball,bool x);
+//
+//		double dpassSafety(VecPosition passer, VecPosition target,bool x);
 
 	//double calcCost();
 	virtual ~throughSkill() {
@@ -82,7 +82,7 @@ public :
 double calcCost();
 double dribbleSafety();
 double effectiveness();
-double dribbleReliability();
+//double dribbleReliability();
 double surroundingOpponents();
 ~dribble(){
 //~base();

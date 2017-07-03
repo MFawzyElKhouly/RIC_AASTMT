@@ -24,31 +24,25 @@ void load(string filename) {
 	while (of >> x >> y)
 		add(x, y);
 	of.close();
-	/*add(-1,0);
-	 add(0, 4);
-	 add(6, -4);
-	 add(6, 4);
-	 add(4, 0);*/
 }
 /*
  * Real game beaming.
  * Filling params x y angle
  */
 void NaoBehavior::beam(double& beamX, double& beamY, double& beamAngle) {
-	//cout<<" side is "<<worldModel->getSide();
-	//if (worldModel->getSide() == SIDE_LEFT)
+
 	loader->setStrategy("second");
 	VecPosition beamer = loader->getBeamingPosition(this->agentUNum);
 	beamX = beamer.getX();
 	beamY = beamer.getY();
 	beamAngle = beamer.getZ();
-//beamX = -15+agentUNum;
-//beamY = 0;
-//beamAngle = 0;
 
 }
-
+int i = 0;
+bool drib = false;
 SkillType NaoBehavior::selectSkill() {
+
+
 
 	if (worldModel->getPlayMode() != PM_PLAY_ON) {
 		return getPlayModeSkill();
@@ -61,96 +55,8 @@ SkillType NaoBehavior::selectSkill() {
 			return getDefensiveSkill();
 
 		}
-
-	if ((((worldModel->getSide() == SIDE_LEFT)
-			&& (worldModel->getPlayMode() == PM_KICK_OFF_LEFT))
-			|| ((worldModel->getSide() == SIDE_RIGHT)
-					&& (worldModel->getPlayMode() == PM_KICK_OFF_RIGHT)))
-			&& (worldModel->getTeammateClosestTo(worldModel->getBall())
-					== worldModel->getUNum())) {
-		return kickBall(KICK_FORWARD,
-				((worldModel->getOppLeftGoalPost()
-						+ worldModel->getOppRightGoalPost()) / 2));
-	}
-	if (analyzer->getTopSkill().getType() == SKILL_PASS
-			&& worldModel->getBall().getDistanceTo(worldModel->getMyPosition())
-					> 1) {
-		analyzer->resetCandidates();
-
-	}
-	if (analyzer->getTopSkill().getType() == SKILL_DRIBBLE
-			&& worldModel->getBall().getDistanceTo(worldModel->getMyPosition())
-					> 0.8) {
-		analyzer->resetCandidates();
-
-	}
-	analyzer->generateCanditates();
-	skilldesc skilltarg = analyzer->getTopSkill();
-	SkillType ret;
-
-	if (skilltarg.getType() == SKILL_PASS) {
-		//cout<<"SKILL = SKILL_PASS"<<endl;
-		if (worldModel->getBall().getDistanceTo(skilltarg.getTarget()) > 5)
-			ret = kickBall(KICK_FORWARD, skilltarg.getTarget());
-		else
-			ret = kickBall(KICK_IK, skilltarg.getTarget());
-		//if (ret != SKILL_STAND && ret != SKILL_WALK_OMNI)
-		//analyzer->resetCandidates();
-		return ret;
-	} else if (skilltarg.getType() == SKILL_WALK_OMNI
-			|| skilltarg.getType() == SKILL_INTERCEPT) {
-		//cout<<"SKILL = SKILL_WALK_OMNI"<<endl;
-		analyzer->resetCandidates();
-		/*if(worldModel->getRole(worldModel->getUNum()) < 2) {
-		 if(skilltarg.getTarget().getDistanceTo(loader->getDuePosition(worldModel->getUNum())) > 5
-		 && skilltarg.getTarget().getX() > loader->getDuePosition(worldModel->getUNum()).getX()+3
-		 )
-		 return SKILL_STAND;
-		 }*/
-		double distance, angle, targ;
-		getTargetDistanceAndAngle(skilltarg.getTarget(), distance, angle);
-		/*	if (abs(angle) > 10) {
-		 return goToTargetRelative(VecPosition(), angle);
-		 } else */
-
-		if (distance > 0.2) {
-			return goToTarget(skilltarg.getTarget());
-
-		} else if (skilltarg.getType() == SKILL_INTERCEPT
-				&& (worldModel->getMyPosition().getX() > -12
-						|| fabs(worldModel->getMyAngDeg()) < 90)) {
-			/*VecPosition target = (worldModel->getBall() - worldModel->getMyPosition())*1.5;
-			 target += worldModel->getMyPosition();
-			 ret = kickBall(KICK_DRIBBLE, skilltarg.getTarget());
-
-			 analyzer->resetCandidates();
-			 return ret;*/
-			return intercept();
-
-		} else if (worldModel->getMyPosition().getDistanceTo(
-				loader->getDuePosition(worldModel->getUNum())) < 0.5) {
-			double angle;
-			VecPosition ball = worldModel->getBall();
-			double dis;
-			getTargetDistanceAndAngle(ball, dis, angle);
-			return goToTargetRelative(VecPosition(), angle);
-		}
-		return SKILL_STAND;
-
-	} else if (skilltarg.getType() == SKILL_SHOOT) {
-		//cout<<"SKILL = SKILL_KICK_LEFT_LEG"<<endl;
-		ret = kickBall(KICK_FORWARD, skilltarg.getTarget());
-		analyzer->resetCandidates();
-		return ret;
-	} else if (skilltarg.getType() == SKILL_DRIBBLE) {
-		ret = kickBall(KICK_DRIBBLE, skilltarg.getTarget());
-
-		//analyzer->resetCandidates();
-		return ret;
-	} else
-		analyzer->resetCandidates();
-
 	return SKILL_STAND;
+
 }
 
 /*

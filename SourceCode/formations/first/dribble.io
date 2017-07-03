@@ -1,6 +1,6 @@
 CTime 2
 theirGoalConst 5
-TheirGoalP 50
+TheirGoalP 70
 surrP 2.5
 Cnear 5
 effP 7

@@ -1,8 +1,8 @@
 /*
  * evaluator.cc
  *
- *  Created on: Jun 26, 2017
- *      Author: Ahmed Hamdy
+ *  Created on: Jun 29, 2017
+ *      Author: rc9
  */
 
 #include "evaluator.h"
@@ -11,8 +11,7 @@
 #include "../debugger/debugger.h"
 #include "../math/vecposition.h"
 #include "../math/Geometry.h"
-#include "skillpass.h"
-#include "support.h"
+
 #include <cstdio>
 #include <cstdlib>
 #include <map>
@@ -26,21 +25,20 @@
 #define INF 1<<12
 using namespace std;
 using namespace SIM;
-Evaluator::Evaluator(WorldModel *wm) {
-	//freopen("f.txt", "w", stdout);
-	this->wm = wm;
-	this->maxShot = 7; //TODO get this from wm
-	loader = nullptr;
+
+Evaluator::Evaluator(WorldModel *wm,formationLoader *load) {
+		this->wm = wm;
+		this->maxShot = 10;
+		loader = NULL;
+		this->maxPass = 5;
+		max = (new skilldesc(SKILL_STAND));
 }
-Evaluator::Evaluator(WorldModel *wm, formationLoader*loader) {
-	this->wm = wm;
-	this->maxShot = 10; //TODO get this from wm
-	this->loader = loader;
+double Evaluator::evalPass(VecPosition v,int PlUnum) {
+	double val = 0;
+
+
+	return val;
 }
-	double Evaluator::positionValue(VecPosition target) {
+double Evaluator::posEffect() {
 
-	}
-	double Evaluator::passSafety(VecPosition target) {
-
-	}
-
+}

@@ -38,6 +38,8 @@ double crop ( double val, double minval, double maxval);
  * max limit...
  */
 double exponential(double x, double c);
+
+double sigmoid(double x, double shift,double scale);
 double minmax( double minx, double x, double maxx );
 Point2D minmax( Point2D minP, Point2D P, Point2D maxP );
 double are(VecPosition one, VecPosition two);
