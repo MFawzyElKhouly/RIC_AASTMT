@@ -54,6 +54,11 @@ set(SRCS
   behaviors/checkfall.cc 
   behaviors/kicking.cc 
   behaviors/strategy.cc
+  behaviors/AttackStrategy.cc
+  
+  behaviors/playmodestrategy.cc
+  
+  behaviors/DefensiveStrategy.cc
   behaviors/pkbehaviors.cc
   behaviors/gazebobehavior.cc
   servercomm/primitives.cc

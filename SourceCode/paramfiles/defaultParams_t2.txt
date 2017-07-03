@@ -5,13 +5,13 @@
 #######################
 
 kick_xoffset	-0.172337981127
-kick_yoffset	-0.010001659630
-kick_p1	-25.557993714343954
+kick_yoffset	-0.035001659630
+kick_p1	-19.557993714343954
 kick_p2	-116.33168663169225
-kick_p3	-66.494524238808935
+kick_p3	-46.494524238808935
 kick_p4	114.34191464255687
 kick_p5	8.009471678103255
-kick_p6	66.4847755838874
+kick_p6	76.4847755838874
 kick_p7	0.0
 kick_p8	0.0
 kick_p9	0.0
@@ -155,6 +155,3 @@ kick_gen_approach_maxDecelY	0.5754931880185323
 // Parameters for dribbling
 drib_coll_thresh				0.33582030312352373
 drib_target					0.17785682250297227
-
-
-

@@ -39,7 +39,7 @@ SkillType OptimizationBehaviorFixedKick::selectSkill() {
 
     if (!hasKicked) {
         hasKicked = true;
-        return SKILL_KICK_LEFT_LEG; // The kick skill that we're optimizing
+        return SKILL_KICK11_LEFT_LEG; // The kick skill that we're optimizing
     }
 
     return SKILL_STAND;

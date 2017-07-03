@@ -52,7 +52,7 @@ double getMagnitude(double p1, double q1, double p2, double q2) {
 }
 
 bool Goalie::splitDecision(double distance) {
-	cerr << (distance / ballv);
+	//cerr << (distance / ballv);
 	if ((distance / ballv) <= 1) {
 		return 1;
 	}
