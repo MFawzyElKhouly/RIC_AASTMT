@@ -39,7 +39,6 @@ void NaoBehavior::beam(double& beamX, double& beamY, double& beamAngle) {
 
 }
 int i = 0;
-bool drib = false;
 SkillType NaoBehavior::selectSkill() {
 
 
