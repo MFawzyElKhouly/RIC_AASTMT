@@ -16,6 +16,8 @@
 #include<cassert>
 #include <fstream>
 using namespace std;
+
+bool drib = false;
 SkillType NaoBehavior::getAttackSkill() {
 
 	if ((((worldModel->getSide() == SIDE_LEFT)
