@@ -43,13 +43,13 @@ SkillType NaoBehavior::selectSkill() {
 
 
 
-	if (worldModel->getPlayMode() != PM_PLAY_ON) {
-		return getPlayModeSkill();
-	}
-	if (loader->getTeamState() == ATTACKING) {
+//	if (worldModel->getPlayMode() != PM_PLAY_ON) {
+//		return getPlayModeSkill();
+//	}
+	//if (loader->getTeamState() == ATTACKING) {
 		return getAttackSkill();
 
-	}
+	//}
 	if (loader->getTeamState() == DEFENDING) {
 			return getDefensiveSkill();
 
