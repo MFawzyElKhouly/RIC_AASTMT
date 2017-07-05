@@ -52,6 +52,9 @@ set(SRCS
   behaviors/behavior.cc
   behaviors/naobehavior.cc
   behaviors/checkfall.cc 
+  behaviors/AttackStrategy.cc
+  behaviors/DefensiveStrategy.cc
+  behaviors/playmodestrategy.cc
   behaviors/kicking.cc 
   behaviors/strategy.cc
   behaviors/AttackStrategy.cc

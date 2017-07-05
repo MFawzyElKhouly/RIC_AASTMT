@@ -78,13 +78,13 @@ shootSkill::shootSkill(WorldModel *wm, formationLoader *fm) :
 Analyzer::Analyzer(WorldModel *wm) {
 	//freopen("f.txt", "w", stdout);
 	this->wm = wm;
-	this->maxShot = 10+3; //TODO get this from wm
+	this->maxShot = 10; //TODO get this from wm
 	loader = NULL;
 	max = (new skilldesc(SKILL_STAND));
 }
 Analyzer::Analyzer(WorldModel *wm, formationLoader*loader) {
 	this->wm = wm;
-	this->maxShot = 10+3; //TODO get this from wm
+	this->maxShot = 10; //TODO get this from wm
 	this->loader = loader;
 	strategyFile = loader->getStrategy();
 
@@ -223,7 +223,7 @@ void Analyzer::generateDefensiveSkills() {
 	for (int i = 0 + WO_OPPONENT2; i <= WO_OPPONENT11; i++) {
 		if (wm->getTeammateClosestTo(wm->getOpponent(i)) == wm->getUNum()
 				&& wm->getOpponentClosestTo(wm->getBall())
-						== i - WO_OPPONENT1 + 1) {
+						== i - WO_OPPONENT1 + 1) {                //if the nearest is me ..
 			continue;
 		}
 		mark scill = *(new mark(wm, loader));
@@ -240,8 +240,25 @@ void Analyzer::generateDefensiveSkills() {
 			else
 				targ = wm->getOpponent(i) - wm->getMyRightGoalPost();
 			targ *= 0.25;
-			targ = wm->getOpponent(i) - targ;
-		};
+			targ = wm->getOpponent(i)
+
+ - targ;
+		}
+		else if(wm->getRole(wm->getUNum() - 1) < 3){
+			if (wm->getOpponent(i).getDistanceTo(wm->getMyLeftGoalPost())
+								< wm->getOpponent(i).getDistanceTo(
+										wm->getMyRightGoalPost()))
+							targ = wm->getOpponent(i) - wm->getMyLeftGoalPost();
+						else
+							targ = wm->getOpponent(i) - wm->getMyRightGoalPost();
+						targ *= 0.15;
+						targ = wm->getOpponent(i) - targ;
+		}
+//		 else {
+//			targ = wm->getBall() - wm->getOpponent(i);
+//			targ *= 0.25;
+//			targ += wm->getOpponent(i);
+//		}
 
 		scill.setTarget(targ);
 
@@ -257,11 +274,11 @@ void Analyzer::generateintersect() {
 	if (wm->getMyPosition().getX() > wm->getBall().getX()
 			&& wm->distancetoBall(wm->getMyPosition()) > 1.5)
 		d += 50;
-	for (int i = WO_TEAMMATE2; i <= WO_TEAMMATE11; i++) {
+	for (int i = WO_TEAMMATE2; i <= WO_TEAMMATE11; i++) { // kam teammate a2rb ll kora
 		if (i - WO_TEAMMATE1 + 1 == wm->getUNum())
 			continue;
 		double di = wm->distancetoBall(wm->getTeammate(i));
-		if (wm->getTeammate(i).getX() > wm->getBall().getX() // && wm->distancetoBall(wm->getTeammate(i)) > 1.5
+		if (wm->getTeammate(i).getX() > wm->getBall().getX()// && wm->distancetoBall(wm->getTeammate(i)) > 1.5
 				)
 			di += 50;
 
@@ -273,38 +290,34 @@ void Analyzer::generateintersect() {
 
 		}
 	}
-
-	int i = WO_OPPONENT1 - 1 + wm->getOpponentClosestTo(wm->getBall());
+	int i = WO_OPPONENT1 - 1 + wm->getOpponentClosestTo(wm->getBall()); //a2rb opp ll kora
 	VecPosition v = wm->getMyRightGoalPost() + wm->getMyLeftGoalPost();
 	v /= 2;
 	double ang = wm->getWorldObject(i)->orien;
 	VecPosition ball = wm->getBall();
-	VecPosition end = v; //wm->getOpponent(i) +(wm->getOpponent(i) - );// + VecPosition(20, ang, 0, POLAR);
+	VecPosition end = v;//wm->getOpponent(i) +(wm->getOpponent(i) - );// + VecPosition(20, ang, 0, POLAR);
 	VecPosition tar = perpPoint(wm->getMyPosition(), wm->getBall(), end);
 	if ((tar - wm->getBall()).normalize()
 			!= (end - wm->getBall()).normalize()) {
 		tar = wm->getBall() - VecPosition(1, 0, 0, CARTESIAN);
-		if ((tar - wm->getMyPosition()).getMagnitude()
-				< (end - ball).getMagnitude())
+		if ((tar - wm->getMyPosition()).getMagnitude() < (end - ball).getMagnitude())
 			tar = wm->getBall();
 	}
 	if (n == 0 //|| ((wm->distanceToMyGoal(ball) < 10) && (wm->getUNum() < 6))
 			) {
+		cout << "Nearest Player is " << (1-WO_TEAMMATE1 + wm->getUNum()) << endl;
 		skilldesc scill = *(new skilldesc(SKILL_INTERCEPT));
 		if ((wm->getMyPosition() - tar).getMagnitude() < 0.25)
-			tar = wm->getBall(); // - VecPosition(0.4,0,0,CARTESIAN);
+			tar = wm->getBall();// - VecPosition(0.4,0,0,CARTESIAN);
 
 		scill.setTarget(tar);
 		scill.setCost(0);
 		skillset.push_back(scill);
 		return;
 	}
-
 	if (n == 1 // || ((wm->distanceToMyGoal(wm->getBall()) < 10) && (wm->getUNum() < 6))
 			) {
 		mark scill = *(new mark(wm, loader));
-		//scill.skill = ;
-
 		scill.setTarget(wm->getOpponent(i));
 		VecPosition targ;
 		scill.calcCost();
@@ -368,7 +381,7 @@ void Analyzer::generatePoints() {
 		if (!wm->getWorldObject(i)->validPosition
 				|| i - WO_TEAMMATE1 + 1 == wm->getUNum())
 			continue;
-		VecPosition target = VecPosition(0, 0, 0);
+		VecPosition target = VecPosition(0, 0, 0); //wrong entry
 		stringstream ss;
 		ss << target << "_" << (i - WO_TEAMMATE1) << "_"
 				<< wm->getWorldObject(i)->pos;
