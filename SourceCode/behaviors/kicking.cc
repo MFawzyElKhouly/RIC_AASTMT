@@ -35,8 +35,7 @@ SkillType NaoBehavior::kickBall(const int kickTypeToUse,
 						* atof(namedParams.find("drib_target")->second.c_str());
 		return goToTarget(approachBallTarget);
 	}
-	if (ball.getDistanceTo(kickTarget) <= 4.5)
-		kickType = KICK_IK;
+	
 	return kickBallAtPresetTarget();
 }
 
@@ -99,8 +98,9 @@ SkillType NaoBehavior::kickBallAtPresetTarget() {
 
 		SkillType kick_array[2];
 
-
-		if (ball.getDistanceTo(kickTarget) < 6.75 && ball.getDistanceTo(kickTarget) > 4.5 )
+		if (ball.getDistanceTo(kickTarget) <= 4.5)
+		kickType = KICK_IK;
+		else if (ball.getDistanceTo(kickTarget) < 6.75 )
 			kickType = KICK_FORWARD_6_5;
 		else if (ball.getDistanceTo(kickTarget) < 7.25)
 			kickType = KICK_FORWARD_7;
@@ -605,4 +605,3 @@ SkillType NaoBehavior::intercept() {
 	else
 		return SKILL_KICK_IK_0_RIGHT_LEG;
 }
-
