@@ -95,8 +95,16 @@ NaoBehavior::NaoBehavior(const std::string teamName, int uNum,
 	try {
 		readSkillsFromFile("./skills/stand.skl");
 		readSkillsFromFile("./skills/split.skl");
-
 		readSkillsFromFile("./skills/kick.skl");
+		readSkillsFromFile("./skills/kick6.5.skl");
+		readSkillsFromFile("./skills/kick7.skl");
+		readSkillsFromFile("./skills/kick7.5.skl");
+		readSkillsFromFile("./skills/kick8.skl");
+		readSkillsFromFile("./skills/kick8.5.skl");
+		readSkillsFromFile("./skills/kick9.skl");
+		readSkillsFromFile("./skills/kick9.5.skl");
+		readSkillsFromFile("./skills/kick10.skl");
+		readSkillsFromFile("./skills/kick10.5.skl");
 
 		// ik skills
 		readSkillsFromFile("./skills/kick_ik_0.skl");
