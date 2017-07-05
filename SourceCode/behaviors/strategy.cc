@@ -42,16 +42,16 @@ int i = 0;
 
 SkillType NaoBehavior::selectSkill() {
 
-	double oppDis = ball.getDistanceTo(wm->getOpponent(wm->getOpponentClosestTo(ball)+WO_OPPONENT1-1));
+	double oppDis = ball.getDistanceTo(worldModel->getOpponent(worldModel->getOpponentClosestTo(ball)+WO_OPPONENT1-1));
 		//cout << "Player " << wm->getUNum() << endl;
-	double MeDisToBall = ball.getDistanceTo(wm->getMyPosition()+WO_TEAMMATE1-1);
+	double MeDisToBall = ball.getDistanceTo(worldModel->getMyPosition()+WO_TEAMMATE1-1);
 	for(int i=WO_OPPONENT1;i<=WO_OPPONENT11;i++){
-		VecPosition opp = wm->getOpponent(i);
+		VecPosition opp = worldModel->getOpponent(i);
 		double DisToOpp = me.getDistanceTo(opp);
 		int AngleWithOpp = me.getAngleWithVector(opp);
 		//cout << "Me " << AngleWithOpp << endl;
-		if(DisToOpp < 0.5 && fabs(AngleWithOpp) < 10 && wm->getTeammateClosestTo(ball) == wm->getUNum()){
-			cout << "Opp Player issssssssssssss " << (i-11) << endl;
+		if(DisToOpp < 0.5 && fabs(AngleWithOpp) < 10 && worldModel->getTeammateClosestTo(ball) == worldModel->getUNum()){
+			//cout << "Opp Player issssssssssssss " << (i-11) << endl;
 			VecPosition vec = me.getVecPositionFromPolar(1,me.getTheta(),0);
 			return kickBall(KICK_IK,vec);
 		}
