@@ -578,7 +578,7 @@ VecPosition NaoBehavior::navigateAroundBall(VecPosition target,
 }
 
 SkillType NaoBehavior::intercept() {
-	if (me.getDistanceTo(ball) > 0.5) {
+	if (me.getDistanceTo(ball) > 0.2) {
 		// Far away from the ball so walk toward target offset from the ball
 		VecPosition target = ball;
 		target = collisionAvoidance(false/*Avoid teammate*/,

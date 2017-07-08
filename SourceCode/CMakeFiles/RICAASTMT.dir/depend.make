@@ -15,6 +15,7 @@ CMakeFiles/RICAASTMT.dir/behaviors/AttackStrategy.cc.o: behaviors/behavior.h
 CMakeFiles/RICAASTMT.dir/behaviors/AttackStrategy.cc.o: behaviors/naobehavior.h
 CMakeFiles/RICAASTMT.dir/behaviors/AttackStrategy.cc.o: bodymodel/bodymodel.h
 CMakeFiles/RICAASTMT.dir/behaviors/AttackStrategy.cc.o: chain_Acion/analyzer.h
+CMakeFiles/RICAASTMT.dir/behaviors/AttackStrategy.cc.o: chain_Acion/skillpass.h
 CMakeFiles/RICAASTMT.dir/behaviors/AttackStrategy.cc.o: chain_Acion/skillval.h
 CMakeFiles/RICAASTMT.dir/behaviors/AttackStrategy.cc.o: debugger/debugger.h
 CMakeFiles/RICAASTMT.dir/behaviors/AttackStrategy.cc.o: formations/formation.h

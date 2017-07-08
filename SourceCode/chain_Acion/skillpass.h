@@ -82,6 +82,7 @@ public :
 double calcCost();
 double dribbleSafety();
 double effectiveness();
+//double angle;
 //double dribbleReliability();
 double surroundingOpponents();
 ~dribble(){

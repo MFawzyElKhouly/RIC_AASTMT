@@ -57,7 +57,7 @@ public:
 	void generateKick() ;
 	void generateintersect();
 	VecPosition getHeatMap();
-	void generateDribble() ;
+	void generateDribble(int range) ;
 
 };
 void loadParameters(string file,map<string,double> &factors);

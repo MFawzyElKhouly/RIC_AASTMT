@@ -25,6 +25,7 @@ bool bii = false;
 dribble::dribble(WorldModel *wm,formationLoader *fm):skilldesc(SKILL_DRIBBLE) {
 this->wm = wm;
 this->fm = fm;
+angle= 0;
 map<string, double> factors;
 loadParameters(fm->getStrategy() + "/dribble.io", factors);
 
@@ -110,11 +111,13 @@ double myGoal = exponential(wm->distanceToMyGoal(target), 130);
 double dribble::calcCost() {
 	double e = effectiveness();
 	double s = dribbleSafety();
-	double ret =6* e + s;// + surrP*dribbleReliability();
+	double ret =5* e + s;// + surrP*dribbleReliability();
 	//cout<< "DE = "<<e<< " DS = "<<s <<" DC = "<<ret<<"\n";
 	//ret /= (effP+safeP+surrP);
 	//ret*=factor;
-	if(wm->getPlayMode() != PM_PLAY_ON)
+	if(wm->getPlayMode() != PM_PLAY_ON  ||
+			(wm->getTeammateClosestTo(wm->getBall()) != wm->getUNum() &&
+					wm->getBall().getDistanceTo(wm->getMyPosition()) > 2))
 		return INF;
 	return cost =ret;
 }

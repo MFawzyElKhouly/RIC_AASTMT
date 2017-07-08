@@ -15,25 +15,16 @@
 #include <vector>
 #include<cassert>
 #include <fstream>
+#include "../chain_Acion/skillpass.h"
 using namespace std;
 
 
 bool drib = false;
 SkillType NaoBehavior::getAttackSkill() {
 
-	if ((((worldModel->getSide() == SIDE_LEFT)
-			&& (worldModel->getPlayMode() == PM_KICK_OFF_LEFT))
-			|| ((worldModel->getSide() == SIDE_RIGHT)
-					&& (worldModel->getPlayMode() == PM_KICK_OFF_RIGHT)))
-			&& (worldModel->getTeammateClosestTo(worldModel->getBall())
-					== worldModel->getUNum())) {
-		return kickBall(KICK_FORWARD,
-				((worldModel->getMyLeftGoalPost()
-						+ worldModel->getMyRightGoalPost()) / 2));
-	}
+
 	if (analyzer->getTopSkill().getType() == SKILL_PASS
-			&& worldModel->getBall().getDistanceTo(worldModel->getMyPosition())
-					> 1) {
+			&& worldModel->getTeammateClosestTo(worldModel->getBall()) != worldModel->getUNum()) {
 		analyzer->resetCandidates();
 
 	}
@@ -44,19 +35,19 @@ SkillType NaoBehavior::getAttackSkill() {
 	analyzer->generateCanditates();
 		skilldesc skilltarg = analyzer->getTopSkill();
 
-	if((drib == true && worldModel->getBall().getDistanceTo(worldModel->getMyPosition()) > 0.3)
-		||(skilltarg.getType() == SKILL_DRIBBLE && worldModel->getBall().getDistanceTo(worldModel->getMyPosition()) > 2)	)
-		{
-		analyzer->resetCandidates();
-	//	cout<<"Clear dribble\n";
-		drib = false;
-	}
-	else if(drib == false && skilltarg.getType() == SKILL_DRIBBLE){
-		drib = (worldModel->getBall().getDistanceTo(worldModel->getMyPosition()) <= 0.5);
-	//	cout<<"Start Dribble"<<worldModel->getBall().getDistanceTo(worldModel->getMyPosition())<<"\n";
-	}
-if(skilltarg.getType() != SKILL_DRIBBLE)
-	drib = false;
+//	if((drib == true && worldModel->getBall().getDistanceTo(worldModel->getMyPosition()) > 0.3)
+//		||(skilltarg.getType() == SKILL_DRIBBLE && worldModel->getBall().getDistanceTo(worldModel->getMyPosition()) > 2)	)
+//		{
+//		analyzer->resetCandidates();
+//	//	cout<<"Clear dribble\n";
+//		drib = false;
+//	}
+//	else if(drib == false && skilltarg.getType() == SKILL_DRIBBLE){
+//		drib = (worldModel->getBall().getDistanceTo(worldModel->getMyPosition()) <= 0.5);
+//	//	cout<<"Start Dribble"<<worldModel->getBall().getDistanceTo(worldModel->getMyPosition())<<"\n";
+//	}
+//if(skilltarg.getType() != SKILL_DRIBBLE)
+//	drib = false;
 
 	SkillType ret;
 
@@ -96,9 +87,11 @@ if(skilltarg.getType() != SKILL_DRIBBLE)
 		analyzer->resetCandidates();
 		return ret;
 	} else if (skilltarg.getType() == SKILL_DRIBBLE) {
-		ret = kickBall(KICK_DRIBBLE, skilltarg.getTarget());
+		//dribble sktemp = (;
 
-		//analyzer->resetCandidates();
+		ret = dribbleAng((skilltarg).angle);
+			//cout<<"Dribb\n";
+		analyzer->resetCandidates();
 		return ret;
 	} else
 		analyzer->resetCandidates();

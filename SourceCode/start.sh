@@ -3,7 +3,7 @@
 
 NUM_PLAYERS=11
 host="localhost"
-port=3100
+port=3110 #3100
 mhost="localhost"
 
 if [ $# -gt 0 ]
@@ -19,11 +19,11 @@ for ((i=1;i<=$NUM_PLAYERS;i++)); do
     case $i in
 	1|2)
 	    echo "Running agent No. $i "
-	    ./RICAASTMT $opt --unum $i --type 4  --paramsfile paramfiles/defaultParams.txt --paramsfile paramfiles/defaultParams_t4.txt    &#> /dev/null &
+ 	./RICAASTMT $opt --unum $i --type 4  --paramsfile paramfiles/defaultParams.txt --paramsfile paramfiles/defaultParams_t4.txt &#> /dev/null &
 	    ;;
 	3|4)
 	    echo "Running agent No. $i "
-	    ./RICAASTMT $opt --unum $i --type 4  --paramsfile paramfiles/defaultParams.txt --paramsfile paramfiles/defaultParams_t4.txt  &#>  /dev/null &
+	./RICAASTMT $opt --unum $i --type 4  --paramsfile paramfiles/defaultParams.txt --paramsfile paramfiles/defaultParams_t4.txt  &#>  /dev/null &
 	    ;;
 	5|6)
 	    echo "Running agent No. $i "

@@ -17,11 +17,12 @@ protected:
 	double cost;
 	double factor;
 public :
-
+double angle = 0;
 inline skilldesc(SkillType sk){
 	this->skill = sk;
 	target = *(new VecPosition(0,0,0));
 	cost = 1.0;
+
 	factor = 1.0;
 }
 inline
