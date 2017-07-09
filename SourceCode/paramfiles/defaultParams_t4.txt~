@@ -236,6 +236,8 @@ kick_gen_approach_maxDecelY	1.9052608061330103
 // Parameters for dribbling
 drib_coll_thresh				0.33582030312352373
 drib_target					0.17785682250297227
+
+
 utwalk_max_step_size_angle	0.353098492289
 utwalk_max_step_size_x	84.949557674590
 utwalk_max_step_size_y	42.562329511951

@@ -3,7 +3,7 @@
 
 NUM_PLAYERS=11
 host="localhost"
-port=3110 #3100
+port=3100 #3100
 mhost="localhost"
 
 if [ $# -gt 0 ]

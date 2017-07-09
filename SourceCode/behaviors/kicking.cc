@@ -196,7 +196,7 @@ SkillType NaoBehavior::kickBallAtPresetTarget() {
 		target.setZ(0);
 
 		VecPosition originalTarget = target;
-		target = navigateAroundBall(target, .5 /*PROXIMITY_TRESH*/,
+		target = navigateAroundBall(target, .1 /*PROXIMITY_TRESH*/,
 				atof(namedParams.find("drib_coll_thresh")->second.c_str()));
 		target = collisionAvoidance(true /*Avoid teamate*/,
 				false /*Avoid opponent*/, false /*Avoid ball*/, .5, .5, target,
@@ -578,28 +578,28 @@ VecPosition NaoBehavior::navigateAroundBall(VecPosition target,
 }
 
 SkillType NaoBehavior::intercept() {
-	if (me.getDistanceTo(ball) > 0.2) {
-		// Far away from the ball so walk toward target offset from the ball
-		VecPosition target = ball;
-		target = collisionAvoidance(false/*Avoid teammate*/,
-				true/*Avoid opponent*/, false/*Avoid ball*/, .5, .5, target,
-				false /*fKeepDistance*/);
-		return goToTarget(target);
-	}
+//	if (me.getDistanceTo(ball) > 0.25) {
+//		// Far away from the ball so walk toward target offset from the ball
+//		VecPosition target = ball;
+//		target = collisionAvoidance(false/*Avoid teammate*/,
+//				true/*Avoid opponent*/, false/*Avoid ball*/, .5, .5, target,
+//				false /*fKeepDistance*/);
+//		return goToTarget(target);
+//	}
 
-	int opponent = worldModel->getOpponentClosestTo(worldModel->getBall())
-			+ WO_OPPONENT1 - 1;
-	double anglehldr, dishldr;
-	WorldObject* ballholder = worldModel->getWorldObject(opponent);
-	VecPosition ballholdr = ballholder->pos;
-	getTargetDistanceAndAngle(ballholdr, dishldr, anglehldr);
-
+//	int opponent = worldModel->getOpponentClosestTo(worldModel->getBall())
+//			+ WO_OPPONENT1 - 1;
+//	double anglehldr, dishldr;
+//	WorldObject* ballholder = worldModel->getWorldObject(opponent);
+//	VecPosition ballholdr = ballholder->pos;
+//	getTargetDistanceAndAngle(ballholdr, dishldr, anglehldr);
+//
 	double ballangle, dis;
 	getTargetDistanceAndAngle(ball, dis, ballangle);
 
-	if (fabs(ballangle) > 10) {
-		return goToTargetRelative(VecPosition(), ballangle);
-	}
+//	if (fabs(ballangle) > 10) {
+//		return goToTargetRelative(VecPosition(), ballangle);
+//	}
 	if (ballangle > 0)
 		return SKILL_KICK_IK_0_LEFT_LEG;
 	else
