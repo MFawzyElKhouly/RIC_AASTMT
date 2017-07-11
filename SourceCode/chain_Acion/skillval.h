@@ -48,6 +48,9 @@ double getCost() {
 	return cost;
 
 }
+double virtual calcTime()  {
+	return 0;
+}
 
 	virtual ~skilldesc(){
 

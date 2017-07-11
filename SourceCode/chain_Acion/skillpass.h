@@ -12,10 +12,10 @@ class kickSkill: public skilldesc {
 protected:
 	WorldModel * wm;
 	formationLoader *fm;
-	double  Ccut = 2.5, Cnear = 8.5;
+	double Ccut = 2.5, Cnear = 8.5;
 
 public:
-	kickSkill(SkillType type,WorldModel *wm,formationLoader *fm);
+	kickSkill(SkillType type, WorldModel *wm, formationLoader *fm);
 	double supportingTeamMates(VecPosition target);
 	double surroundingOpponents(VecPosition target,
 			double Distance_NearestOpp_To_Ball);
@@ -24,15 +24,15 @@ public:
 
 	double passSafety(VecPosition passer, VecPosition target);
 	//double calcCost();
-	virtual ~kickSkill(){
+	virtual ~kickSkill() {
 		//~base();
 	}
 };
 class passSkill: public kickSkill {
-protected :
+protected:
 
-	double myGoalP , theirGoalP , surrOppP , passlenP ,
-			passCutP , supportP ,MyGoalC ,TheirGoalC ;
+	double myGoalP, theirGoalP, surrOppP, passlenP, passCutP, supportP, MyGoalC,
+			TheirGoalC;
 
 public:
 	passSkill(WorldModel *wm, formationLoader *fm);
@@ -41,6 +41,21 @@ public:
 	double calcCost();
 	virtual ~passSkill() {
 		//~base();
+	}
+	/***
+	 * returns time to performs s pass in seconds
+	 */
+	double calcTime() {
+		double time = 0;
+		double rotSpeed = 100;
+		VecPosition tempTar = wm->g2l(target);
+		double turnAng = tempTar.getTheta();
+		time = turnAng / rotSpeed;
+		if (wm->getBall().getDistanceTo(this->target) < 4.5)
+			time += 1; //KICK_IK time
+		else
+			time += 2; //KICK_FORWARD time
+		return time;
 	}
 };
 class throughSkill: public passSkill {
@@ -62,7 +77,6 @@ public:
 };
 class shootSkill: public kickSkill {
 
-
 public:
 
 	shootSkill(WorldModel *wm, formationLoader *fm);
@@ -71,57 +85,82 @@ public:
 	~shootSkill() {
 		//~base();
 	}
+	/***
+	 * returns time to performs s pass in seconds
+	 */
+	double calcTime() {
+		double time = 0;
+		double rotSpeed = 100;
+		VecPosition tempTar = wm->g2l(target);
+		double turnAng = tempTar.getTheta();
+		time = turnAng / rotSpeed;
+		if (wm->getBall().getDistanceTo(this->target) < 4.5)
+			time += 1; //KICK_IK time
+		else
+			time += 2; //KICK_FORWARD time
+		return time;
+	}
 };
-class dribble : public skilldesc {
+class dribble: public skilldesc {
 protected:
 	WorldModel * wm;
 	formationLoader *fm;
-	double CTime,C_TheirGoal,TheirGoalP,surrP,Cnear,safeP,effP;
-public :
-	dribble(WorldModel *wm,formationLoader *fm);
-double calcCost();
-double dribbleSafety();
-double effectiveness();
+	double CTime, C_TheirGoal, TheirGoalP, surrP, Cnear, safeP, effP;
+public:
+	dribble(WorldModel *wm, formationLoader *fm);
+	double calcCost();
+	double dribbleSafety();
+	double effectiveness();
 //double angle;
 //double dribbleReliability();
-double surroundingOpponents();
-~dribble(){
+	double surroundingOpponents();
+	~dribble() {
 //~base();
-}
+	}
+	/***
+		 * returns time to performs s pass in seconds
+		 */
+		double calcTime()  {
+			double time= 0;
+			double rotSpeed = 100;
+			VecPosition tempTar = wm->g2l(target);
+			double turnAng = tempTar.getTheta();
+			time = turnAng / rotSpeed;
+			return time;
+		}
 };
-class ndribble : public skilldesc {
+class ndribble: public skilldesc {
 protected:
 	WorldModel * wm;
 	formationLoader *fm;
-	double angle,shift;
-public :
-	ndribble(WorldModel *wm,formationLoader *fm);
-double calcCost();
-void setAngle(double angle);
-double getAngle();
-double safety();
-~ndribble(){
-//~base();
-}
-
-};
-class mark : public skilldesc {
-protected:
-	WorldModel * wm;
-	formationLoader *fm;
-	double Cthre,Cbal,Cpos;
-
-	double thre,
-bal,pos;
-public :
-	mark(WorldModel *wm,formationLoader *fm);
+	double angle, shift;
+public:
+	ndribble(WorldModel *wm, formationLoader *fm);
 	double calcCost();
-double threatDist();
-double ballDist();
-double transitionDist();
-virtual ~mark() {
-	//base
-}
+	void setAngle(double angle);
+	double getAngle();
+	double safety();
+	~ndribble() {
+//~base();
+	}
+
+};
+class mark: public skilldesc {
+protected:
+	WorldModel * wm;
+	formationLoader *fm;
+	double Cthre, Cbal, Cpos;
+
+	double thre, bal, pos;
+public:
+	mark(WorldModel *wm, formationLoader *fm);
+	double calcCost();
+	double threatDist();
+	double ballDist();
+	double transitionDist();
+	virtual ~mark() {
+		//base
+	}
 
 };
 
