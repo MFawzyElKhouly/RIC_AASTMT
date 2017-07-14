@@ -130,8 +130,8 @@ public:
 			turnAng = abs(turnAng);
 			//cout<<turnAng<< " MY TURN ANGLE\n";
 			time = turnAng / rotSpeed ; //Take care !!
-			if(turnAng > 40)
-				time+=2;
+			if(turnAng > 45)
+				time+=1;
 			return time;
 		}
 };

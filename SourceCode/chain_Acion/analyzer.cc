@@ -175,7 +175,7 @@ void Analyzer::generateBallHolderSkills() {
 	//threatTime = wm->getPlayerTimeTo(threat, wm->getBall());
 	threatTime = clos*1.25;
 	int range = 20;
-	if (wm->distancetoBall(wm->getMyPosition()) < 1.5) {
+	if (wm->distancetoBall(wm->getMyPosition()) < 0.5) {
 		od = false;
 			if (clos > 0//2.6
 		//threatTime > 5 //TODO change this
@@ -184,7 +184,7 @@ void Analyzer::generateBallHolderSkills() {
 			od = true;
 			generatePassPoints(PLAYERS);
 			generateKick();
-			range  = 60;
+			range  = 180;
 			//cout << "FAR"<<clos<<"\n";
 			//return ; //delete
 		}
