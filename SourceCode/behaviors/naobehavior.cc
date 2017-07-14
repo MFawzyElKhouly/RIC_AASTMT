@@ -979,7 +979,10 @@ SkillType NaoBehavior::goToTarget(const VecPosition &target) {
 
 	// If we are within distanceThreshold of the target, we walk directly to the target
 	if (me.getDistanceTo(target) < distanceThreshold) {
-		turnAngle = 0;
+
+		getTargetDistanceAndAngle(ball, distance, turnAngle);
+		if(distance < 0.5)
+			turnAngle = 0;
 	}
 
 	// Walk in the direction that we want.
