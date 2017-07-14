@@ -52,9 +52,9 @@ public:
 		double turnAng = tempTar.getTheta();
 		time = turnAng / rotSpeed;
 		if (wm->getBall().getDistanceTo(this->target) < 4.5)
-			time += 1; //KICK_IK time
+			time += 2.5; //KICK_IK time
 		else
-			time += 2; //KICK_FORWARD time
+			time += 4; //KICK_FORWARD time
 		return time;
 	}
 };
@@ -93,11 +93,11 @@ public:
 		double rotSpeed = 100;
 		VecPosition tempTar = wm->g2l(target);
 		double turnAng = tempTar.getTheta();
-		time = turnAng / rotSpeed;
+		time = turnAng / rotSpeed*2;
 		if (wm->getBall().getDistanceTo(this->target) < 4.5)
-			time += 1; //KICK_IK time
+			time += 2.5; //KICK_IK time
 		else
-			time += 2; //KICK_FORWARD time
+			time += 4; //KICK_FORWARD time
 		return time;
 	}
 };

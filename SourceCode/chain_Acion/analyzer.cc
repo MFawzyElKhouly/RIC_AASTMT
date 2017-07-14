@@ -28,6 +28,7 @@ using namespace std;
 using namespace SIM;
 string strategyFile;
 map<string, double> factors;
+double threatTime;
 
 void loadParameters(string file, map<string, double> &factors) {
 	factors.clear();
@@ -168,11 +169,12 @@ void Analyzer::generateBallHolderSkills() {
 		clos = min(clos,
 				fact * (wm->getBall() - wm->getOpponent(i)).getMagnitude());
 	}
-	double threatTime = wm->getPlayerTimeTo(threat, wm->getBall());
+	//threatTime = wm->getPlayerTimeTo(threat, wm->getBall());
+	threatTime = clos*1.25;
 	int range = 20;
 	if (wm->distancetoBall(wm->getMyPosition()) < 1.5) {
 		od = false;
-			if (clos > 2.6
+			if (clos > 0//2.6
 		//threatTime > 5 //TODO change this
 				) {
 			of = false;
@@ -180,10 +182,10 @@ void Analyzer::generateBallHolderSkills() {
 			generatePassPoints(PLAYERS);
 			generateKick();
 			range  = 60;
-			cout << "FAR"<<clos<<"\n";
+			//cout << "FAR"<<clos<<"\n";
 			//return ; //delete
 		}
-		if (clos > 0.2
+		if (clos > 0//0.2
 		//threatTime >1
 				) {
 			generateDribble(range);
@@ -444,6 +446,7 @@ void Analyzer::generateCanditates() {
 
 	if (!skillset.empty())
 		return;
+	threatTime = 300; //big number
 	//cout<<"..x\n";
 	int ballHolder = wm->getTeammateClosestTo(wm->getBall());
 
@@ -538,7 +541,8 @@ skilldesc Analyzer::getTopSkill() {
 	}
 	max = &skillset[0];
 	for (int i = 0; i < (int) skillset.size(); i++) {
-		if (skillset[i].getCost() < max->getCost())
+		if (skillset[i].getCost() < max->getCost()
+				&& skillset[i].calcTime() < threatTime)
 			max = &skillset[i];
 //		if(wm->getTeammateClosestTo(wm->getBall()) == wm->getUNum()
 //				&& skillset[i].getType() == SKILL_PASS)
