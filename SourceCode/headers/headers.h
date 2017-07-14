@@ -263,7 +263,7 @@ enum SkillType {
 
 	SKILL_KICK_IK_0_LEFT_LEG, //4
 	SKILL_KICK_IK_0_RIGHT_LEG, //5
-	//concrete skills added by Danial
+	//concrete skills added by Daniel
 	SKILL_PASS,	//6
 	SKILL_SHOOT,	//7
 	SKILL_SUPPORT,	//8

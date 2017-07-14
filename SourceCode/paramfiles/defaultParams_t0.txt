@@ -112,5 +112,5 @@ kick_gen_approach_maxDecelY	0.8861122500586298
 
 
 // Parameters for dribbling
-drib_coll_thresh				0.33582030312352373
+drib_coll_thresh				0.033582030312352373
 drib_target					0.17785682250297227

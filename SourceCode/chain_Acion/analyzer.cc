@@ -159,15 +159,18 @@ void Analyzer::generateBallHolderSkills() {
 //								VecPosition(1, 0, 0, CARTESIAN))) < 45) {
 //			continue;
 //		}
-		if(!wm->getWorldObject(i)->validPosition  || wm->getFallenOpponent(i))
+		if(!wm->getWorldObject(i)->validPosition )// || wm->getFallenOpponent(i))
 			continue;
 		double fact = 1;
 		if ((wm->getBall() - wm->getMyPosition()).getAngleWithVector(
 				wm->getBall() - wm->getOpponent(i)) < 90) {
 			//fact = 2;
 		}
+		double add=0;
+		if(wm->getFallenOpponent(i))
+			add = 2;
 		clos = min(clos,
-				fact * (wm->getBall() - wm->getOpponent(i)).getMagnitude());
+				fact * (wm->getBall() - wm->getOpponent(i)).getMagnitude() + add);
 	}
 	//threatTime = wm->getPlayerTimeTo(threat, wm->getBall());
 	threatTime = clos*1.25;
@@ -447,6 +450,7 @@ void Analyzer::generateCanditates() {
 	if (!skillset.empty())
 		return;
 	threatTime = 300; //big number
+	skillset.push_back(*(new skilldesc(SKILL_STAND)));
 	//cout<<"..x\n";
 	int ballHolder = wm->getTeammateClosestTo(wm->getBall());
 
@@ -542,7 +546,7 @@ skilldesc Analyzer::getTopSkill() {
 	max = &skillset[0];
 	for (int i = 0; i < (int) skillset.size(); i++) {
 		if (skillset[i].getCost() < max->getCost()
-				&& skillset[i].calcTime() < threatTime)
+				&& skillset[i].getTime() < threatTime)
 			max = &skillset[i];
 //		if(wm->getTeammateClosestTo(wm->getBall()) == wm->getUNum()
 //				&& skillset[i].getType() == SKILL_PASS)
@@ -558,6 +562,10 @@ skilldesc Analyzer::getTopSkill() {
 	if (t.getCost() - max->getCost() < 0.7 && t.getType() == max->getType()
 			&& (t.getType() == SKILL_PASS || t.getType() == SKILL_DRIBBLE))
 		max = &t;
+	if(wm->getBallHolder() == WO_TEAMMATE1+wm->getUNum()-1)
+			cout <<threatTime<<" "<<max->getType() << " "
+			<< max->getTime() <<endl;
+
 //	if(wm->getTeammateClosestTo(wm->getBall()) == wm->getUNum() )
 //		cout<<max->getType()<<" Is my skill and "<<max->getCost() <<"\n";
 
@@ -585,7 +593,10 @@ double kickSkill::surroundingOpponents(VecPosition target,
 		ret += exponential(wm->getPlayerTimeTo(i, target), Cnear);
 		n++;
 	}
-	return n == 0 ? 0 : ret;
+	double width = HALF_FIELD_Y;
+		width -= abs(target.getY());
+		ret += exponential(width, Cnear);
+	return n == 0 ? 0 : ret/6;
 }
 
 double kickSkill::supportingTeamMates(VecPosition target) {
@@ -663,8 +674,8 @@ double passSkill::evaluatePass(VecPosition passer, VecPosition target) {
 double passSkill::calcCost() {
 	//if (wm->getBall().getDistanceTo(wm->getMyPosition()) > 1.5)
 	//return cost = INF;
-	cost = evaluatePass((wm->getBall()), (target));
-
+	cost = evaluatePass((wm->getBall()), (target))*0.1;
+	this->calcTime();
 	return cost;
 }
 
@@ -701,5 +712,6 @@ void Analyzer::generateKick() {
 	}
 }
 double shootSkill::calcCost() {
+	calcTime();
 	return cost = factor * this->passSafety(wm->getBall(), this->target);
 }

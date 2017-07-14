@@ -196,7 +196,7 @@ SkillType NaoBehavior::kickBallAtPresetTarget() {
 		target.setZ(0);
 
 		VecPosition originalTarget = target;
-		target = navigateAroundBall(target, .5 /*PROXIMITY_TRESH*/,
+		target = navigateAroundBall(target, .2 /*PROXIMITY_TRESH*/,
 				atof(namedParams.find("drib_coll_thresh")->second.c_str()));
 		target = collisionAvoidance(true /*Avoid teamate*/,
 				false /*Avoid opponent*/, false /*Avoid ball*/, .5, .5, target,

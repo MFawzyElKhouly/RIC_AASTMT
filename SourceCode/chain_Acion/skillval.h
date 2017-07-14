@@ -16,13 +16,14 @@ protected:
 	VecPosition target;
 	double cost;
 	double factor;
+	double time;
 public :
 double angle = 0;
 inline skilldesc(SkillType sk){
 	this->skill = sk;
 	target = *(new VecPosition(0,0,0));
-	cost = 1.0;
-
+	cost = 100.0;//change this;
+	time = 0;
 	factor = 1.0;
 }
 inline
@@ -49,7 +50,10 @@ double getCost() {
 
 }
 double virtual calcTime()  {
-	return 0;
+	return time =0;
+}
+double virtual getTime() {
+	return time;
 }
 
 	virtual ~skilldesc(){

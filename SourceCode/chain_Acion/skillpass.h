@@ -46,16 +46,17 @@ public:
 	 * returns time to performs s pass in seconds
 	 */
 	double calcTime() {
-		double time = 0;
-		double rotSpeed = 100;
-		VecPosition tempTar = wm->g2l(target);
-		double turnAng = tempTar.getTheta();
-		time = turnAng / rotSpeed;
-		if (wm->getBall().getDistanceTo(this->target) < 4.5)
-			time += 2.5; //KICK_IK time
-		else
-			time += 4; //KICK_FORWARD time
-		return time;
+		time = 0;
+				double rotSpeed = 100;
+				VecPosition tempTar = wm->g2l(target);
+				double turnAng = tempTar.getTheta();
+				turnAng = abs(turnAng);
+				time = turnAng / rotSpeed *4.2; //Take Care!!
+				if (wm->getBall().getDistanceTo(this->target) < 4.5)
+					time += 0.8; //KICK_IK time
+				else
+					time += 2; //KICK_FORWARD time
+				return time;
 	}
 };
 class throughSkill: public passSkill {
@@ -89,15 +90,16 @@ public:
 	 * returns time to performs s pass in seconds
 	 */
 	double calcTime() {
-		double time = 0;
+		time = 0;
 		double rotSpeed = 100;
 		VecPosition tempTar = wm->g2l(target);
 		double turnAng = tempTar.getTheta();
-		time = turnAng / rotSpeed*2;
+		turnAng = abs(turnAng);
+		time = turnAng / rotSpeed; //Take Care!!
 		if (wm->getBall().getDistanceTo(this->target) < 4.5)
-			time += 2.5; //KICK_IK time
+			time += 1.5; //KICK_IK time
 		else
-			time += 4; //KICK_FORWARD time
+			time += 3; //KICK_FORWARD time
 		return time;
 	}
 };
@@ -121,11 +123,15 @@ public:
 		 * returns time to performs s pass in seconds
 		 */
 		double calcTime()  {
-			double time= 0;
+			 time= 0;
 			double rotSpeed = 100;
 			VecPosition tempTar = wm->g2l(target);
 			double turnAng = tempTar.getTheta();
-			time = turnAng / rotSpeed;
+			turnAng = abs(turnAng);
+			//cout<<turnAng<< " MY TURN ANGLE\n";
+			time = turnAng / rotSpeed ; //Take care !!
+			if(turnAng > 40)
+				time+=2;
 			return time;
 		}
 };

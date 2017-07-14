@@ -174,29 +174,27 @@ getup_parms_stateUp3A1	-120.0
 getup_parms_stateUp3A2	35.0
 getup_parms_stateUp3A4	60.0
 getup_parms_stateUp3L3	15.0
-getup_parms_stateUp3MinTime	0.2
-getup_parms_stateUp5L3	110.0
-getup_parms_stateUp5MinTime	0.04
-getup_parms_stateUp7L1	-35.0
-getup_parms_stateUp7MinTime	0.2
-getup_parms_stateUp9A1	30.0
-getup_parms_stateUp9L1	-80.0
-getup_parms_stateUp9L4	-60.0
-getup_parms_stateUp9L5	-70.0
-getup_parms_stateUp9L6	-40.0
-getup_parms_stateUp9MinTime	0.2
-getup_parms_stateUp11A1	30.0
-getup_parms_stateUp11L1	-60.0 
-getup_parms_stateUp11L5	-80.0
-getup_parms_stateUp11MinTime	0.4
-getup_parms_stateUp13A1	-90.0
-getup_parms_stateUp13L1	-30.0
-getup_parms_stateUp13L3	30.0
-getup_parms_stateUp13L4	-10.0 
-getup_parms_stateUp13L5	-10.0
-getup_parms_stateUp13MinTime	0.04 
-getup_parms_stateUp15MinTime	0.6
-
+getup_parms_stateUp3MinTime	0.32
+getup_parms_stateUp4L3	110.0
+getup_parms_stateUp4L1	-60.0
+getup_parms_stateUp4MinTime	0.06
+getup_parms_stateUp5A1	30.0
+getup_parms_stateUp5L1	-80.0
+getup_parms_stateUp5L4	-60.0
+getup_parms_stateUp5L5	-80.0
+getup_parms_stateUp5L6	-40.0
+getup_parms_stateUp5MinTime	0.15
+getup_parms_stateUp6A1	30.0
+getup_parms_stateUp6L1	-60.0 
+getup_parms_stateUp6L5	-80.0
+getup_parms_stateUp6MinTime	0.3
+getup_parms_stateUp7A1	-90.0
+getup_parms_stateUp7L1	-30.0
+getup_parms_stateUp7L3	30.0
+getup_parms_stateUp7L4	-10.0 
+getup_parms_stateUp7L5	-10.0
+getup_parms_stateUp7MinTime	0.05 
+getup_parms_stateUp8MinTime	0.6
 
 #######################
 ### KICK PARAMETERS ###

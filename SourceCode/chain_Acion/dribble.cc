@@ -22,47 +22,48 @@ using namespace std;
 using namespace SIM;
 
 bool bii = false;
-dribble::dribble(WorldModel *wm,formationLoader *fm):skilldesc(SKILL_DRIBBLE) {
-this->wm = wm;
-this->fm = fm;
-angle= 0;
-map<string, double> factors;
-loadParameters(fm->getStrategy() + "/dribble.io", factors);
+dribble::dribble(WorldModel *wm, formationLoader *fm) :
+		skilldesc(SKILL_DRIBBLE) {
+	this->wm = wm;
+	this->fm = fm;
+	angle = 0;
+	map<string, double> factors;
+	loadParameters(fm->getStrategy() + "/dribble.io", factors);
 
 	CTime = factors["CTime"];
 	C_TheirGoal = factors["theirGoalConst"];
-	TheirGoalP = factors["TheirGoalP"]; surrP = factors["surrP"];
-			Cnear =
-			factors["Cnear"];
-			effP = factors["effP"];
-			safeP = factors["safeP"];
-			factor = factors["factor"];
-			if(!bii) {
-				stringstream ss;
-				ss<<CTime<<"_"<<C_TheirGoal<<"_"<<TheirGoalP<<"_"<<surrP
-						<<"_"<<Cnear<<"_"<<effP<<"_"<<safeP<<"_"<<factor;
-				string mess;
-				ss>>mess;
-				NaoBehavior::debug->debug(0,mess);
-				bii = true;
-			}
+	TheirGoalP = factors["TheirGoalP"];
+	surrP = factors["surrP"];
+	Cnear = factors["Cnear"];
+	effP = factors["effP"];
+	safeP = factors["safeP"];
+	factor = factors["factor"];
+	if (!bii) {
+		stringstream ss;
+		ss << CTime << "_" << C_TheirGoal << "_" << TheirGoalP << "_" << surrP
+				<< "_" << Cnear << "_" << effP << "_" << safeP << "_" << factor;
+		string mess;
+		ss >> mess;
+		NaoBehavior::debug->debug(0, mess);
+		bii = true;
+	}
 }
-double dribble::surroundingOpponents(){
+double dribble::surroundingOpponents() {
 	double ret = 0;
 	int n = 0;
 	for (int i = 0 + WO_OPPONENT1; i < WO_OPPONENT1 + NUM_AGENTS; i++) {
 		if (!wm->getWorldObject(i)->validPosition
 				|| wm->isOut(wm->getWorldObject(i)->pos)
-				||wm->getWorldObject(i)->pos.getDistanceTo(target) > 4)
+				|| wm->getWorldObject(i)->pos.getDistanceTo(target) > 4)
 			continue;
-		ret += exponential(
-				wm->getPlayerTimeTo(i, target) ,
-				Cnear);
+		ret += exponential(wm->getPlayerTimeTo(i, target), Cnear);
 		n++;
 	}
-	return n == 0 ? 0 : ret/6;
+	double width = HALF_FIELD_Y;
+	width -= abs(target.getY());
+	ret += exponential(width, Cnear);
+	return n == 0 ? 0 : ret / 6;
 }
-
 
 double dribble::dribbleSafety() {
 
@@ -77,51 +78,52 @@ double dribble::dribbleSafety() {
 		if (wm->getWorldObject(i)->validPosition && wm->getUNum() != curUNum
 				&& targetPlayer != curUNum)
 
-			nearest = min(nearest, perp(wm->getTeammate(i), wm->getMyPosition(), target));
+			nearest = min(nearest,
+					perp(wm->getTeammate(i), wm->getMyPosition(), target));
 	}
 
-	for (int i =  WO_OPPONENT1; i < WO_OPPONENT1 + NUM_AGENTS; i++)
+	for (int i = WO_OPPONENT1; i < WO_OPPONENT1 + NUM_AGENTS; i++)
 		if (wm->getWorldObject(i)->validPosition)
-			nearest = min(nearest, perp(wm->getOpponent(i), wm->getMyPosition(), target));
+			nearest = min(nearest,
+					perp(wm->getOpponent(i), wm->getMyPosition(), target));
 
 	const double th = 0.2;
 
-	if (nearest <= th) {
+	if (nearest <= th || wm->isOut(target)) {
 		return 1;
 	}
-	double ret = exponential(nearest, 0.5) ;
+	double ret = exponential(nearest, 0.5);
 
 	return ret;
 
- }
+}
 double dribble::effectiveness() {
-double myGoal = exponential(wm->distanceToMyGoal(target), 130);
-		double theirGoal = 1
-				- exponential(wm->distanceToOppGoal(target), TheirGoalP);
-		double surrounding_Opponents = surroundingOpponents();
+	double myGoal = exponential(wm->distanceToMyGoal(target), 130);
+	double theirGoal = 1
+			- exponential(wm->distanceToOppGoal(target), TheirGoalP);
+	double surrounding_Opponents = surroundingOpponents();
 	//	double supporting_TeamMates = supportingTeamMates(target);
 
-		double ret =
-				(myGoal+ theirGoal
-						+ surrounding_Opponents
-						);
-		return ret;
+	double ret = (myGoal + theirGoal + surrounding_Opponents);
+	return ret;
 }
 
 double dribble::calcCost() {
 	double e = effectiveness();
 	double s = dribbleSafety();
-	double ret =5* e + s;// + surrP*dribbleReliability();
+	double ret = 5 * e + s; // + surrP*dribbleReliability();
 	//cout<< "DE = "<<e<< " DS = "<<s <<" DC = "<<ret<<"\n";
 	//ret /= (effP+safeP+surrP);
 	//ret*=factor;
-	if(wm->getPlayMode() != PM_PLAY_ON  ||
-			(wm->getTeammateClosestTo(wm->getBall()) != wm->getUNum() &&
-					wm->getBall().getDistanceTo(wm->getMyPosition()) > 2))
+	if (wm->getPlayMode() != PM_PLAY_ON
+			|| (wm->getTeammateClosestTo(wm->getBall()) != wm->getUNum()
+					&& wm->getBall().getDistanceTo(wm->getMyPosition()) > 2))
 		return INF;
-	return cost =ret;
+	calcTime();
+	return cost = ret;
 }
-ndribble::ndribble(WorldModel *wm,formationLoader *fm):skilldesc(SKILL_DRIBBLE){
+ndribble::ndribble(WorldModel *wm, formationLoader *fm) :
+		skilldesc(SKILL_DRIBBLE) {
 	this->wm = wm;
 	this->fm = fm;
 	angle = 0;
@@ -131,37 +133,37 @@ ndribble::ndribble(WorldModel *wm,formationLoader *fm):skilldesc(SKILL_DRIBBLE){
 	map<string, double> factors;
 	loadParameters(fm->getStrategy() + "/dribble.io", factors);
 
+	factor = factors["factor"];
+	if (!bii) {
+		stringstream ss;
 
-				factor = factors["factor"];
-				if(!bii) {
-					stringstream ss;
-
-					string mess;
-					ss>>mess;
-					NaoBehavior::debug->debug(0,mess);
-					bii = true;
-				}
+		string mess;
+		ss >> mess;
+		NaoBehavior::debug->debug(0, mess);
+		bii = true;
+	}
 }
 double ndribble::calcCost() {
-	return cost = safety()+shift/90;
+	return cost = safety() + shift / 90;
 }
-void ndribble::setAngle(double angle){
-	VecPosition oppGoal = wm->getOppLeftGoalPost()+wm->getOppRightGoalPost();
-		oppGoal/=2;
-	this->angle = angle + (oppGoal - wm->getBall()).getAngleWithVector(
-			VecPosition(1,wm->getMyAngRad(),0,POLAR));
+void ndribble::setAngle(double angle) {
+	VecPosition oppGoal = wm->getOppLeftGoalPost() + wm->getOppRightGoalPost();
+	oppGoal /= 2;
+	this->angle = angle
+			+ (oppGoal - wm->getBall()).getAngleWithVector(
+					VecPosition(1, wm->getMyAngRad(), 0, POLAR));
 	shift = fabs(angle);
-	target = VecPosition(1,this->angle,0,POLAR)+wm->getBall();
+	target = VecPosition(1, this->angle, 0, POLAR) + wm->getBall();
 
 }
 double ndribble::getAngle() {
 	return angle;
 }
-double ndribble::safety(){
-	double time = angle/15;
-	time+=2;
-	for(int i = WO_OPPONENT1;i<=WO_OPPONENT11;i++) {
-		if(wm->getPlayerTimeTo(i,target) < time) {
+double ndribble::safety() {
+	double time = angle / 15;
+	time += 2;
+	for (int i = WO_OPPONENT1; i <= WO_OPPONENT11; i++) {
+		if (wm->getPlayerTimeTo(i, target) < time) {
 			return INF;
 		}
 
