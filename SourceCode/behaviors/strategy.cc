@@ -56,6 +56,11 @@ SkillType NaoBehavior::dribbleAng(double ang) {
 }
 SkillType NaoBehavior::selectSkill() {
 
+	if(worldModel->getUNum() == 5){
+	double AngleWithOpp = me.getAngleWithVector(worldModel->getOpponent(worldModel->getOpponentClosestTo(ball)));
+	cout << AngleWithOpp << endl;
+	}
+	return SKILL_STAND;
 //	if(worldModel->getUNum() !=11)
 //		return SKILL_STAND;
 //	else {

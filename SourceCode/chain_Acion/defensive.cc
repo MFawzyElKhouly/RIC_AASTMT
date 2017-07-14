@@ -35,7 +35,11 @@ using namespace SIM;
 	double mark::calcCost() {
 		if(wm->getTeammateClosestTo(target) != wm->getUNum())
 			return cost = INF;
-		cost = thre*threatDist()*3+bal*ballDist()+pos*transitionDist();
+
+		else if((wm->getOpponentClosestTo(target)+WO_OPPONENT1-1) == (wm->getOpponentClosestTo(bal)+WO_OPPONENT1-1))
+			return cost = INF;
+
+		cost = thre*threatDist()*5+bal*ballDist()+pos*transitionDist();
 		cost/=(thre+bal+pos);
 		cost*=factor;
 		return cost;
