@@ -241,16 +241,16 @@ void Analyzer::generateDefensiveSkills() {
 		scill.setTarget(wm->getOpponent(i));
 		VecPosition targ;
 		scill.calcCost();
-//		if (wm->getRole(wm->getUNum() - 1) < 2) {
-//			if (wm->getOpponent(i).getDistanceTo(wm->getMyLeftGoalPost())
-//					< wm->getOpponent(i).getDistanceTo(
-//							wm->getMyRightGoalPost()))
-//				targ = wm->getOpponent(i) - wm->getMyLeftGoalPost();
-//			else
-//				targ = wm->getOpponent(i) - wm->getMyRightGoalPost();
-//			targ *= 0.25;
-//			targ = wm->getOpponent(i)- targ;
-//		}
+		if (wm->getRole(wm->getUNum() - 1) < 2) {
+			if (wm->getOpponent(i).getDistanceTo(wm->getMyLeftGoalPost())
+					< wm->getOpponent(i).getDistanceTo(
+							wm->getMyRightGoalPost()))
+				targ = wm->getOpponent(i) - wm->getMyLeftGoalPost();
+			else
+				targ = wm->getOpponent(i) - wm->getMyRightGoalPost();
+			targ *= 0.25;
+			targ = wm->getOpponent(i)- targ;
+		}
 		if(wm->getRole(wm->getUNum() - 1) < 3){
 			if (wm->getOpponent(i).getDistanceTo(wm->getMyLeftGoalPost())
 								< wm->getOpponent(i).getDistanceTo(
@@ -258,7 +258,7 @@ void Analyzer::generateDefensiveSkills() {
 							targ = wm->getOpponent(i) - wm->getMyLeftGoalPost();
 						else
 							targ = wm->getOpponent(i) - wm->getMyRightGoalPost();
-						targ *= 0.25;
+						targ *= 0.15;
 						targ = wm->getOpponent(i) - targ;
 		}
 //		 else {
@@ -402,7 +402,7 @@ void Analyzer::generateintersect() {
 //	}
 	if (n == 0 //|| ((wm->distanceToMyGoal(ball) < 10) && (wm->getUNum() < 6))
 			) {
-		cout << "Nearest Player is " << (1-WO_TEAMMATE1 + wm->getUNum()) << endl;
+		//cout << "Nearest Player is " << (1-WO_TEAMMATE1 + wm->getUNum()) << endl;
 		skilldesc scill = *(new skilldesc(SKILL_INTERCEPT));
 		//tar = wm->getBall();//- VecPosition(0.4,0,0,CARTESIAN);
 
