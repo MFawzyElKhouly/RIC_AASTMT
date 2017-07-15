@@ -29,10 +29,27 @@ supportSkill::supportSkill(WorldModel *wm, formationLoader *loader) :
 //		Clen = factors["lengthConstant"];
 //		CNear = factors["pressConstant"];
 //		factor  = factors["factor"];
+	int bh = wm->getTeammateClosestTo(wm->getBall());
+	int cl = 1;
+	double dd = 100;
+	for (int i = WO_TEAMMATE2;i<=WO_TEAMMATE11;i++) {
+		if(i -WO_TEAMMATE1+1 == bh)
+			continue;
+		if(wm->getBall().getDistanceTo(wm->getTeammate(i)) < dd) {
+			dd = wm->getBall().getDistanceTo(wm->getTeammate(i));
+			cl = i-WO_TEAMMATE1+1;
+		}
+	}
 	if (wm->getBall().getDistanceTo(wm->getMyPosition()) > maxShot) {
+
 		target = wm->getBall();
 
-	} else {
+	} else if(wm->getBall().getDistanceTo(wm->getMyPosition()) > 4.5
+			&& cl==wm->getUNum()) {
+		target = wm->getBall();
+
+
+	}else {
 		cost = 100;
 		double mtheta = -180;
 		for(double theta = -180;theta < 180;theta+=15) {

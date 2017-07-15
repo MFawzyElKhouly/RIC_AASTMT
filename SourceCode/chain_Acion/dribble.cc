@@ -111,7 +111,7 @@ double dribble::effectiveness() {
 double dribble::calcCost() {
 	double e = effectiveness();
 	double s = dribbleSafety();
-	double ret = 5 * e + s; // + surrP*dribbleReliability();
+	double ret = 7 * e + s; // + surrP*dribbleReliability();
 	//cout<< "DE = "<<e<< " DS = "<<s <<" DC = "<<ret<<"\n";
 	//ret /= (effP+safeP+surrP);
 	//ret*=factor;

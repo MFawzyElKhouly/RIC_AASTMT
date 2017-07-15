@@ -58,7 +58,7 @@ SkillType NaoBehavior::getAttackSkill() {
 		else
 			ret = kickBall(KICK_IK, skilltarg.getTarget());
 		//if (ret != SKILL_STAND && ret != SKILL_WALK_OMNI)
-		analyzer->resetCandidates();
+		//analyzer->resetCandidates();
 		return ret;
 	} else if (skilltarg.getType() == SKILL_WALK_OMNI
 			|| skilltarg.getType() == SKILL_INTERCEPT) {

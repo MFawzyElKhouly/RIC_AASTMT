@@ -701,7 +701,7 @@ double passSkill::evaluatePass(VecPosition passer, VecPosition target) {
 	target.setZ(0);
 	double e = effectiveness(passer, target);
 	double s = passSafety(passer, target);
-	cost = (5*e + s);
+	cost = (7*e + s);
 	//cout << ">>>>>>>>>>PE = " << e << " PS = " << s << " PC = " << cost << "\n";
 
 	return cost;
@@ -710,7 +710,7 @@ double passSkill::evaluatePass(VecPosition passer, VecPosition target) {
 double passSkill::calcCost() {
 	//if (wm->getBall().getDistanceTo(wm->getMyPosition()) > 1.5)
 	//return cost = INF;
-	cost = evaluatePass((wm->getBall()), (target))*0.1;
+	cost = evaluatePass((wm->getBall()), (target));
 	this->calcTime();
 	return cost;
 }
