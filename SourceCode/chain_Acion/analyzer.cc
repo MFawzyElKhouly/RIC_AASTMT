@@ -376,7 +376,7 @@ void Analyzer::generateintersect() {
 	else if(((MyNum == 4 && n!=0 && n!=1) && ball.getX()<0)){
 		skilldesc scill = *(new skilldesc(SKILL_INTERCEPT));
 		//cout << "Player NO 4 GOOOOOOO" << endl;
-	//	cout << "Nrst Right Isssss " << NrstRightTeammate << endl;
+	//	cout << "Nrst Rtaright Isssss " << NrstRightTeammate << endl;
 		scill.setTarget(tar);
 		scill.setCost(0);
 		skillset.push_back(scill);
@@ -401,7 +401,9 @@ void Analyzer::generateintersect() {
 //		skillset.push_borienack(scill);
 //	}
 		int Opp = wm->getOpponentClosestTo(ball)+WO_OPPONENT1-1;
+	//	double OppTheta = wm->getOpponent(wm->getOpponentClosestTo(ball)).getTheta();
 		VecPosition target;
+
 		if(wm->getSide() == SIDE_RIGHT)
 			target = ball
 					+ *(new VecPosition(-1.7, Deg2Rad(wm->getWorldObject(Opp)->orien),
@@ -418,7 +420,8 @@ void Analyzer::generateintersect() {
 			skillset.push_back(scill);
 			return;
 	}
-	else if(n == 1 && wm->getFallenTeammate(wm->getTeammateClosestTo(ball)) == true){
+	else if(n == 1 && wm->getFallenTeammate(wm->getTeammateClosestTo(ball)+WO_TEAMMATE1-1) == true){
+		cout << "FALLEN TEAMMATE" << endl;
 		skilldesc scill = *(new skilldesc(SKILL_INTERCEPT));
 		scill.setTarget(target);
 		scill.setCost(0);
@@ -431,32 +434,36 @@ void Analyzer::generateintersect() {
 		mark scill = *(new mark(wm, loader));
 		VecPosition targ;
 		scill.setCost(0);
-		if (wm->getOpponent(i).getDistanceTo(wm->getMyLeftGoalPost())
-							< wm->getOpponent(i).getDistanceTo(
-									wm->getMyRightGoalPost()))
-						targ = wm->getOpponent(i) - wm->getMyLeftGoalPost();
-					else
-						targ = wm->getOpponent(i) - wm->getMyRightGoalPost();
-
-		targ*= 0.20;
-		targ = ball - targ;
-		scill.setTarget(targ);
+//		if (wm->getOpponent(i).getDistanceTo(wm->getMyLeftGoalPost())
+//							< wm->getOpponent(i).getDistanceTo(
+//									wm->getMyRightGoalPost()))
+//						targ = wm->getOpponent(i) - wm->getMyLeftGoalPost();
+//					else
+//						targ = wm->getOpponent(i) - wm->getMyRightGoalPost();
+//
+//		targ*= 0.20;
+//		targ = ball - targ;
+		scill.setTarget(tar);
 		skillset.push_back(scill);
 	}
-	else if(n == 2 && ball.getY() < 10){
+	else if(n == 2 && ball.getDistanceTo((wm->getMyRightGoalPost()+wm->getMyLeftGoalPost())/2)<10.0){
 		skilldesc scill = *(new skilldesc(SKILL_INTERCEPT));
-		VecPosition targ;
-				scill.setCost(0);
-				if (wm->getOpponent(i).getDistanceTo(wm->getMyLeftGoalPost())
-									< wm->getOpponent(i).getDistanceTo(
-											wm->getMyRightGoalPost()))
-								targ = wm->getOpponent(i) - wm->getMyLeftGoalPost();
-							else
-								targ = wm->getOpponent(i) - wm->getMyRightGoalPost();
-
-				targ*= 0.50;
-				targ = ball - targ;
-				scill.setTarget(targ);
+		scill.setCost(0);
+//				if (wm->getOpponent(i).getDistanceTo(wm->getMyLeftGoalPost())
+//									< wm->getOpponent(i).getDistanceTo(
+//											wm->getMyRightGoalPost()))
+//								targ = wm->getOpponent(i) - wm->getMyLeftGoalPost();
+//							else
+//								targ = wm->getOpponent(i) - wm->getMyRightGoalPost();
+		if(ball.getX()<0){
+			tar.setX(tar.getX()-1);
+			cout << "BaLLX < 0 " << endl;
+		}
+			else
+				tar.setX(tar.getX()+1);
+				//targ*= 0.50;
+				//targ = ball - targ;
+				scill.setTarget(tar);
 				skillset.push_back(scill);
 	}
 

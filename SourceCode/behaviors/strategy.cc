@@ -55,12 +55,15 @@ SkillType NaoBehavior::dribbleAng(double ang) {
 
 }
 SkillType NaoBehavior::selectSkill() {
-
-	if(worldModel->getUNum() == 5){
-	double AngleWithOpp = me.getAngleWithVector(worldModel->getOpponent(worldModel->getOpponentClosestTo(ball)));
-	cout << AngleWithOpp << endl;
-	}
-	return SKILL_STAND;
+//	int i = WO_OPPONENT1 - 1 + worldModel->getOpponentClosestTo(ball);
+//		VecPosition v = worldModel->getMyRightGoalPost() + worldModel->getMyLeftGoalPost();
+//		v /= 2;
+//		double ang = worldModel->getWorldObject(i)->orien;
+//		cout << ang << endl;
+//		return SKILL_STAND;
+//	double AngleWithOpp = worldModel->getTeammate(5).getAngleWithVector(ball);
+//	cout << AngleWithOpp << endl;
+//	return SKILL_STAND;
 //	if(worldModel->getUNum() !=11)
 //		return SKILL_STAND;
 //	else {
@@ -87,7 +90,7 @@ SkillType NaoBehavior::selectSkill() {
 		double DisToOpp = me.getDistanceTo(opp);
 		int AngleWithOpp = me.getAngleWithVector(opp);
 		//cout << "Me " << AngleWithOpp << endl;
-		if(DisToOpp < 0.25 && fabs(AngleWithOpp) < 5){
+		if(DisToOpp < 0.25 && fabs(AngleWithOpp) < 5 && ball.getY()<10){
 			//cout << "Angle With Opponent = " << AngleWithOpp << endl;
 			VecPosition vec = me.getVecPositionFromPolar(1,me.getTheta(),0);
 			//cout << "Ball Position : " << ball.getX() << " " << ball.getY() << " " << ball.getZ() << endl;
