@@ -1,3 +1,4 @@
+
 #include "naobehavior.h"
 #include "../rvdraw/rvdraw.h"
 
@@ -203,3 +204,4 @@ SkillType NaoBehavior::demoKickingCircle() {
 	}
 }
 
+>>>>>>> branch 'Intersect' of https://github.com/MFawzyElKhouly/RIC_AASTMT.git
