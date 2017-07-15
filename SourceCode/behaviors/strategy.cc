@@ -83,14 +83,15 @@ SkillType NaoBehavior::selectSkill() {
 		//return SKILL_STAND;
 	double oppDis = ball.getDistanceTo(worldModel->getOpponent(worldModel->getOpponentClosestTo(ball)+WO_OPPONENT1-1));
 		//cout << "Player " << wm->getUNum() << endl;
+	VecPosition HALF_GOAL = (worldModel->getMyLastPosition()+worldModel->getMyRightGoalPost())/2;
 	double MeDisToBall = ball.getDistanceTo(worldModel->getTeammate(worldModel->getTeammateClosestTo(ball)+WO_TEAMMATE1-1));
-	if(worldModel->getTeammateClosestTo(ball) == worldModel->getUNum() && me.getDistanceTo(ball)<0.3){
+	if((worldModel->getTeammateClosestTo(ball) == worldModel->getUNum()) && me.getDistanceTo(ball)<0.3){
 	for(int i=WO_OPPONENT1;i<=WO_OPPONENT11;i++){
 		VecPosition opp = worldModel->getOpponent(i);
 		double DisToOpp = me.getDistanceTo(opp);
 		int AngleWithOpp = me.getAngleWithVector(opp);
 		//cout << "Me " << AngleWithOpp << endl;
-		if(DisToOpp < 0.25 && fabs(AngleWithOpp) < 5 && ball.getY()<10){
+		if(DisToOpp < 0.25 && fabs(AngleWithOpp) < 5 && ball.getDistanceTo(HALF_GOAL)<10.0){
 			//cout << "Angle With Opponent = " << AngleWithOpp << endl;
 			VecPosition vec = me.getVecPositionFromPolar(1,me.getTheta(),0);
 			//cout << "Ball Position : " << ball.getX() << " " << ball.getY() << " " << ball.getZ() << endl;

@@ -415,12 +415,12 @@ void Analyzer::generateintersect() {
 	if (n == 0 //|| ((wm->distanceToMyGoal(ball) < 10) && (wm->getUNum() < 6))
 			) {
 		skilldesc scill = *(new skilldesc(SKILL_INTERCEPT));
-			scill.setTarget(target);
+			scill.setTarget((tar+ball)/2);
 			scill.setCost(0);
 			skillset.push_back(scill);
 			return;
 	}
-	else if(n == 1 && wm->getFallenTeammate(wm->getTeammateClosestTo(ball)+WO_TEAMMATE1-1) == true){
+	else if(n == 1 && (wm->getFallenTeammate(wm->getTeammateClosestTo(ball))+WO_TEAMMATE1-1) == true){
 		cout << "FALLEN TEAMMATE" << endl;
 		skilldesc scill = *(new skilldesc(SKILL_INTERCEPT));
 		scill.setTarget(target);
@@ -443,7 +443,8 @@ void Analyzer::generateintersect() {
 //
 //		targ*= 0.20;
 //		targ = ball - targ;
-		scill.setTarget(tar);
+		scill.setTarget(tar);//targ*= 0.50;
+		//targ = ball - targ;
 		skillset.push_back(scill);
 	}
 	else if(n == 2 && ball.getDistanceTo((wm->getMyRightGoalPost()+wm->getMyLeftGoalPost())/2)<10.0){
@@ -455,14 +456,12 @@ void Analyzer::generateintersect() {
 //								targ = wm->getOpponent(i) - wm->getMyLeftGoalPost();
 //							else
 //								targ = wm->getOpponent(i) - wm->getMyRightGoalPost();
-		if(ball.getX()<0){
-			tar.setX(tar.getX()-1);
-			cout << "BaLLX < 0 " << endl;
-		}
-			else
-				tar.setX(tar.getX()+1);
-				//targ*= 0.50;
-				//targ = ball - targ;
+//		if(ball.getX()<0
+		//			tar.setX(tar.){
+//			tar.setX(tar.getX()-1);
+//			//cout << "BaLLX < 0 " << endl;
+//		}
+				tar = tar*0.8;
 				scill.setTarget(tar);
 				skillset.push_back(scill);
 	}
