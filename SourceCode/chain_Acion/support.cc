@@ -32,29 +32,30 @@ supportSkill::supportSkill(WorldModel *wm, formationLoader *loader) :
 	int bh = wm->getTeammateClosestTo(wm->getBall());
 	int cl = 1; // second closest to ball
 	double dd = 100;
-	for (int i = WO_TEAMMATE2;i<=WO_TEAMMATE11;i++) {
-		if(i -WO_TEAMMATE1+1 == bh)
+	for (int i = WO_TEAMMATE2; i <= WO_TEAMMATE11; i++) {
+		if (i - WO_TEAMMATE1 + 1 == bh)
 			continue;
-		if(wm->getBall().getDistanceTo(wm->getTeammate(i)) < dd) {
+		if (wm->getBall().getDistanceTo(wm->getTeammate(i)) < dd) {
 			dd = wm->getBall().getDistanceTo(wm->getTeammate(i));
-			cl = i-WO_TEAMMATE1+1;
+			cl = i - WO_TEAMMATE1 + 1;
 		}
 	}
 	if (wm->getBall().getDistanceTo(wm->getMyPosition()) > maxShot) {
 
 		target = wm->getBall();
 
-	} else if(wm->getBall().getDistanceTo(wm->getMyPosition()) > 5
-			&& cl==wm->getUNum()) {
-		target = wm->getBall();
+	}
+	//else if(wm->getBall().getDistanceTo(wm->getMyPosition()) > 5
+	//	&& cl==wm->getUNum()) {
+	//	target = wm->getBall();
 
-
-	}else {
+//	}
+	else {
 		cost = 100;
 		double mtheta = -180;
-		for(double theta = -180;theta < 180;theta+=15) {
+		for (double theta = -180; theta < 180; theta += 15) {
 			double x = generateTarget(theta);
-			if(x < cost) {
+			if (x < cost) {
 				cost = x;
 				mtheta = theta;
 			}
@@ -77,22 +78,24 @@ double supportSkill::generateTarget(double theta) {
 	}
 	double nearest = 1e9;
 	for (int i = 0 + WO_TEAMMATE1; i < WO_TEAMMATE1 + NUM_AGENTS; i++) {
-			int curUNum = i - WO_TEAMMATE1 + 1;
-			if (wm->getWorldObject(i)->validPosition && wm->getUNum() != curUNum
-					&& target != curUNum)
+		int curUNum = i - WO_TEAMMATE1 + 1;
+		if (wm->getWorldObject(i)->validPosition && wm->getUNum() != curUNum
+				&& target != curUNum)
 
-				nearest = min(nearest, perp(wm->getTeammate(i), wm->getBall(), target));
-		}
+			nearest = min(nearest,
+					perp(wm->getTeammate(i), wm->getBall(), target));
+	}
 
-		for (int i = WO_OPPONENT1; i < WO_OPPONENT1 + NUM_AGENTS; i++)
-			if (wm->getWorldObject(i)->validPosition)
-				nearest = min(nearest, perp(wm->getOpponent(i), wm->getBall(), target));
+	for (int i = WO_OPPONENT1; i < WO_OPPONENT1 + NUM_AGENTS; i++)
+		if (wm->getWorldObject(i)->validPosition)
+			nearest = min(nearest,
+					perp(wm->getOpponent(i), wm->getBall(), target));
 
-		const double th = 0.2;
+	const double th = 0.2;
 
-		if (nearest <= th) {
-			return 100;
-		}
+	if (nearest <= th) {
+		return 100;
+	}
 	return ret + myGoal;
 }
 double supportSkill::lengthOfSupport() {

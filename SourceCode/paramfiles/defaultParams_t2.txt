@@ -155,31 +155,3 @@ kick_gen_approach_maxDecelY	0.5754931880185323
 // Parameters for dribbling
 drib_coll_thresh				0.033582030312352373
 drib_target					0.17785682250297227
-
-
-utwalk_max_step_size_angle	0.8545494920155963
-utwalk_max_step_size_x	94.476880413606
-utwalk_max_step_size_y	134.359686151821
-utwalk_shift_amount	-17.300682419997
-utwalk_walk_height	167.571303198089
-utwalk_step_height	76.271814202027
-utwalk_fraction_still	0.231287162229
-utwalk_fraction_on_ground	-0.848778325793
-utwalk_phase_length	0.044422086611
-utwalk_pid_step_size_x	0.037104939141
-utwalk_pid_step_size_y	0.073850851304
-utwalk_pid_step_size_rot	0.10935016019620925
-utwalk_max_normal_com_error	25.110441007376
-utwalk_max_acceptable_com_error	190.262976049982
-utwalk_fwd_offset	-29.073824360974
-utwalk_fwd_offset_factor	0.892436044060
-utwalk_fraction_in_air	1.848778325793
-utwalk_fraction_moving	0.768712837771
-utwalk_swing_ankle_offset	-0.801888193121
-utwalk_pid_tilt	0.15
-utwalk_pid_roll	0.2
-utwalk_pid_com_x	1.0
-utwalk_pid_com_y	1.0
-utwalk_pid_com_z	0.0
-utwalk_pid_arm_x	0.0
-utwalk_pid_arm_y	0.0

@@ -111,14 +111,10 @@ double dribble::effectiveness() {
 double dribble::calcCost() {
 	double e = effectiveness();
 	double s = dribbleSafety();
-	double ret = 5.5 * e + 1*s; // + surrP*dribbleReliability();
+	double ret = 6 * e + 1*s; // + surrP*dribbleReliability();
 	//cout<< "DE = "<<e<< " DS = "<<s <<" DC = "<<ret<<"\n";
 	//ret /= (effP+safeP+surrP);
 	//ret*=factor;
-	if (wm->getPlayMode() != PM_PLAY_ON
-			|| (wm->getTeammateClosestTo(wm->getBall()) != wm->getUNum()
-					&& wm->getBall().getDistanceTo(wm->getMyPosition()) > 2))
-		return INF;
 	calcTime();
 	return cost = ret;
 }

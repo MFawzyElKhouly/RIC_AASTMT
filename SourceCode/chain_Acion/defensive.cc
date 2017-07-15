@@ -33,13 +33,16 @@ using namespace SIM;
 			factor = factors["factor"];
 		}
 	double mark::calcCost() {
-		if(wm->getTeammateClosestTo(target) != wm->getUNum())
+		if(wm->getTeammateClosestTo(target) != wm->getUNum() && (wm->getTeammateClosestTo(wm->getBall()) != wm->getTeammateClosestTo(target))
+				&& wm->getTeammateClosestTo(target)!=1)
 			return cost = INF;
 
 		else if((wm->getOpponentClosestTo(target)+WO_OPPONENT1-1) == (wm->getOpponentClosestTo(wm->getBall())+WO_OPPONENT1-1))
 			return cost = INF;
-
-		cost = thre*threatDist()*5+bal*ballDist()+pos*transitionDist();
+		if(target.getDistanceTo((wm->getMyLeftGoalPost()+wm->getMyRightGoalPost())/2)<5)
+			cost = thre*threatDist()*10+bal*ballDist()+pos*transitionDist();
+		else
+			cost = thre*threatDist()*7+bal*ballDist()+pos*transitionDist();
 		cost/=(thre+bal+pos);
 		cost*=factor;
 		return cost;

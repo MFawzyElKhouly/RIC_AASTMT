@@ -56,6 +56,7 @@ public:
 					time += 1; //KICK_IK time
 				else
 					time += 3.5; //KICK_FORWARD time
+				time=2.6;
 				return time;
 	}
 };
