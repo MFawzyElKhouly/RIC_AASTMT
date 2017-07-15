@@ -56,6 +56,20 @@ SkillType NaoBehavior::dribbleAng(double ang) {
 
 }
 SkillType NaoBehavior::selectSkill() {
+//	int Opp = worldModel->getOpponentClosestTo(ball)+WO_OPPONENT1-1;
+//	VecPosition target;
+//	target = ball
+//						+ *(new VecPosition(-1.5,Deg2Rad(worldModel->getWorldObject(Opp)->orien)
+//								,0, POLAR));
+//	cout << "Ball Pos = " << ball.getX() << " " << ball.getY() << endl;
+//			cout << "New POSSSSSS = " << target.getX() << " " << target.getY() << endl;
+//return SKILL_STAND;
+			//	if(worldModel->getUNum() == 5){
+//		cout << "Prev X = " << me.getX() << "Prev Y = " << me.getY() << endl;
+//		VecPosition newone = me+(*(new VecPosition(0.4,0,0,POLAR)));
+//		cout << "New X = " << newone.getX() << "New Y = " << newone.getY() << endl;
+//	}
+//	return SKILL_STAND;
 //	int i = WO_OPPONENT1 - 1 + worldModel->getOpponentClosestTo(ball);
 //		VecPosition v = worldModel->getMyRightGoalPost() + worldModel->getMyLeftGoalPost();
 //		v /= 2;
@@ -63,7 +77,8 @@ SkillType NaoBehavior::selectSkill() {
 //		cout << ang << endl;
 //		return SKILL_STAND;
 //	double AngleWithOpp = worldModel->getTeammate(5).getAngleWithVector(ball);
-//	cout << AngleWithOpp << endl;
+//	cout << Angle(InputServer) CreateDevice Keyboard
+
 //	return SKILL_STAND;
 //	if(worldModel->getUNum() !=11)
 //		return SKILL_STAND;
@@ -75,13 +90,13 @@ SkillType NaoBehavior::selectSkill() {
 //	int Opp = worldModel->getOpponentClosestTo(ball)+WO_OPPONENT1-1;
 //	VecPosition OppPos = worldModel->getOpponent(Opp);
 //	VecPosition target = worldModel->getOpponent(Opp)
-//			+ *(new VecPosition(-1.0, Deg2Rad(worldModel->getWorldObject(Opp)->orien),
-//									0, POLAR));
+//			+ *(new VecPosition(-1.0, -180//Deg2Rad(worldModel->getWorldObject(Opp)->orien)
+//					,0, POLAR));
 //			//VecPosition Intersection_pt = Point.getVecPositionFromPolar(Point.getX()*1.8,Point.getY(),Point.getZ());
 //				cout << "Opp Pos " << OppPos.getX() << " " << OppPos.getY() << endl;
 //				cout <<  "Estimated Position " << target.getX() << " " << target.getY() << endl;
-
-		//return SKILL_STAND;
+//
+//		return SKILL_STAND;
 	double oppDis = ball.getDistanceTo(worldModel->getOpponent(worldModel->getOpponentClosestTo(ball)+WO_OPPONENT1-1));
 		//cout << "Player " << wm->getUNum() << endl;
 	VecPosition HALF_GOAL = (worldModel->getMyLastPosition()+worldModel->getMyRightGoalPost())/2;
@@ -202,4 +217,4 @@ SkillType NaoBehavior::demoKickingCircle() {
 	}
 }
 
->>>>>>> branch 'Intersect' of https://github.com/MFawzyElKhouly/RIC_AASTMT.git
+//>>>>>>> branch 'Intersect' of https://github.com/MFawzyElKhouly/RIC_AASTMT.git

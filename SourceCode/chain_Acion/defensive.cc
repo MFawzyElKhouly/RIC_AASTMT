@@ -30,12 +30,14 @@ using namespace SIM;
 			pos = factors["pos"], thre = factors["thre"];
 						bal = factors["bal"];
 
+
 			factor = factors["factor"];
 		}
 	double mark::calcCost() {
 		if(wm->getTeammateClosestTo(target) != wm->getUNum() && (wm->getTeammateClosestTo(wm->getBall()) != wm->getTeammateClosestTo(target))
 				&& wm->getTeammateClosestTo(target)!=1)
 			return cost = INF;
+
 
 		else if((wm->getOpponentClosestTo(target)+WO_OPPONENT1-1) == (wm->getOpponentClosestTo(wm->getBall())+WO_OPPONENT1-1))
 			return cost = INF;
