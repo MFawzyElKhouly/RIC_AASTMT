@@ -175,7 +175,7 @@ void Analyzer::generateBallHolderSkills() {
 	//threatTime = wm->getPlayerTimeTo(threat, wm->getBall());
 	threatTime = clos*1.25;
 	int range = 20;
-	if (wm->distancetoBall(wm->getMyPosition()) < 0.5) {
+	if (wm->distancetoBall(wm->getMyPosition()) < 1.5) {
 		od = false;
 			if (clos > 0//2.6
 		//threatTime > 5 //TODO change this
@@ -220,7 +220,7 @@ void Analyzer::generateAttackingSkills() {
 	}
 	int theirh = wm->getOpponentFastestTo(wm->getBall());
 	int mate = wm->getTeammateFastestTo(wm->getBall());
-	if()
+	//if()
 	if (theirh == -1
 			|| wm->getPlayerTimeTo(theirh + WO_OPPONENT1, wm->getBall())
 					> wm->getPlayerTimeTo(mate + WO_TEAMMATE1, wm->getBall())) {
@@ -373,7 +373,7 @@ void Analyzer::generateintersect() {
 ////			}
 //	}
 	if(Mark == 10 && (wm->getUNum()+WO_TEAMMATE1-1) == wm->getTeammateClosestTo(ball)){
-		cout << "MARKING " << endl;
+		//cout << "MARKING " << endl;
 		skilldesc scill = *(new skilldesc(SKILL_INTERCEPT));
 		scill.setTarget(tar);
 		scill.setCost(0);
@@ -420,15 +420,20 @@ void Analyzer::generateintersect() {
 											0, POLAR));
 	if (n == 0 //|| ((wm->distanceToMyGoal(ball) < 10) && (wm->getUNum() < 6))
 			) {
-		VecPosition IncDis = *(new VecPosition (0.3,0,0,POLAR));
-		skilldesc scill = *(new skilldesc(SKILL_INTERCEPT));
-			scill.setTarget((ball+tar)/2+IncDis);
+			VecPosition tar, ball = wm->getBall();
+			VecPosition lball  = wm->g2l(ball);
+			tar = lball+VecPosition(1,wm->getWorldObject(wm->getOpponentClosestTo(ball)+WO_OPPONENT1-1)->orien,0,POLAR);
+			tar =wm->l2g(tar);
+
+			VecPosition IncDis = *(new VecPosition(0.4, 0, 0, POLAR));
+			skilldesc scill = *(new skilldesc(SKILL_INTERCEPT));
+			scill.setTarget(tar);//(ball+tar)/2);
 			scill.setCost(0);
 			skillset.push_back(scill);
 			return;
 	}
 	else if(n == 1 && (wm->getFallenTeammate(wm->getTeammateClosestTo(ball))) == true){
-		cout << "FALLEN TEAMMATE" << endl;
+		//cout << "FALLEN TEAMMATE" << endl;
 		skilldesc scill = *(new skilldesc(SKILL_INTERCEPT));
 		scill.setTarget(target);
 		scill.setCost(0);
@@ -497,8 +502,14 @@ void Analyzer::generateCanditates() {
 	skillset.push_back(*(new skilldesc(SKILL_STAND)));
 	//cout<<"..x\n";
 	int ballHolder = wm->getTeammateClosestTo(wm->getBall());
-
-	if (ballHolder == wm->getUNum()
+	bool really = false;
+	for (int i = WO_TEAMMATE1;i<=WO_TEAMMATE11;i++) {
+		double dist = wm->getTeammate(i).getDistanceTo(ball);
+		if( dist < ball.getDistanceTo(wm->getMyPosition()) && dist <1) {
+			really = true;
+		}
+	}
+	if (ballHolder == wm->getUNum() && !really
 	//&&loader->getTeamState() == ATTACKING
 			) {
 		generateBallHolderSkills();
@@ -613,7 +624,10 @@ skilldesc Analyzer::getTopSkill() {
 //	if(wm->getTeammateClosestTo(wm->getBall()) == wm->getUNum() )
 //		cout<<max->getType()<<" Is my skill and "<<max->getCost() <<"\n";
 
-
+	if(max->getType() == SKILL_DRIBBLE) {
+		VecPosition tar = max->getTarget();
+		cout<<"IAm dribbling at"<<wm->g2l(tar).getTheta()<<endl;
+	}
 
 	return *max;
 }
@@ -709,7 +723,7 @@ double passSkill::evaluatePass(VecPosition passer, VecPosition target) {
 	target.setZ(0);
 	double e = effectiveness(passer, target);
 	double s = passSafety(passer, target);
-	cost = (5*e + 2*s);
+	cost = (5.5*e + 1*s);
 	//cout << ">>>>>>>>>>PE = " << e << " PS = " << s << " PC = " << cost << "\n";
 
 	return cost;

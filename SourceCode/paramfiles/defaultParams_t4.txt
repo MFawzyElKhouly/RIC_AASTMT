@@ -261,4 +261,31 @@ utwalk_toe_phase_offset	0.127678454571
 utwalk_ankle_const_offset	0.006124886450
 utwalk_ankle_amplitude	-0.009780790253
 utwalk_ankle_phase_offset	0.168332553635
-
+############################################## NEW ############################################
+// walk
+utwalk_max_step_size_angle	0.353098492289
+utwalk_max_step_size_x	120.949557674590
+utwalk_max_step_size_y	42.562329511951
+utwalk_shift_amount	1.092660871914
+utwalk_walk_height	159.414418987833
+utwalk_step_height	71.383014133150
+utwalk_fraction_still	0.230290565779
+utwalk_fraction_on_ground	-0.742690046997
+utwalk_phase_length	0.041518606547
+utwalk_pid_step_size_x	0.058765531967
+utwalk_pid_step_size_y	0.53288827078
+utwalk_pid_step_size_rot	1.422715730957
+utwalk_max_normal_com_error	48.432317806321
+utwalk_max_acceptable_com_error	119.943883027647
+utwalk_fwd_offset	-36.536951279257
+utwalk_fwd_offset_factor	0.720663094273
+utwalk_fraction_in_air	1.742690046997
+utwalk_fraction_moving	0.769709434221
+utwalk_swing_ankle_offset	0.797352471359
+utwalk_toe_const_offset	0.101406461192
+utwalk_toe_amplitude	-0.413964376160
+utwalk_toe_phase_offset	0.127678454571
+utwalk_ankle_const_offset	0.006124886450
+utwalk_ankle_amplitude	0.09780790253
+utwalk_ankle_phase_offset	0.168332553635
+####################################################

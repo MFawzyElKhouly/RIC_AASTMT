@@ -94,11 +94,7 @@ SkillType NaoBehavior::selectSkill() {
 		double MyAng = worldModel->getWorldObject(worldModel->getUNum()+WO_TEAMMATE1-1)->orien;
 		//cout << "Me " << AngleWithOpp << endl;
 		if(DisToOpp < 0.25 && fabs(AngleWithOpp) < 5 && me.getDistanceTo(HALF_GOAL)<7.0
-				&& fabs(MyAng)<90){
-			//cout << "Angle With Opponent = " << AngleWithOpp << endl;
-			VecPosition vec = me.getVecPositionFromPolar(1,me.getTheta(),0);
-			//cout << "Ball Position : " << ball.getX() << " " << ball.getY() << " " << ball.getZ() << endl;
-			//cout << "Target Position : " << vec.getX() << " " << vec.getY() << " " << vec.getZ() << endl;
+				&& fabs(MyAng)<60){
 			return intercept();
 			}
 		}
@@ -203,5 +199,3 @@ SkillType NaoBehavior::demoKickingCircle() {
 		}
 	}
 }
-
->>>>>>> branch 'Intersect' of https://github.com/MFawzyElKhouly/RIC_AASTMT.git
