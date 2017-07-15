@@ -119,6 +119,7 @@ public :
 double threatDist();
 double ballDist();
 double transitionDist();
+double PreventGo();
 virtual ~mark() {
 	//base
 }
