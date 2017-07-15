@@ -277,7 +277,7 @@ void Analyzer::generateDefensiveSkills() {
 
 void Analyzer::generateintersect() {
 	int n = 0;
-	//int Mark = 1;
+	int Mark = 0;
 	VecPosition me = wm->getMyPosition();
 	VecPosition Half_Goal = (wm->getMyLeftGoalPost()+wm->getMyRightGoalPost())/2;
 		//int NrstLeftTeammate,NrstRightTeammate;
@@ -307,6 +307,7 @@ void Analyzer::generateintersect() {
 		double di = wm->distancetoBall(wm->getTeammate(i));
 		if (wm->getTeammate(i).getX() > wm->getBall().getX()// && wm->distancetoBall(wm->getTeammate(i)) > 1.5
 				){
+			Mark++;
 			di += 50;
 		}
 
@@ -365,7 +366,15 @@ void Analyzer::generateintersect() {
 ////				skillset.push_back(scill);
 ////			}
 //	}
-	if(((MyNum==3 && n!=0 && n!=1) && ball.getX()>0)){
+	if(Mark == 10 && (wm->getUNum()+WO_TEAMMATE1-1) == wm->getTeammateClosestTo(ball)){
+		cout << "MARKING " << endl;
+		skilldesc scill = *(new skilldesc(SKILL_INTERCEPT));
+		scill.setTarget(tar);
+		scill.setCost(0);
+		skillset.push_back(scill);
+		return;
+	}
+	else if(((MyNum==3 && n!=0 && n!=1) && ball.getY()>0)){
 		skilldesc scill = *(new skilldesc(SKILL_INTERCEPT));
 		//cout << "Nrst Left Is " << 3 << endl;
 		scill.setTarget(tar);
@@ -373,7 +382,7 @@ void Analyzer::generateintersect() {
 		skillset.push_back(scill);
 		return;
 	}
-	else if(((MyNum == 4 && n!=0 && n!=1) && ball.getX()<0)){
+	else if(((MyNum == 4 && n!=0 && n!=1) && ball.getY()<0)){
 		skilldesc scill = *(new skilldesc(SKILL_INTERCEPT));
 		//cout << "Player NO 4 GOOOOOOO" << endl;
 	//	cout << "Nrst Rtaright Isssss " << NrstRightTeammate << endl;
@@ -382,16 +391,7 @@ void Analyzer::generateintersect() {
 		skillset.push_back(scill);
 		return;
 	}
-//	else if(cnt == 9 && wm->getUNum()==wm->getTeammateClosestTo(ball)){
-//		mark scill = *(new mark(wm, loader));
-//		VecPosition targ;
-//		scill.setCost(0);
-//		targ= perpPoint(wm->getMyPosition(), wm->getBall(), end);
-//		scill.setTarget(targ);
-//		scill.setCost(0);
-//		skillset.push_back(scill);
-//		return;
-//	}
+
 //	else if(n==0 && me.getX()>(wm->getOpponent(wm->getOpponentClosestTo(ball)+WO_OPPONENT1-1).getX()+0.5)){
 //		mark scill = *(new mark(wm, loader));
 //		VecPosition targ;
@@ -406,16 +406,17 @@ void Analyzer::generateintersect() {
 
 		if(wm->getSide() == SIDE_RIGHT)
 			target = ball
-					+ *(new VecPosition(-1.7, Deg2Rad(wm->getWorldObject(Opp)->orien),
+					+ *(new VecPosition(-3, Deg2Rad(wm->getWorldObject(Opp)->orien),
 											0, POLAR));
 		else
 			target = ball
-					+ *(new VecPosition(1.7, Deg2Rad(wm->getWorldObject(Opp)->orien),
+					+ *(new VecPosition(3, Deg2Rad(wm->getWorldObject(Opp)->orien),
 											0, POLAR));
 	if (n == 0 //|| ((wm->distanceToMyGoal(ball) < 10) && (wm->getUNum() < 6))
 			) {
+		VecPosition IncDis = *(new VecPosition (0.3,0,0,POLAR));
 		skilldesc scill = *(new skilldesc(SKILL_INTERCEPT));
-			scill.setTarget((tar+ball)/2);
+			scill.setTarget((ball+tar)/2+IncDis);
 			scill.setCost(0);
 			skillset.push_back(scill);
 			return;
