@@ -1,3 +1,4 @@
+
 #include "naobehavior.h"
 #include "../rvdraw/rvdraw.h"
 
@@ -86,15 +87,16 @@ SkillType NaoBehavior::selectSkill() {
 	VecPosition HALF_GOAL = (worldModel->getMyLastPosition()+worldModel->getMyRightGoalPost())/2;
 	double MeDisToBall = ball.getDistanceTo(worldModel->getTeammate(worldModel->getTeammateClosestTo(ball)+WO_TEAMMATE1-1));
 	if((worldModel->getTeammateClosestTo(ball) == worldModel->getUNum()) && me.getDistanceTo(ball)<0.3){
-	for(int i=WO_OPPONENT1;i<=WO_OPPONENT11;i++)
-	{
+	for(int i=WO_OPPONENT1;i<=WO_OPPONENT11;i++){
 		VecPosition opp = worldModel->getOpponent(i);
 		double DisToOpp = me.getDistanceTo(opp);
 		int AngleWithOpp = me.getAngleWithVector(opp);
-		double Ang = worldModel->getWorldObject(worldModel->getUNum()+WO_TEAMMATE1-1)->orien;
 		//cout << "Me " << AngleWithOpp << endl;
-		if(DisToOpp < 0.25 && fabs(AngleWithOpp) < 5 && ball.getDistanceTo(HALF_GOAL)<10.0
-				&& fabs(Ang)<90){
+		if(DisToOpp < 0.25 && fabs(AngleWithOpp) < 5 && ball.getDistanceTo(HALF_GOAL)<10.0){
+			//cout << "Angle With Opponent = " << AngleWithOpp << endl;
+			VecPosition vec = me.getVecPositionFromPolar(1,me.getTheta(),0);
+			//cout << "Ball Position : " << ball.getX() << " " << ball.getY() << " " << ball.getZ() << endl;
+			//cout << "Target Position : " << vec.getX() << " " << vec.getY() << " " << vec.getZ() << endl;
 			return intercept();
 			}
 		}
@@ -200,3 +202,4 @@ SkillType NaoBehavior::demoKickingCircle() {
 	}
 }
 
+>>>>>>> branch 'Intersect' of https://github.com/MFawzyElKhouly/RIC_AASTMT.git
