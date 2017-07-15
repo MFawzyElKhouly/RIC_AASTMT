@@ -1,9 +1,9 @@
 utwalk_max_step_size_angle	0.8545494920155963
 utwalk_max_step_size_x	94.476880413606
-utwalk_max_step_size_y	134.359686151821
+utwalk_max_step_size_y	74.359686151821
 utwalk_shift_amount	-17.300682419997
-utwalk_walk_height	160.571303198089
-utwalk_step_height	67.271814202027
+utwalk_walk_height	167.571303198089
+utwalk_step_height	76.271814202027
 utwalk_fraction_still	0.231287162229
 utwalk_fraction_on_ground	-0.848778325793
 utwalk_phase_length	0.044422086611
@@ -18,7 +18,7 @@ utwalk_fraction_in_air	1.848778325793
 utwalk_fraction_moving	0.768712837771
 utwalk_swing_ankle_offset	-0.801888193121
 utwalk_pid_tilt	0.15
-utwalk_pid_roll	0.2
+utwalk_pid_roll	0.15
 utwalk_pid_com_x	1.0
 utwalk_pid_com_y	1.0
 utwalk_pid_com_z	0.0
@@ -116,56 +116,6 @@ drib_coll_thresh				0.033582030312352373
 drib_target					0.17785682250297227
 
 
-pos_utwalk_max_step_size_angle	0.8545494920155963
-pos_utwalk_max_step_size_x	94.476880413606
-pos_utwalk_max_step_size_y	134.359686151821
-pos_utwalk_shift_amount	-17.300682419997
-pos_utwalk_walk_height	160.571303198089
-pos_utwalk_step_height	67.271814202027
-pos_utwalk_fraction_still	0.231287162229
-pos_utwalk_fraction_on_ground	-0.848778325793
-pos_utwalk_phase_length	0.044422086611
-pos_utwalk_pid_step_size_x	0.037104939141
-pos_utwalk_pid_step_size_y	0.073850851304
-pos_utwalk_pid_step_size_rot	0.10935016019620925
-pos_utwalk_max_normal_com_error	25.110441007376
-pos_utwalk_max_acceptable_com_error	190.262976049982
-pos_utwalk_fwd_offset	-29.073824360974
-pos_utwalk_fwd_offset_factor	0.892436044060
-pos_utwalk_fraction_in_air	1.848778325793
-pos_utwalk_fraction_moving	0.768712837771
-pos_utwalk_swing_ankle_offset	-0.801888193121
-pos_utwalk_pid_tilt	0.15
-pos_utwalk_pid_roll	0.2
-pos_utwalk_pid_com_x	1.0
-pos_utwalk_pid_com_y	1.0
-pos_utwalk_pid_com_z	0.0
-pos_utwalk_pid_arm_x	0.0
-pos_utwalk_pid_arm_y	0.0
 
-app_utwalk_max_step_size_angle	0.8545494920155963
-app_utwalk_max_step_size_x	94.476880413606
-app_utwalk_max_step_size_y	134.359686151821
-app_utwalk_shift_amount	-17.300682419997
-app_utwalk_walk_height	160.571303198089
-app_utwalk_step_height	67.271814202027
-app_utwalk_fraction_still	0.231287162229
-app_utwalk_fraction_on_ground	-0.848778325793
-app_utwalk_phase_length	0.044422086611
-app_utwalk_pid_step_size_x	0.037104939141
-app_utwalk_pid_step_size_y	0.073850851304
-app_utwalk_pid_step_size_rot	0.10935016019620925
-app_utwalk_max_normal_com_error	25.110441007376
-app_utwalk_max_acceptable_com_error	190.262976049982
-app_utwalk_fwd_offset	-29.073824360974
-app_utwalk_fwd_offset_factor	0.892436044060
-app_utwalk_fraction_in_air	1.848778325793
-app_utwalk_fraction_moving	0.768712837771
-app_utwalk_swing_ankle_offset	-0.801888193121
-app_utwalk_pid_tilt	0.15
-app_utwalk_pid_roll	0.2
-app_utwalk_pid_com_x	1.0
-app_utwalk_pid_com_y	1.0
-app_utwalk_pid_com_z	0.0
-app_utwalk_pid_arm_x	0.0
-app_utwalk_pid_arm_y	0.0
+
+

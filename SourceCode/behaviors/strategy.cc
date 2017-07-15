@@ -93,7 +93,7 @@ SkillType NaoBehavior::selectSkill() {
 		int AngleWithOpp = me.getAngleWithVector(opp);
 		double MyAng = worldModel->getWorldObject(worldModel->getUNum()+WO_TEAMMATE1-1)->orien;
 		//cout << "Me " << AngleWithOpp << endl;
-		if(DisToOpp < 0.25 && fabs(AngleWithOpp) < 5 && me.getDistanceTo(HALF_GOAL)<7.0
+		if(DisToOpp < 0.25 && fabs(AngleWithOpp) < 5 && me.getDistanceTo(HALF_GOAL)<5.0
 				&& fabs(MyAng)<60){
 			return intercept();
 			}

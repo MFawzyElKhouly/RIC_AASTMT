@@ -65,9 +65,14 @@ SkillType NaoBehavior::getAttackSkill() {
 			|| skilltarg.getType() == SKILL_INTERCEPT) {
 		//cout<<"SKILL = SKILL_WALK_OMNI"<<endl;
 		analyzer->resetCandidates();
-
-		double distance, angle, targ;
-		getTargetDistanceAndAngle(skilltarg.getTarget(), distance, angle);
+		VecPosition target = skilltarg.getTarget();
+		if(worldModel->getTeammateClosestTo(worldModel->getBall()) !=
+				worldModel->getUNum())
+				target = collisionAvoidance(true /*Avoid teamate*/,
+							true /*Avoid opponent*/, true /*Avoid ball*/, .5, .5, target,
+							false /*fKeepDistance*/);
+				double distance, angle, targ;
+		getTargetDistanceAndAngle(target, distance, angle);
 
 		if (distance > 0.2) {
 			return goToTarget(skilltarg.getTarget());

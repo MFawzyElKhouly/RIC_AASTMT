@@ -72,7 +72,8 @@ double supportSkill::generateTarget(double theta) {
 	double ret = 0;
 	for (int i = 0 + WO_OPPONENT1; i < WO_OPPONENT1 + NUM_AGENTS; i++) {
 		if (!wm->getWorldObject(i)->validPosition
-				|| wm->isOut(wm->getWorldObject(i)->pos))
+				|| wm->isOut(wm->getWorldObject(i)->pos)
+				|| target.getDistanceTo(wm->getOpponent(i)) > 4)
 			continue;
 		ret += exponential(wm->getPlayerTimeTo(i, target), 8.5);
 	}
@@ -93,10 +94,10 @@ double supportSkill::generateTarget(double theta) {
 
 	const double th = 0.2;
 
-	if (nearest <= th) {
-		return 100;
-	}
-	return ret + myGoal;
+//	if (nearest <= th) {
+//		return 100;
+//	}
+	return ret + 5*myGoal;
 }
 double supportSkill::lengthOfSupport() {
 	double mylen = wm->distancetoBall(wm->getMyPosition());
