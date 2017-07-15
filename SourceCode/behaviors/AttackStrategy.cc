@@ -24,7 +24,8 @@ SkillType NaoBehavior::getAttackSkill() {
 
 
 	if (analyzer->getTopSkill().getType() == SKILL_PASS
-			&& worldModel->getTeammateClosestTo(worldModel->getBall()) != worldModel->getUNum()) {
+			&&( worldModel->getTeammateClosestTo(worldModel->getBall()) != worldModel->getUNum()
+			|| worldModel->getBall().getDistanceTo(worldModel->getMyPosition()) > 1		)) {
 		analyzer->resetCandidates();
 
 	}

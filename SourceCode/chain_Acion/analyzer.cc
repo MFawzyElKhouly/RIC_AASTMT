@@ -220,6 +220,7 @@ void Analyzer::generateAttackingSkills() {
 	}
 	int theirh = wm->getOpponentFastestTo(wm->getBall());
 	int mate = wm->getTeammateFastestTo(wm->getBall());
+	if()
 	if (theirh == -1
 			|| wm->getPlayerTimeTo(theirh + WO_OPPONENT1, wm->getBall())
 					> wm->getPlayerTimeTo(mate + WO_TEAMMATE1, wm->getBall())) {
@@ -425,7 +426,7 @@ void Analyzer::generateintersect() {
 			skillset.push_back(scill);
 			return;
 	}
-	else if(n == 1 && (wm->getFallenTeammate(wm->getTeammateClosestTo(ball))+WO_TEAMMATE1-1) == true){
+	else if(n == 1 && (wm->getFallenTeammate(wm->getTeammateClosestTo(ball))) == true){
 		cout << "FALLEN TEAMMATE" << endl;
 		skilldesc scill = *(new skilldesc(SKILL_INTERCEPT));
 		scill.setTarget(target);
@@ -604,9 +605,9 @@ skilldesc Analyzer::getTopSkill() {
 	if (t.getCost() - max->getCost() < 0.7 && t.getType() == max->getType()
 			&& (t.getType() == SKILL_PASS || t.getType() == SKILL_DRIBBLE))
 		max = &t;
-	if(wm->getBallHolder() == WO_TEAMMATE1+wm->getUNum()-1)
-			cout <<threatTime<<" "<<max->getType() << " "
-			<< max->getTime() <<endl;
+//	if(wm->getBallHolder() == WO_TEAMMATE1+wm->getUNum()-1)
+//			cout <<threatTime<<" "<<max->getType() << " "
+//			<< max->getTime() <<endl;
 
 //	if(wm->getTeammateClosestTo(wm->getBall()) == wm->getUNum() )
 //		cout<<max->getType()<<" Is my skill and "<<max->getCost() <<"\n";
@@ -707,7 +708,7 @@ double passSkill::evaluatePass(VecPosition passer, VecPosition target) {
 	target.setZ(0);
 	double e = effectiveness(passer, target);
 	double s = passSafety(passer, target);
-	cost = (7*e + s);
+	cost = (5*e + 2*s);
 	//cout << ">>>>>>>>>>PE = " << e << " PS = " << s << " PC = " << cost << "\n";
 
 	return cost;

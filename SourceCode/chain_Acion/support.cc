@@ -30,7 +30,7 @@ supportSkill::supportSkill(WorldModel *wm, formationLoader *loader) :
 //		CNear = factors["pressConstant"];
 //		factor  = factors["factor"];
 	int bh = wm->getTeammateClosestTo(wm->getBall());
-	int cl = 1;
+	int cl = 1; // second closest to ball
 	double dd = 100;
 	for (int i = WO_TEAMMATE2;i<=WO_TEAMMATE11;i++) {
 		if(i -WO_TEAMMATE1+1 == bh)
@@ -44,7 +44,7 @@ supportSkill::supportSkill(WorldModel *wm, formationLoader *loader) :
 
 		target = wm->getBall();
 
-	} else if(wm->getBall().getDistanceTo(wm->getMyPosition()) > 4.5
+	} else if(wm->getBall().getDistanceTo(wm->getMyPosition()) > 5
 			&& cl==wm->getUNum()) {
 		target = wm->getBall();
 

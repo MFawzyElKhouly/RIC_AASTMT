@@ -90,8 +90,10 @@ SkillType NaoBehavior::selectSkill() {
 		VecPosition opp = worldModel->getOpponent(i);
 		double DisToOpp = me.getDistanceTo(opp);
 		int AngleWithOpp = me.getAngleWithVector(opp);
+		double MyAng = worldModel->getWorldObject(worldModel->getUNum()+WO_TEAMMATE1-1)->orien;
 		//cout << "Me " << AngleWithOpp << endl;
-		if(DisToOpp < 0.25 && fabs(AngleWithOpp) < 5 && ball.getDistanceTo(HALF_GOAL)<10.0){
+		if(DisToOpp < 0.25 && fabs(AngleWithOpp) < 5 && me.getDistanceTo(HALF_GOAL)<7.0
+				&& fabs(MyAng)<90){
 			//cout << "Angle With Opponent = " << AngleWithOpp << endl;
 			VecPosition vec = me.getVecPositionFromPolar(1,me.getTheta(),0);
 			//cout << "Ball Position : " << ball.getX() << " " << ball.getY() << " " << ball.getZ() << endl;
@@ -201,4 +203,3 @@ SkillType NaoBehavior::demoKickingCircle() {
 	}
 }
 
->>>>>>> refs/remotes/origin/Intersect
