@@ -209,10 +209,21 @@ void Analyzer::generateBallHolderSkills() {
 	skillset.push_back(scill);
 
 }
+bool inZone(VecPosition ch,VecPosition center,double width ,double top,double bottom) {
+return (abs(ch.getX()) <= top && abs(ch.getX()) >= bottom)&&(abs(ch.getY()-center.getY()) <= width/2);
+}
 void Analyzer::generateAttackingSkills() {
-
-	if( wm->getMyPosition().getDistanceTo(loader->getDuePosition(wm->getUNum())) >
-	loader->getDueRadius(wm->getUNum())) {
+int unum = wm->getUNum();
+	double top = loader->getDuePosition(unum).getX()+loader->getDueLength(unum)/2
+			,bottom= loader->getDuePosition(unum).getX()-loader->getDueLength(unum)/2;
+	for(int i = WO_OPPONENT1;i<WO_OPPONENT11;i++) {
+		if(inZone(wm->getOpponent(i),loader->getDuePosition(unum)
+				,loader->getDueWidth(unum),top,bottom)) {
+			top = wm->getOpponent(i).getX();
+		}
+	}
+	if(!inZone(wm->getMyPosition(),loader->getDuePosition(unum)
+			,loader->getDueWidth(unum),top,bottom)) {
 		skilldesc scill = *(new skilldesc(SKILL_WALK_OMNI));
 			scill.setTarget(loader->getDuePosition(wm->getUNum()));
 			scill.setCost(0.0);
@@ -696,7 +707,7 @@ double passSkill::evaluatePass(VecPosition passer, VecPosition target) {
 	target.setZ(0);
 	double e = effectiveness(passer, target);
 	double s = passSafety(passer, target);
-	cost = (5*e + 1*s);
+	cost = (6*e + 1*s);
 	//cout << ">>>>>>>>>>PE = " << e << " PS = " << s << " PC = " << cost << "\n";
 
 	return cost;

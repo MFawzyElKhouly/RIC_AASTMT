@@ -97,6 +97,13 @@ double supportSkill::generateTarget(double theta) {
 //	if (nearest <= th) {
 //		return 100;
 //	}
+//	if(wm->getUNum() == 3 || wm->getUNum() == 4){
+//		VecPosition bigOpp = wm->getOpponentClosestTo(
+//				(wm->getMyLeftGoalPost()+ wm->getMyRightGoalPost())/2);
+//
+//		if(target.getX() > bigOpp.getX())
+//			return target.getX();
+//	}
 	return ret + 5*myGoal;
 }
 double supportSkill::lengthOfSupport() {

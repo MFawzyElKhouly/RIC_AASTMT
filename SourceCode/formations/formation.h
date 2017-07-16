@@ -20,8 +20,11 @@ protected:
 	vector<VecPosition> beamings;
 	vector<VecPosition> attacking;
 	vector<VecPosition> defending;
-	vector<double> attackingRadius;
-	vector<double> defendingRadius;
+	vector<double> attackingLengths;
+	vector<double> attackingWidths;
+	vector<double> defendingLengths;
+
+	vector<double> defendingWidths;
 	TeamState state;
 	string strategy;
 public:
@@ -42,9 +45,14 @@ public:
 	inline VecPosition getDuePosition(int unum) {
 		return ((state == ATTACKING ||state == ATTDEFEND) ? attacking[unum-1] : defending[unum-1]);
 	}
-	inline double getDueRadius(int unum) {
+	inline double getDueLength(int unum) {
 		return ((state == ATTACKING ||state == ATTDEFEND)) ?
-				attackingRadius[unum-1] : defendingRadius[unum-1];
+				attackingLengths[unum-1] : defendingLengths[unum-1];
+	}
+
+	inline double getDueWidth(int unum) {
+		return ((state == ATTACKING ||state == ATTDEFEND)) ?
+				attackingWidths[unum-1] : defendingWidths[unum-1];
 	}
 	void loadFormations();
 	void setStrategy(string strategy);
