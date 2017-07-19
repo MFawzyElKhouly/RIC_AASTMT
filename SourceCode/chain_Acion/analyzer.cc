@@ -309,14 +309,14 @@ void Analyzer::generateintersect() {
 	//int cnt = 0;
 	double d = wm->distancetoBall(wm->getMyPosition());
 
-	if (wm->getMyPosition().getX() > wm->getBall().getX())
+	if (wm->getMyPosition().getX() > wm->getBall().getX() || wm->getFallenTeammate(wm->getUNum()) == true)
 		//	&& d > 1.5)
 		d +=50;
 
 
 	for (int i = WO_TEAMMATE2; i <= WO_TEAMMATE11; i++) {// kam teammate a2rb ll kora
 
-		if (i - WO_TEAMMATE1 + 1 == wm->getUNum())
+		if ((i - WO_TEAMMATE1 + 1) == (wm->getUNum() - WO_TEAMMATE1+1))
 			continue;
 
 //		if(me.getX()>ball.getX() && Mark &&
@@ -331,10 +331,12 @@ void Analyzer::generateintersect() {
 //				}
 		double di = wm->distancetoBall(wm->getTeammate(i));
 
-		if (wm->getTeammate(i).getX() > wm->getBall().getX())// && wm->distancetoBall(wm->getTeammate(i)) > 1.5)
+		if (wm->getTeammate(i).getX() > wm->getBall().getX() || wm->getFallenTeammate(i - WO_TEAMMATE1 + 1)){// && wm->distancetoBall(wm->getTeammate(i)) > 1.5)
 		di+=50;
+		Mark++;
+		}
 
-		if ((di < d || (di == d && i - (WO_TEAMMATE1 < wm->getUNum() - 1)))
+		if ((di < d) /*(di == d && i - (WO_TEAMMATE1 < wm->getUNum() - 1))*/
 				&& wm->getWorldObject(i)->validPosition && wm->getFallenTeammate(i) == false
 				//&& !wm->getFallenTeammate(i)
 				) {
@@ -342,7 +344,9 @@ void Analyzer::generateintersect() {
 		}
 	}
 	//cout << "Count = " << cnt << endl;
-
+	if(Mark == 9){
+		cout << "Maaaaark" << endl;
+	}
 	int MyNum = wm->getUNum()+WO_TEAMMATE1-1;
 	int ClosestTeammte = wm->getTeammateClosestTo(ball)+WO_TEAMMATE1-1;
 	int i = WO_OPPONENT1 - 1 + wm->getOpponentClosestTo(wm->getBall()); //a2rb opp ll kora
@@ -389,9 +393,13 @@ void Analyzer::generateintersect() {
 		VecPosition target;
 
 		//if(wm->getSide() == SIDE_RIGHT)
-			target = ball + *(new VecPosition(-1,0,0,CARTESIAN));
-//					+ *(new VecPosition(-2,Deg2Rad(wm->getWorldObject(Opp)->orien)
+		VecPosition lball  = wm->g2l(ball);
+		target = lball+*(new VecPosition(-1,wm->getWorldObject(Opp)->orien,0,POLAR));
+			target =wm->l2g(target);
+//			target = ball// + *(new VecPosition(-0.5,0,0,CARTESIAN));
+//					+ *(new VecPosition(-0.7,Deg2Rad(wm->getWorldObject(Opp)->orien)
 //							,0, POLAR));
+
 //		else
 //			target = ball
 //					+ *(new VecPosition(1.5,Deg2Rad(wm->getWorldObject(Opp)->orien)
@@ -401,31 +409,37 @@ void Analyzer::generateintersect() {
 			) {
 
 		//VecPosition IncDis = *(new VecPosition (0.3,0,0,POLAR));
-		cout << "Ball Pos = " << ball.getX() << " " << ball.getY() << endl;
-		cout << "New POSSSSSS = " << target.getX() << " " << target.getY() << endl;
-
+		//cout << "Ball Pos = " << ball.getX() << " " << ball.getY() << endl;
+		//cout << "New POSSSSSS = " << target.getX() << " " << target.getY() << endl;
+		cout << "Nearest Players is : " << wm->getUNum() << endl;
 		skilldesc scill = *(new skilldesc(SKILL_INTERCEPT));
+		if(Mark == 9){
+			if (wm->getOpponent(i).getDistanceTo(wm->getMyLeftGoalPost())
+										< wm->getOpponent(i).getDistanceTo(
+												wm->getMyRightGoalPost()))
+									target = wm->getOpponent(i) - wm->getMyLeftGoalPost();
+								else
+									target = wm->getOpponent(i) - wm->getMyRightGoalPost();
 
-		if(me.getDistanceTo(ball)<0.2)
+					target*= 0.20;
+					target = ball - target;
+					scill.setTarget(target);
+		}
+		else if(wm->getFallenOpponent(wm->getOpponentClosestTo(ball))){
 			scill.setTarget(ball);
-			else
+			cout << "GOING" << endl;
+		}
+		else
 			scill.setTarget(target);//(ball+tar)/2);
+		//	cout << "DEF" << endl;
 
 			scill.setCost(0);
 			skillset.push_back(scill);
 			return;
 	}
-	else if(n == 1 && (wm->getFallenTeammate(wm->getTeammateClosestTo(ball))) == true){
-		//cout << "FALLEN TEAMMATE" << endl;
-		skilldesc scill = *(new skilldesc(SKILL_INTERCEPT));
-		scill.setTarget(ball);
-		scill.setCost(0);
-		skillset.push_back(scill);
-		return;
-	}
 	else if (n==1) // || ((wm->distanceToMyGoal(wm->getBall()) < 10) && (wm->getUNum() < 6))
 			 {
-		cout << "Second Nst = " << wm->getUNum() << endl;
+	//	cout << "Second Nst = " << wm->getUNum() << endl;
 		//cout << "Second nearest is " << wm->getUNum() << endl;
 		mark scill = *(new mark(wm, loader));
 		VecPosition targ;
