@@ -1297,6 +1297,15 @@ void Parser::processVision() {
 		}
 	}
 
+
+	if (( !worldModel->getWorldObject(WO_BALL)->currentlySeen))
+	   {
+		VecPosition objLocalOrigin = worldModel->g2l(worldModel->getWorldObject(WO_BALL)->sighting);
+		WorldObject* pObj = worldModel->getWorldObject(0);
+		VecPosition x = objLocalOrigin.getPolarFromCartesian();
+		pObj->vision.polar = x;
+	}
+
 	particleFilter->processFrame();
 
 	double cameraHeightFromTorso = bodyModel->transformCameraToOrigin(

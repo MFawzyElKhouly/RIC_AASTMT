@@ -93,6 +93,11 @@ WorldModel::~WorldModel() {
     delete opponentKalmanFilters;
 }
 
+VecPosition WorldModel::predictBall (float time)
+	{
+	  return  ballKalmanFilter->predict(time);
+	}
+
 void WorldModel::display() {
 
     cout << "****************World Model******************************\n";

@@ -1,5 +1,7 @@
 #include "PlayerKF.h"
 #include <iostream>
+#include <fstream>
+#include <string>
 //#include <memory/TextLogger.h>
 
 
@@ -111,12 +113,46 @@ void PlayerKF::initModel(int modelNumber) {
 
 }
 
+VecPosition PlayerKF::predict(int modelNumber, float time) {
+    double timePassed = worldModel->getTime() - prev_time_;
+    if (prev_time_ < 0) {
+        // Case for initialization
+        timePassed = 1;
+    }
+
+
+        timeUpdate(modelNumber, time);
+
+        // update the pose in the kf using pf estimate
+        //poseMeasurementUpdate(modelNumber);
+
+        // player - measurement update
+
+        OrigKalmanFilter* currModel = &(playerModel[modelNumber]);
+        NMatrix X = currModel->GetStates();
+
+        float xrelbar = (X[3][0]);
+	    float yrelbar = (X[4][0]) ;
+
+	    VecPosition x = VecPosition(xrelbar,yrelbar,0);
+
+	    x = worldModel->l2g(x);
+	    return x;
+        // possibly clip position
+        //player.clipPosition(0);
+
+        // set player kf estimate into player world object
+        //updatePlayerFromKF(modelNumber);
+
+}
+
 void PlayerKF::processFrame() {
     double timePassed = worldModel->getTime() - prev_time_;
     if (prev_time_ < 0) {
         // Case for initialization
         timePassed = 1;
     }
+
     prev_time_ = worldModel->getTime();
 
     for (int modelNumber = 0; modelNumber < MAX_PLAYER_MODELS_UT; modelNumber++) {
@@ -125,7 +161,7 @@ void PlayerKF::processFrame() {
         timeUpdate(modelNumber, timePassed);
 
         // update the pose in the kf using pf estimate
-        poseMeasurementUpdate(modelNumber);
+        //poseMeasurementUpdate(modelNumber);
 
         // player - measurement update
         playerMeasurementUpdate(modelNumber);
@@ -532,8 +568,20 @@ void PlayerKF::closePlayerMeasurementUpdate(int modelNumber) {
 
     // projected value for xr
     float xrelbar = - (X[4][0]);
+  if(modelNumber== 1)
+  {
 
+	  	string n;
+        n = "Player";
+        ostringstream convert;
+         convert<<worldModel->getUNum();
+          n+=convert.str();
+          n+=".csv";
+         ofstream f (n.c_str(),std::ios_base::app);
+         WorldObject *pObj = worldModel->getWorldObject(34);
 
+         f<<pObj->currentlySeen<<";"<<xrel<<";"<<xrelbar<<endl;
+  }
     // Y
     // relative y estimate
     NMatrix Cyrel = GetPlayerYRelJacobian(X[0][0], X[1][0], X[2][0],
