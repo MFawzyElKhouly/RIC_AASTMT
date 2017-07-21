@@ -334,7 +334,8 @@ string NaoBehavior::Think(const std::string& message) {
 
 				}
 		}
-		if ((worldModel->hasBall() //&& (worldModel->distanceToMyGoal(ball)) > 2
+		if ((worldModel->hasBall() //&&0
+			//	(worldModel->distanceToMyGoal(ball) > 15)
 				&& (worldModel->getBall()
 						- worldModel->getOpponentBodyFastestTo(
 								worldModel->getBall())).getMagnitude() > 0.7
@@ -354,7 +355,7 @@ string NaoBehavior::Think(const std::string& message) {
 			if (worldModel->hasBall())
 				loader->setTeamState(ATTACKING);
 			else
-				loader->setTeamState(ATTDEFEND);
+				loader->setTeamState(ATTACKING);
 
 		else
 

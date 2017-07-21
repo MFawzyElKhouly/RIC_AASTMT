@@ -248,7 +248,7 @@ int unum = wm->getUNum();
 void Analyzer::generateDefensiveSkills() {
 	skilldesc scill = *(new skilldesc(SKILL_WALK_OMNI));
 	scill.setTarget(loader->getDuePosition(wm->getUNum()));
-	scill.setCost(1);
+	scill.setCost(100);
 	skillset.push_back(scill);
 
 	for (int i = 0 + WO_OPPONENT2; i <= WO_OPPONENT11; i++) {
@@ -401,8 +401,8 @@ void Analyzer::generateintersect() {
 			) {
 
 		//VecPosition IncDis = *(new VecPosition (0.3,0,0,POLAR));
-		cout << "Ball Pos = " << ball.getX() << " " << ball.getY() << endl;
-		cout << "New POSSSSSS = " << target.getX() << " " << target.getY() << endl;
+	//	cout << "Ball Pos = " << ball.getX() << " " << ball.getY() << endl;
+	//	cout << "New POSSSSSS = " << target.getX() << " " << target.getY() << endl;
 
 		skilldesc scill = *(new skilldesc(SKILL_INTERCEPT));
 
@@ -425,7 +425,7 @@ void Analyzer::generateintersect() {
 	}
 	else if (n==1) // || ((wm->distanceToMyGoal(wm->getBall()) < 10) && (wm->getUNum() < 6))
 			 {
-		cout << "Second Nst = " << wm->getUNum() << endl;
+		//cout << "Second Nst = " << wm->getUNum() << endl;
 		//cout << "Second nearest is " << wm->getUNum() << endl;
 		mark scill = *(new mark(wm, loader));
 		VecPosition targ;
@@ -499,7 +499,7 @@ void Analyzer::generateCanditates() {
 		generateBallHolderSkills();
 		return;
 	}
-	if ((loader->getTeamState() == ATTACKING)
+	if (wm->getBallHolder() - WO_TEAMMATE1 < 11
 			&& (wm->distanceToMyGoal(ball)) > 0) {
 
 		generateAttackingSkills();
@@ -694,7 +694,7 @@ double passSkill::effectiveness(VecPosition passer, VecPosition target) {
 	double theirGoal = 1
 			- exponential(wm->distanceToOppGoal(target), TheirGoalC);
 	double surrounding_Opponents = surroundingOpponents(target,
-			wm->getPlayerTimeTo(wm->getTeammateFastestTo(target) + WO_TEAMMATE1,
+			wm->getPlayerTimeTo(wm->getTeammateFastestTo(target) + WO_TEAMMATE1-1,
 					target));
 //	double supporting_TeamMates = supportingTeamMates(target);
 

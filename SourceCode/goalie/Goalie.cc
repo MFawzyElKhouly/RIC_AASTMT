@@ -47,7 +47,7 @@ Goalie::~Goalie() {
 	delete core;
 }
 
-double getMagnitude(double p1, double q1, double p2, double q2) {
+double Goalie::getMagnitude(double p1, double q1, double p2, double q2) {
 	return sqrt((p2 - p1) * (p2 - p1) + (q2 - q1) * (q2 - q1));
 }
 

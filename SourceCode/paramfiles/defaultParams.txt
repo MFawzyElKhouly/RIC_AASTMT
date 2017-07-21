@@ -194,7 +194,7 @@ getup_parms_stateUp7L3	30.0
 getup_parms_stateUp7L4	-10.0 
 getup_parms_stateUp7L5	-10.0
 getup_parms_stateUp7MinTime	0.05 
-getup_parms_stateUp8MinTime	0.6
+getup_parms_stateUp8MinTime	0.8
 
 #######################
 ### KICK PARAMETERS ###

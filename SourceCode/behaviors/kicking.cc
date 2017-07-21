@@ -28,7 +28,7 @@ SkillType NaoBehavior::kickBall(const int kickTypeToUse,
 
 	kickType = kickTypeToUse;
 
-	if (me.getDistanceTo(ball) > 1) {
+	if (me.getDistanceTo(ball) > 0.5) {
 		// Far away from the ball so walk toward target offset from the ball
 		VecPosition approachBallTarget = ball
 				- kickDirection
@@ -86,7 +86,7 @@ SkillType NaoBehavior::kickBallAtPresetTarget() {
 
 	// If we're within 1 meter of the ball and not dribbling, we need to select a kick and position ourselves
 	// Dribbling is handled later
-	if (me.getDistanceTo(ball) <= 1 && KICK_DRIBBLE != kickType) {
+	if (me.getDistanceTo(ball) <= 0.5 && KICK_DRIBBLE != kickType) {
 		// Figure out which kick to use (left or right foot)
 		SkillType kick;
 		double ball_dist;
