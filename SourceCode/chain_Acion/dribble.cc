@@ -98,20 +98,20 @@ double dribble::dribbleSafety() {
 
 }
 double dribble::effectiveness() {
-	double myGoal = exponential(wm->distanceToMyGoal(target), 130);
+	double myGoal = exponential(wm->distanceToMyGoal(target), 13);
 	double theirGoal = 1
-			- exponential(wm->distanceToOppGoal(target), TheirGoalP);
+			- exponential(wm->distanceToOppGoal(target), 22);
 	double surrounding_Opponents = surroundingOpponents();
 	//	double supporting_TeamMates = supportingTeamMates(target);
 
-	double ret = (myGoal + theirGoal + surrounding_Opponents);
+	double ret = (myGoal + 2*theirGoal + surrounding_Opponents);
 	return ret;
 }
 
 double dribble::calcCost() {
 	double e = effectiveness();
 	double s = dribbleSafety();
-	double ret = 6 * e + 1*s; // + surrP*dribbleReliability();
+	double ret = 7 * e + 1*s; // + surrP*dribbleReliability();
 	//cout<< "DE = "<<e<< " DS = "<<s <<" DC = "<<ret<<"\n";
 	//ret /= (effP+safeP+surrP);
 	//ret*=factor;

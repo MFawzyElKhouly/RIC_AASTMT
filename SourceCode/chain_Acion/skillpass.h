@@ -55,7 +55,7 @@ public:
 				if (wm->getBall().getDistanceTo(this->target) < 4.5)
 					time += 1; //KICK_IK time
 				else
-					time += 3.5; //KICK_FORWARD time
+					time += 3; //KICK_FORWARD time
 				//time=2.6;
 				return time;
 	}
@@ -132,7 +132,7 @@ public:
 			//cout<<turnAng<< " MY TURN ANGLE\n";
 			time = turnAng / rotSpeed ; //Take care !!
 			if(turnAng > 25)
-				time+=1;
+				time+=1.25;
 			return time;
 		}
 };

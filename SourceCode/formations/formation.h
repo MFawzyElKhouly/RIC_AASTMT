@@ -15,8 +15,10 @@ using namespace std;
 enum TeamState {
 	ATTACKING, DEFENDING,ATTDEFEND,DEFETTACK
 };
+class Analyzer;
 class formationLoader {
 protected:
+	friend Analyzer;
 	vector<VecPosition> beamings;
 	vector<VecPosition> attacking;
 	vector<VecPosition> defending;

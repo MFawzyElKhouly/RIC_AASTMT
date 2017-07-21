@@ -47,6 +47,7 @@ public:
 	void generateBallHolderSkills();
 	void generateAttackingSkills();
 	void generateDefensiveSkills();
+	VecPosition getDuePos();
 	skilldesc getTopSkill();
 	double calcCost(skilldesc scil);
 	void generatePassPoints(PassType type);

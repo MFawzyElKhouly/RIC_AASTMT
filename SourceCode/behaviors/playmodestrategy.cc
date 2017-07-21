@@ -31,5 +31,21 @@ SkillType NaoBehavior::getPlayModeSkill() {
 					((worldModel->getMyLeftGoalPost()
 							+ worldModel->getMyRightGoalPost()) / 2));
 		}
+	if(worldModel->getSide()==SIDE_RIGHT)
+	{
+		if(worldModel->getPlayMode() == PM_KICK_IN_LEFT ||
+				worldModel->getPlayMode() == PM_CORNER_KICK_LEFT)
+			return getDefensiveSkill();
+		return getAttackSkill();
+
+	}
+	if(worldModel->getSide()==SIDE_LEFT)
+	{
+		if(worldModel->getPlayMode() == PM_KICK_IN_LEFT ||
+				worldModel->getPlayMode() == PM_CORNER_KICK_LEFT)
+			return getAttackSkill();
+		return getDefensiveSkill();
+
+	}
 	return SKILL_STAND;
 }
