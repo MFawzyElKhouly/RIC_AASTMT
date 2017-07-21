@@ -386,13 +386,23 @@ void Analyzer::generateintersect() {
 //		skillset.push_borienack(scill);
 //	}
 		int Opp = wm->getOpponentClosestTo(ball)+WO_OPPONENT1-1;
-		VecPosition target;
-
+		VecPosition target,tempTarget;
+		tempTarget = wm->predictBall(0.7);
+		target = tempTarget + (tempTarget-ball);
+//		if(fabs(tempTarget.getX()-ball.getX()) > 5){
+//			cout << "Fault Pred" << endl;
+//			VecPosition lball  = wm->g2l(ball);
+//			double OppAngle = wm->getOpponent(Opp).getAngleWithVector((wm->getMyLeftGoalPost()+wm->getMyRightGoalPost())/2);
+//			target = lball+*(new VecPosition(-1,/*wm->getWorldObject(Opp)->orien*/(180-OppAngle),0,POLAR));
+//			target =wm->l2g(target);
+//		}
+//		else
+//		{
+//			cout << "GOOD" << endl;
+			target = tempTarget;
+		//}//+wm->predictBall(0.7);//(tempTarget-ball);
 		//if(wm->getSide() == SIDE_RIGHT)
-		VecPosition lball  = wm->g2l(ball);
-		double OppAngle = wm->getOpponent(Opp).getAngleWithVector((wm->getMyLeftGoalPost()+wm->getMyRightGoalPost())/2);
-		target = lball+*(new VecPosition(-1,/*wm->getWorldObject(Opp)->orien*/(180-OppAngle),0,POLAR));
-			target =wm->l2g(target);
+
 
 
 			//cout << "Ball " << ball.getX() << " " << ball.getY() << endl;
@@ -411,8 +421,8 @@ void Analyzer::generateintersect() {
 			) {
 
 		//cout << "Angle : "<< OppAngle << endl;
-		cout << "Ball " << ball.getX() << " " << ball.getY() << endl;
-		cout << "New " << target.getX() << " " << target.getY() << endl;
+		//cout << "Ball " << ball.getX() << " " << ball.getY() << endl;
+		//cout << "New " << target.getX() << " " << target.getY() << endl;
 		//VecPosition IncDis = *(new VecPosition (0.3,0,0,POLAR));
 		//cout << "Ball Pos = " << ball.getX() << " " << ball.getY() << endl;
 		//cout << "New POSSSSSS = " << target.getX() << " " << target.getY() << endl;
@@ -436,7 +446,7 @@ void Analyzer::generateintersect() {
 		else if(wm->getFallenOpponent(wm->getOpponentClosestTo(ball))){
 
 			scill.setTarget(ball);
-			cout << "GOING" << endl;
+			//cout << "GOING" << endl;
 		}
 		else
 			scill.setTarget(target);//(ball+tar)/2);
