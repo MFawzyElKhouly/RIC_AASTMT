@@ -130,6 +130,7 @@ public:
 		p.setZ(0);
 		return p.getDistanceTo(this->getBall());
 	}
+	VecPosition predictBall (float time);
 
 	inline void setMyLastPosition(const VecPosition& newPos) {
 		myLastPosition = newPos;

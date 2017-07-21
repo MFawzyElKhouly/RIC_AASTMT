@@ -56,6 +56,8 @@ public:
     void clipPosition(int modelNumber);
     void resetFilter(int modelNumber);
     void setPlayer(int modelNumber, float x, float y);
+    VecPosition predict(int modelNumber, float time);
+
 
     // helper function
     float getPlayerDistanceVariance(float playerDistance);

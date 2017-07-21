@@ -100,8 +100,9 @@ int OrigKalmanFilter::MeasurementUpdate(NMatrix& C, float R, float Y, bool rejec
     }
     float varPredError = posVar + R;
     if (rejectOutliers && (abs(innovation) > powf(outlierSD,2)*sqrtf(varPredError))) return KF_OUTLIER;
-    NMatrix J = P*C.transp()/varPredError; //J is now X.M x Y.M e.g. 5x1
-    NMatrix newP = (I - J*C)*P;
+    NMatrix J = C*P*C.transp()/varPredError; //J is now X.M x Y.M e.g. 5x1
+   // NMatrix newP = P-J*C*varPredError;
+    NMatrix newP = (I - C*J*C.transp())*P;
 
     /*
     for (int i = 0; i < numStates; i++) {
@@ -120,7 +121,7 @@ int OrigKalmanFilter::MeasurementUpdate(NMatrix& C, float R, float Y, bool rejec
     */
 
     X = X + J*innovation;
-    P = newP;
+   P = newP;
     Xchange = Xchange + X;
     return KF_SUCCESS;
 }
@@ -138,6 +139,7 @@ int OrigKalmanFilter::MeasurementUpdateExtended(NMatrix& C, float R, float Y, fl
     if (mainFilterAngleUpdate) {
         innovation = normalizeAngle(innovation);
     }
+    //cout<<"prediction: "<<convDble(C*P*C.transp())<<" Measurement: "<<R<<endl;
 
 //RHM 7/7/07 Shift till after detection of outliers etc.
 // if (changeAlpha) {
@@ -190,6 +192,7 @@ int OrigKalmanFilter::MeasurementUpdateExtended(NMatrix& C, float R, float Y, fl
 
 
     NMatrix J = P*C.transp()/varPredError; //J is now X.M x Y.M e.g. 5x1
+
 //  if (!mainFilterAngleUpdate) J[2][0] = 0;
     NMatrix Xbar = X;
     NMatrix newP = (I - J*C)*P;
@@ -210,9 +213,13 @@ int OrigKalmanFilter::MeasurementUpdateExtended(NMatrix& C, float R, float Y, fl
     }
     */
 
+
+
     X = Xbar + J*innovation;
-    P = newP;
+
+   // P = newP;
     Xchange = Xchange + X;
+
     return KF_SUCCESS;
 }
 

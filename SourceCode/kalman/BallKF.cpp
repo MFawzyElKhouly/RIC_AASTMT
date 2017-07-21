@@ -1,5 +1,8 @@
 #include "BallKF.h"
 #include <iostream>
+#include <iostream>
+#include <fstream>
+#include <string>
 //#include <memory/TextLogger.h>
 
 
@@ -14,7 +17,7 @@
   X[5][0] = ballxvel
   X[6][0] = ballyvel
 */
-
+using namespace std;
 BallKF::BallKF(WorldModel* worldModel_) {
     worldModel = worldModel_;
     init();
@@ -30,6 +33,7 @@ void BallKF::init() {
 
     initConstants();
     initModel(0);
+    initModel(1);
 
 }
 
@@ -47,14 +51,14 @@ void BallKF::initConstants() {
 
     uncert = NMatrix(7,7,false);
     // Standard deviation is the length
-    uncert[0][0] = SIM::square(FIELD_X / 2);
-    uncert[1][1] = SIM::square(FIELD_Y / 2);
-    uncert[2][2] = SIM::square(2 * M_PI);
-    uncert[3][3] = SIM::square(FIELD_X / 2);
-    uncert[4][4] = SIM::square(FIELD_Y / 2);
+    uncert[0][0] = 500;//SIM::square(FIELD_X / 2);
+    uncert[1][1] = 500;//SIM::square(FIELD_Y / 2);
+    uncert[2][2] = 500;//SIM::square(2 * M_PI);
+    uncert[3][3] = 500;//SIM::square(FIELD_X / 2);
+    uncert[4][4] = 500;//SIM::square(FIELD_Y / 2);
     // Standard deviation of vel is 1000mm/s
-    uncert[5][5] = SIM::square(1000);
-    uncert[6][6] = SIM::square(1000);
+    uncert[5][5] = 500;//SIM::square(1000);
+    uncert[6][6] = 500;//SIM::square(1000);
 
     initStates = NMatrix(7,1,false);
     // Initially robot and ball at (almost) the centre of the field,
@@ -110,6 +114,40 @@ void BallKF::initModel(int modelNumber) {
 
 
 }
+VecPosition BallKF::predict(float time){
+
+	 double timePassed = worldModel->getTime() - prev_time_;
+	    if (prev_time_ < 0) {
+	        // Case for initialization
+	        timePassed = 1;
+	    }
+	    OrigKalmanFilter* currModel = &(ballModel[0]);
+	    prev_time_ = worldModel->getTime();
+	    NMatrix X = currModel->GetStates();
+	    // ball - time update
+	    //if(worldModel->getUNum()==5)
+	   //cout << "Time passed: " << timePassed << endl;
+
+	    timeUpdate(0, time);
+
+	     X = currModel->GetStates();
+	    float xrelbar = (X[3][0]);
+	    float yrelbar = (X[4][0]) ;
+	    VecPosition x = VecPosition(xrelbar,yrelbar,0);
+	    x = worldModel->l2g(x);
+  /*
+	    string n;
+	               n = "Player";
+	               ostringstream convert;
+	                 convert<<worldModel->getUNum();
+	                  n+=convert.str();
+	                 n+=".csv";
+	                ofstream f (n.c_str(),std::ios_base::app);
+	                f<<x.getX()<<";"<<x.getY()<<";"<<worldModel->getBallGroundTruth().getX()<<";"<<worldModel->getBallGroundTruth().getY()<<endl;
+    */
+    return x;
+
+}
 
 void BallKF::processFrame() {
     double timePassed = worldModel->getTime() - prev_time_;
@@ -117,23 +155,30 @@ void BallKF::processFrame() {
         // Case for initialization
         timePassed = 1;
     }
+    OrigKalmanFilter* currModel = &(ballModel[0]);
     prev_time_ = worldModel->getTime();
-
+    NMatrix X = currModel->GetStates();
     // ball - time update
     //cout << "Time passed: " << timePassed << endl;
+
     timeUpdate(0, timePassed);
+    X = currModel->GetStates();
 
     // update the pose in the kf using pf estimate
-    poseMeasurementUpdate(0);
+    //poseMeasurementUpdate(0);
+    X = currModel->GetStates();
 
     // ball - measurement update
     ballMeasurementUpdate(0);
+    X = currModel->GetStates();
 
     // possibly clip position
     //ball.clipPosition(0);
 
     // set ball kf estimate into ball world object
     updateBallFromKF(0);
+    X = currModel->GetStates();
+
 }
 
 /** Perform the time update on the KalmanFilter model[modelNumber]
@@ -146,7 +191,8 @@ void BallKF::timeUpdate(int modelNumber, float timePassed) {
     // get current estimate and covariance
     NMatrix X = currModel->GetStates();
     NMatrix P = currModel->GetErrorMatrix();
-
+   // if(worldModel->getUNum()==5)
+    	//cout<<P<<endl;
     // new state matrix after time update
     NMatrix Xbar = NMatrix(7, 1, false);
 
@@ -215,14 +261,14 @@ void BallKF::timeUpdate(int modelNumber, float timePassed) {
     // time update variance matrix: how much should variance increase each time step
     NMatrix Q = NMatrix(7, 7, false);
 
-    Q[0][0] = positionVar;
-    Q[1][1] = positionVar;
-    Q[2][2] = angleVar;
+    Q[0][0] = 0;//positionVar;
+    Q[1][1] = 0;//positionVar;
+    Q[2][2] = 0;//angleVar;
 
-    Q[3][3] = ballPosVar;
-    Q[4][4] = ballPosVar;
-    Q[5][5] = ballVelVar;
-    Q[6][6] = ballVelVar;
+    Q[3][3] = 0;//ballPosVar;
+    Q[4][4] = 0;//ballPosVar;
+    Q[5][5] = 0;//ballVelVar;
+    Q[6][6] = 0;//ballVelVar;
 
     // hack: add these to ball instead
     Q[3][3] += 0.1*(odom.getMagnitude() * odom.getMagnitude());
@@ -237,8 +283,8 @@ void BallKF::timeUpdate(int modelNumber, float timePassed) {
     // TODO: ricks q value fiddle?
 
     // increase ball pos uncertainty if we haven't seen it?
-    if (!(worldModel->getWorldObject(WO_BALL)->currentlySeen)) {
-        Q[3][3] *= unseenBallVarFactor;
+   if (!(worldModel->getWorldObject(WO_BALL)->currentlySeen)) {
+       Q[3][3] *= unseenBallVarFactor;
         Q[4][4] *= unseenBallVarFactor;
     }
 
@@ -367,8 +413,8 @@ void BallKF::ballMeasurementUpdate(int modelNumber) {
     WorldObject* ball = worldModel->getWorldObject(WO_BALL);
 
     // no update here if we didn't see the ball
-    if (!ball->currentlySeen)
-        return;
+  //  if (!ball->currentlySeen)
+      //  return;
 
     // Todd: for some reason normal update is going crazy
     // use relative x,y ball measurement update only!
@@ -504,17 +550,25 @@ void BallKF::closeBallMeasurementUpdate(int modelNumber) {
 
     double visionDistance = ball->vision.polar.getX();
     double visionBearing = Deg2Rad( ball->vision.polar.getY() );
+    VecPosition objLocalOrigin =ball->vision.polar.getCartesianFromPolar();
+   	    VecPosition objGlobal = worldModel->l2g( objLocalOrigin );
 
 
     // estimate of variance of ball x distance
     // in cm
     float Rxrel = getBallDistanceVariance(visionDistance);
 
+    float xrel;
     // actual value of xrel
-    float xrel = -abs(visionDistance) * sinf(visionBearing);
 
-    // projected value for xr
+     xrel = -abs(visionDistance) * sinf(visionBearing);
+
+    // projected value for xractual
     float xrelbar = - (X[4][0]);
+
+    //if(worldModel->getUNum()==5)
+   //cout<<"Actual: "<<xrel<<"  Projected: "<<xrelbar;
+
 
 
     // Y
@@ -527,7 +581,9 @@ void BallKF::closeBallMeasurementUpdate(int modelNumber) {
     float Ryrel = getBallDistanceVariance(visionDistance);
 
     // actual value of yrel
-    float yrel = abs(visionDistance) * cosf(visionBearing);
+    float yrel;
+
+    yrel = abs(visionDistance) * cosf(visionBearing);
 
     // projected value for yr
     float yrelbar = (X[3][0]);
@@ -540,12 +596,23 @@ void BallKF::closeBallMeasurementUpdate(int modelNumber) {
 
     // update the model
     // relative x update
+
+
+    NMatrix P = currModel->GetErrorMatrix();
+    //cout<<P<<endl<<endl;
+    float  posVar = convDble(Cxrel*P*Cxrel.transp());
+    float varPredError = posVar + Rxrel;
+
+   float J = convDble(Cxrel*P*Cxrel.transp())/varPredError;
+
+    //cout<<"prediction: "<<convDble(P*Cxrel.transp())<<"  Betngan "<<posVar<<" Measurement: "<<Rxrel<<" J: "<<J<<endl;
     int updateSuccess =
         currModel->MeasurementUpdateExtended(Cxrel, Rxrel,
                 xrel, xrelbar,
                 false, sdDist, false, false, 0.0,
                 visionDistance, false, false);
-
+    //if(worldModel->getUNum()==5)
+      // cout<<"  Value: "<<- (X[4][0])<<endl;
     if (updateSuccess == KF_CRASH) {
         cout << "Relative X update crashed" << endl << flush;
     }
@@ -696,6 +763,7 @@ void BallKF::grabUpdate(int modelNumber) {
 
 /** Set the ball world object with the new estimates from the kf. */
 void BallKF::updateBallFromKF(int modelNumber) {
+
     if (ballDebug) log(50, "Updating Ball v2");
     // get the model we're updating
     OrigKalmanFilter* currModel = &(ballModel[modelNumber]);
@@ -710,13 +778,52 @@ void BallKF::updateBallFromKF(int modelNumber) {
     NMatrix X = currModel->GetStates();
     NMatrix P = currModel->GetErrorMatrix();
 
+
     // get ball rel loc and sd
     SIM::Point2D ballRelLoc = SIM::Point2D(X[3][0], X[4][0]);
 //  SIM::Point2D ballRelSD = SIM::Point2D(sqrtf(P[3][3]), sqrtf(P[4][4]));
 
     // changed by Sam Barrett (6/13/11)
-    ball->vision.polar.setX(ballRelLoc.getMagnitude());
-    ball->vision.polar.setY(Rad2Deg(ballRelLoc.getDirection()));
+   ball->vision.polar.setX(ballRelLoc.getMagnitude());
+   ball->vision.polar.setY(Rad2Deg(ballRelLoc.getDirection()));
+
+    VecPosition objLocalOrigin =ball->vision.polar.getCartesianFromPolar();
+    VecPosition objGlobal = worldModel->l2g( objLocalOrigin );
+   /* string n;
+    n = "Player";
+    ostringstream convert;
+      convert<<worldModel->getUNum();
+       n+=convert.str();
+      n+=".csv";
+     ofstream f (n.c_str(),std::ios_base::app);
+    f<<objGlobal.getX()<<";"<<objGlobal.getY()<<";"<<worldModel->getTime()<<";"<<worldModel->getBallGroundTruth().getX()<<";"<<worldModel->getBallGroundTruth().getY()<<";"<<worldModel->getBall().getX()<<";"<<worldModel->getBall().getY()<<endl;
+
+     */
+/*
+    if(worldModel->getUNum()==2)
+    {
+    ofstream mfile ;
+   	mfile.open ("GroundTruth.txt",std::ios_base::app);
+   	mfile<<"GTBall"<<std::setw(15)<<worldModel->getTime()<<": "<<std::setw(15)<<worldModel->getBallGroundTruth().getX()<<std::setw(15)<<worldModel->getBallGroundTruth().getY()<<endl;
+    }
+    string nname;
+    	    	 nname = "Ball_Player";
+         	  ostringstream connv;
+          connv<<worldModel->getUNum();
+     	  nname+=connv.str();
+         nname+=".txt";
+         ofstream file1 (nname.c_str(),std::ios_base::app);
+        file1<<"Ball "<<std::setw(15)<<worldModel->getTime()<<":   "<<std::setw(15)<<objGlobal.getX()<<std::setw(15)<<objGlobal.getY()<<endl;
+    	string name;
+    	 name = "KF_Player";
+    	  ostringstream conv;
+    	  conv<<worldModel->getUNum();
+    	   name+=conv.str();
+    	   name+=".txt";
+    	    ofstream file (name.c_str(),std::ios_base::app);
+    	   file<<"KalmanFilter "<<std::setw(15)<<worldModel->getTime()<<std::setw(15)<<objGlobal.getX()<<std::setw(15)<<objGlobal.getY()<<endl;
+/*
+   // cout<<"Pos "<<worldModel->getTime()<<": "<<objGlobal<<endl;
 //  ball->relPos = ballRelLoc;
 //  ball->relOrientation = ballRelLoc.getDirection();
 //cerr << "WARNING: USING KF VELOCITY - MIGHT BE WRONG?" << endl;
@@ -758,8 +865,8 @@ void BallKF::updateBallFromKF(int modelNumber) {
 
     // set relative velocity of ball
     ball->relVel = ball->loc.globalToRelative( myloc, myorient );
+*/
 
-    */
 }
 
 
@@ -870,11 +977,12 @@ float BallKF::getBallDistanceVariance(float ballDistance) {
     Rdist = SIM::crop(Rdist, 3, 200);
 
     // increase dist variance if its negative
-    if (ballDistance < 0) {
-        Rdist *= 4;
-    }
+//    if (ballDistance < 0) {
+//        Rdist *= 4;
+//    }
+
     Rdist = SIM::square(Rdist);
-    if (Rdist < 0.0001) Rdist = 0.0001;
+    //if (Rdist < 0.0001) Rdist = 0.0001;
 
     // convert from cm^2 to mm^2
     Rdist = Rdist * 100.0;
@@ -1029,11 +1137,11 @@ NMatrix BallKF::GetBallBearingJacobian(float xb, float yb, float x, float y,
 // FLOZ
 NMatrix BallKF::GetBallXRelJacobian(float x, float y, float th, float xb, float yb ) {
     NMatrix C = NMatrix(1,7,false);
-    C[0][0] = 0; //-sinf(th);
-    C[0][1] = 0; //cosf(th);
-    C[0][2] = 0; //cosf(th)*(xb-x)+sinf(th)*(yb-y);
-    C[0][3] = 0.0 ; //sinf(th);
-    C[0][4] = -1.0; //-cosf(th);
+    C[0][0] = 0;//-sinf(th);
+    C[0][1] = 0;//cosf(th);//0
+    C[0][2] = 0;//cosf(th)*(xb-x)+sinf(th)*(yb-y);
+    C[0][3] = 0.0;//sinf(th); //0.0
+    C[0][4] = -1.0;//-cosf(th);//-1.0
     C[0][5] = 0;
     C[0][6] = 0;
 

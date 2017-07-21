@@ -9,7 +9,7 @@
 #include "../worldmodel/worldmodel.h"
 #include <stdarg.h>
 
-#define MAX_MODELS_UT 1
+#define MAX_MODELS_UT 2
 
 class TextLogger;
 
@@ -43,6 +43,7 @@ public:
 
     float prev_time_;
     void processFrame();
+    VecPosition predict(float time);
     // updates
     void timeUpdate(int modelNumber, float timePassed);
     void poseMeasurementUpdate(int modelNumber);
