@@ -822,7 +822,7 @@ void BallKF::updateBallFromKF(int modelNumber) {
     	   name+=".txt";
     	    ofstream file (name.c_str(),std::ios_base::app);
     	   file<<"KalmanFilter "<<std::setw(15)<<worldModel->getTime()<<std::setw(15)<<objGlobal.getX()<<std::setw(15)<<objGlobal.getY()<<endl;
-/*
+*/
    // cout<<"Pos "<<worldModel->getTime()<<": "<<objGlobal<<endl;
 //  ball->relPos = ballRelLoc;
 //  ball->relOrientation = ballRelLoc.getDirection();
