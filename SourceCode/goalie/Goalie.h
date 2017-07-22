@@ -48,6 +48,8 @@ private:
 	double getMagnitude(double p1, double q1, double p2, double q2);
 	bool standDecision ();
 	bool kickDecision ();
+	bool canStand();
+	bool checkingFall();
 
 };
 
