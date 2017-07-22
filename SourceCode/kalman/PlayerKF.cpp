@@ -130,6 +130,7 @@ VecPosition PlayerKF::predict(int modelNumber, float time) {
 
         OrigKalmanFilter* currModel = &(playerModel[modelNumber]);
         NMatrix X = currModel->GetStates();
+        WorldObject* player = worldModel->getWorldObject(WO_TEAMMATE1+modelNumber);
 
         float xrelbar = (X[3][0]);
 	    float yrelbar = (X[4][0]) ;
@@ -137,6 +138,20 @@ VecPosition PlayerKF::predict(int modelNumber, float time) {
 	    VecPosition x = VecPosition(xrelbar,yrelbar,0);
 
 	    x = worldModel->l2g(x);
+
+
+/*
+		  	string n;
+	        n = "Player";
+	        ostringstream convert;
+	         convert<<worldModel->getUNum();
+	          n+=convert.str();
+	          n+=".csv";
+	         ofstream f (n.c_str(),std::ios_base::app);
+	         WorldObject *pObj = worldModel->getWorldObject(34);
+
+	         f<<player->pos.getX()<<";"<<x.getX()<<endl;
+*/
 	    return x;
         // possibly clip position
         //player.clipPosition(0);
@@ -155,7 +170,7 @@ void PlayerKF::processFrame() {
 
     prev_time_ = worldModel->getTime();
 
-    for (int modelNumber = 0; modelNumber < MAX_PLAYER_MODELS_UT; modelNumber++) {
+    for (int modelNumber = 0; modelNumber < 22; modelNumber++) {
         // player - time update
         //cout << "Time passed: " << timePassed << endl;
         timeUpdate(modelNumber, timePassed);
@@ -275,7 +290,7 @@ void PlayerKF::timeUpdate(int modelNumber, float timePassed) {
     // TODO: ricks q value fiddle?
 
     // increase player pos uncertainty if we haven't seen it?
-    WorldObject* player = worldModel->getWorldObject(WO_OPPONENT1+modelNumber);
+    WorldObject* player = worldModel->getWorldObject(WO_TEAMMATE1+modelNumber);
     if (!player->currentlySeen && (!player->haveSighting || !player->validPosition)) {
         Q[3][3] *= unseenPlayerVarFactor;
         Q[4][4] *= unseenPlayerVarFactor;
@@ -407,7 +422,7 @@ void PlayerKF::playerMeasurementUpdate(int modelNumber) {
 
     // decide if player is too close (and we want to use rel x/y for update)
     //   or far enough for normal update (dist/bearing)
-    WorldObject* player = worldModel->getWorldObject(WO_OPPONENT1+modelNumber);
+    WorldObject* player = worldModel->getWorldObject(WO_TEAMMATE1+modelNumber);
 
     // no update here if we didn't see the player
     if (!player->currentlySeen && (!player->haveSighting || !player->validPosition))
@@ -443,7 +458,7 @@ void PlayerKF::normalPlayerMeasurementUpdate(int modelNumber) {
     NMatrix Cbearing = NMatrix(1, 7, false);
 
     // object pointers
-    WorldObject* player = worldModel->getWorldObject(WO_OPPONENT1+modelNumber);
+    WorldObject* player = worldModel->getWorldObject(WO_TEAMMATE1+modelNumber);
     //WorldObject* self = &(current->commonMem->worldObjects[current->commonMem->WO_SELF]);
 
     // get estimate of global player location from our pose
@@ -547,7 +562,7 @@ void PlayerKF::closePlayerMeasurementUpdate(int modelNumber) {
     NMatrix X = currModel->GetStates();
 
     // object pointers
-    WorldObject* player = worldModel->getWorldObject(WO_OPPONENT1+modelNumber);
+    WorldObject* player = worldModel->getWorldObject(WO_TEAMMATE1+modelNumber);
 
     // X
     // relative x estimate
@@ -568,20 +583,7 @@ void PlayerKF::closePlayerMeasurementUpdate(int modelNumber) {
 
     // projected value for xr
     float xrelbar = - (X[4][0]);
-  if(modelNumber== 1)
-  {
 
-	  	string n;
-        n = "Player";
-        ostringstream convert;
-         convert<<worldModel->getUNum();
-          n+=convert.str();
-          n+=".csv";
-         ofstream f (n.c_str(),std::ios_base::app);
-         WorldObject *pObj = worldModel->getWorldObject(34);
-
-         f<<pObj->currentlySeen<<";"<<xrel<<";"<<xrelbar<<endl;
-  }
     // Y
     // relative y estimate
     NMatrix Cyrel = GetPlayerYRelJacobian(X[0][0], X[1][0], X[2][0],
@@ -723,7 +725,7 @@ void PlayerKF::updatePlayerFromKF(int modelNumber) {
     OrigKalmanFilter* currModel = &(playerModel[modelNumber]);
 
     // pointer to player object
-    WorldObject* player = worldModel->getWorldObject(WO_OPPONENT1+modelNumber);
+    WorldObject* player = worldModel->getWorldObject(WO_TEAMMATE1+modelNumber);
 
     // info about robot's pose
 //  WorldObject* self = &(world_objects_->objects_[robot_state_->WO_SELF]);
