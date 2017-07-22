@@ -106,9 +106,10 @@ void Analyzer::generateDribble(int range) {
 //	skks.setTarget(tar);
 //	skillset.push_back(skks);
 //	return;
-	if (threatTime < 2) {
-
-	}
+//	if (threatTime < 2) {
+//		skillset.push_back(*new dribbIntercept(wm,loader));
+//		return;
+//	}
 	int thfas = wm->getOpponentClosestTo(wm->getBall()) + WO_OPPONENT1 - 1;
 
 	double angle = -range;
@@ -641,7 +642,7 @@ double kickSkill::surroundingOpponents(VecPosition target,
 		double Distance_NearestOpp_To_Ball) {
 	double ret = 0;
 	int n = 0;
-	for (int i = 0 + WO_OPPONENT1; i < WO_OPPONENT1 + NUM_AGENTS; i++) {
+	for (int i = 0 + WO_OPPONENT2; i < WO_OPPONENT1 + NUM_AGENTS; i++) {
 		if (!wm->getWorldObject(i)->validPosition
 				|| wm->isOut(wm->getWorldObject(i)->pos)
 				|| wm->getWorldObject(i)->pos.getDistanceTo(target) > 4)

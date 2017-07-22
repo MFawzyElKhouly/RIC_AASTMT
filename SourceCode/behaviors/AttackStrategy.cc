@@ -100,10 +100,11 @@ SkillType NaoBehavior::getAttackSkill() {
 		analyzer->resetCandidates();
 		return ret;
 	} else if(skilltarg.getType() == SKILL_DRIBBLE_INTERCEPT) {
+		analyzer->resetCandidates();
 		return dribbintercept();
 	}else
 		analyzer->resetCandidates();
-
+	//cout << skilltarg.getType() << "NOOOO\n";
 	return SKILL_STAND;
 }
 

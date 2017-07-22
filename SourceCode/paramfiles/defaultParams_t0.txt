@@ -100,10 +100,10 @@ app_utwalk_pid_arm_y	-0.31023556762286403
 
 
 // Parameters for approaching the ball
-kick_gen_approach_turnDist	0.2729319251266597
+kick_gen_approach_turnDist	0.102729319251266597
 kick_gen_approach_buff	0.010340912721421135
 kick_gen_approach_estVelCorrection	-0.10445818587148002
-kick_gen_approach_navBallDist	0.5
+kick_gen_approach_navBallDist	0.4
 kick_gen_approach_navBallCollision	0.333
 //kick_gen_approach_navBallAngle	37.67637845256782
 kick_gen_approach_navBallAngle	20.0

@@ -181,9 +181,11 @@ public:
 :skilldesc(SKILL_DRIBBLE_INTERCEPT){
 		this->wm = wm;
 			this->fm = fm;
+			calcCost();
+			//cout << this->getType() << " if 32\n";
 	}
 	double calcCost(){
-		return 0;
+		return cost= 0;
 	}
 	~dribbIntercept() {
 	}
