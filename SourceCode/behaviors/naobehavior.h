@@ -198,6 +198,7 @@ protected:
 
     SkillType goToTarget(const VecPosition &target);
     SkillType dribbleAng(double ang);
+    SkillType dribbintercept();
     SkillType intercept();
     VecPosition collisionAvoidance(bool avoidTeammate, bool avoidOpponent, bool avoidBall, double PROXIMITY_THRESH, double COLLISION_THRESH, VecPosition target, bool fKeepDistance=true);
     VecPosition collisionAvoidanceCorrection(VecPosition start, double PROXIMITY_THRESH, double COLLISION_THRESH, VecPosition target, VecPosition obstacle);

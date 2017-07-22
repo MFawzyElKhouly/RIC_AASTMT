@@ -44,11 +44,13 @@ supportSkill::supportSkill(WorldModel *wm, formationLoader *loader) :
 	if (wm->getBall().getDistanceTo(wm->getMyPosition()) > maxShot) {
 
 		target = wm->getBall();
-
 	}
 
 	else if(ball.getDistanceTo(wm->getMyPosition()) > 5
-		&& cl==wm->getUNum() && ball.getDistanceTo((wm->getOppLeftGoalPost()+wm->getOppRightGoalPost())/2) < 7.5 && wm->getUNum() > 5) {
+		//&& wm->getRole(wm->getUNum()) > 2
+			&&ball.getX() > 0
+		&& ball.getDistanceTo((wm->getOppLeftGoalPost()+wm->getOppRightGoalPost())/2) < 7.5 && wm->getUNum() > 6) {
+
 		target = wm->getBall();
 	}
 	else {

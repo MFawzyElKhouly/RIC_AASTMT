@@ -99,7 +99,9 @@ SkillType NaoBehavior::getAttackSkill() {
 			//cout<<"Dribb\n";
 		analyzer->resetCandidates();
 		return ret;
-	} else
+	} else if(skilltarg.getType() == SKILL_DRIBBLE_INTERCEPT) {
+		return dribbintercept();
+	}else
 		analyzer->resetCandidates();
 
 	return SKILL_STAND;

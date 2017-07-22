@@ -372,7 +372,15 @@ string NaoBehavior::Think(const std::string& message) {
 
 	return action;
 }
+SkillType NaoBehavior::dribbintercept() {
+	VecPosition locBall = worldModel->g2l(worldModel->getBall());
+	VecPosition locOpp = worldModel->g2l(worldModel->getOpponent(worldModel->getOpponentClosestTo(
+			worldModel->getBall())+WO_OPPONENT1-1));
+	double ang = (locBall - locOpp).getTheta();
+	cout << ang << " entering\n";
+	return goToTargetRelative(locBall,ang);
 
+}
 void NaoBehavior::act() {
 	refresh();
 
