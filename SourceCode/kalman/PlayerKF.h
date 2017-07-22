@@ -9,7 +9,7 @@
 #include "../worldmodel/worldmodel.h"
 #include <stdarg.h>
 
-#define MAX_PLAYER_MODELS_UT NUM_AGENTS
+#define MAX_PLAYER_MODELS_UT 22
 
 class TextLogger;
 
