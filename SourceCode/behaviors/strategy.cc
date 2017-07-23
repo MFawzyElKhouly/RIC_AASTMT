@@ -3,11 +3,15 @@
 #include "../rvdraw/rvdraw.h"
 
 #include "../chain_Acion/analyzer.h"
-
+#include "../formations/formation.h"
 #include <iostream>
 #include <vector>
 #include<cassert>
 #include <fstream>
+#define ATT 3
+#define MID 2
+#define DEF 1
+
 using namespace std;
 
 vector<VecPosition> sttaics;
@@ -55,27 +59,31 @@ SkillType NaoBehavior::dribbleAng(double ang) {
 	return  kickBall(KICK_DRIBBLE, tar);
 
 }
+bool OppInRegion(){
+	return false;
+}
 SkillType NaoBehavior::selectSkill() {
-	VecPosition T_HalfG = (worldModel->getOppLeftGoalPost()+worldModel->getOppRightGoalPost())/2;
-	VecPosition O_HalfG = (worldModel->getMyLeftGoalPost()+worldModel->getMyRightGoalPost())/2;
-	cout << "State = ";
-	if(loader->getTeamState()==0)
-		cout << "Attacking ";
-		else if(loader->getTeamState()==1)
-		cout << "DEFENDING ";
-		else if(loader->getTeamState()==2)
-		cout << "ATTDEFEND ";
-		else if(loader->getTeamState()==3)
-		cout << "DEFATTACK ";
+//	VecPosition T_HalfG = (worldModel->getOppLeftGoalPost()+worldModel->getOppRightGoalPost())/2;
+//	VecPosition O_HalfG = (worldModel->getMyLeftGoalPost()+worldModel->getMyRightGoalPost())/2;
+//	cout << "State = ";
+//	if(loader->getTeamState()==0)
+//		cout << "Attacking ";
+//		else if(loader->getTeamState()==1)
+//		cout << "DEFENDING ";
+//		else if(loader->getTeamState()==2)
+//		cout << "ATTDEFEND ";
+//		else if(loader->getTeamState()==3)
+//		cout << "DEFATTACK ";
+//
+//	cout << loader->GetPrev() << endl;
+//	if(worldModel->getUNum() == worldModel->getTeammateClosestTo(ball)){
+//	if(ball.getX()>=0 && (loader->GetPrev()=="ATT"||loader->GetPrev()=="HALF"))
+//		return kickBall(KICK_FORWARD, O_HalfG);
+//	else
+//		return kickBall(KICK_FORWARD, T_HalfG);}
+//	else
+//	return SKILL_STAND;
 
-	cout << loader->GetPrev() << endl;
-	if(worldModel->getUNum() == worldModel->getTeammateClosestTo(ball)){
-	if(ball.getX()>=0 && (loader->GetPrev()=="ATT"||loader->GetPrev()=="HALF"))
-		return kickBall(KICK_FORWARD, O_HalfG);
-	else
-		return kickBall(KICK_FORWARD, T_HalfG);}
-	else
-	return SKILL_STAND;
 //	int Opp = worldModel->getOpponentClosestTo(ball)+WO_OPPONENT1-1;
 //	VecPosition target;
 //	target = ball
@@ -117,40 +125,108 @@ SkillType NaoBehavior::selectSkill() {
 //				cout <<  "Estimated Position " << target.getX() << " " << target.getY() << endl;
 //
 //		return SKILL_STAND;
-	double oppDis = ball.getDistanceTo(worldModel->getOpponent(worldModel->getOpponentClosestTo(ball)+WO_OPPONENT1-1));
-		//cout << "Player " << wm->getUNum() << endl;
-	VecPosition HALF_GOAL = (worldModel->getMyLastPosition()+worldModel->getMyRightGoalPost())/2;
-	double MeDisToBall = ball.getDistanceTo(worldModel->getTeammate(worldModel->getTeammateClosestTo(ball)+WO_TEAMMATE1-1));
-	if((worldModel->getTeammateClosestTo(ball) == worldModel->getUNum()) && me.getDistanceTo(ball)<0.3){
-	for(int i=WO_OPPONENT1;i<=WO_OPPONENT11;i++){
-		VecPosition opp = worldModel->getOpponent(i);
-		double DisToOpp = me.getDistanceTo(opp);
-		int AngleWithOpp = me.getAngleWithVector(opp);
-		double MyAng = worldModel->getWorldObject(worldModel->getUNum()+WO_TEAMMATE1-1)->orien;
-		//cout << "Me " << AngleWithOpp << endl;
-		if(DisToOpp < 0.25 && fabs(AngleWithOpp) < 5 && me.getDistanceTo(HALF_GOAL)<5.0
-				&& fabs(MyAng)<60){
-			return intercept();
-			}
-		}
-	}
+
 	//cout << "My Dist = " << MeDisToBall << endl;
 	//cout << "oppDissssssssssssss = " << oppDis << endl;
 
 	if (worldModel->getPlayMode() != PM_PLAY_ON) {
 		return getPlayModeSkill();
 	}
+	bool ballHolder = false;
 
-	if (MeDisToBall< oppDis || worldModel->getTeammateClosestTo(ball) == worldModel->getUNum()) {
-	//cout << "ATT STATEEEEEEEEEEEEEEE" << endl;
+	int role = worldModel->getRole(worldModel->getUNum()-1);
+	int GameState = loader->getTeamState();
+	if(me.getDistanceTo(ball)<0.3)
+		ballHolder = true;
+
+	if (ballHolder)
 		return getAttackSkill();
+
+	if(role == ATT){
+		switch (GameState)
+		{
+		case ATTACKING:
+			getAttackSkill();
+			break;
+		case ATTDEFEND:
+			getAttackSkill();
+			break;
+		case DEFENDING:
+			if(OppInRegion())
+				getDefensiveSkill();
+			else
+				getAttackSkill();
+			break;
+		case DEFATTACK:
+			getAttackSkill();
+			break;
+		default : return SKILL_STAND;
+		}
+	}
+
+	else if(role == MID){
+
+		switch (GameState)
+		{
+		case ATTACKING:
+			getAttackSkill();
+			break;
+
+		case ATTDEFEND:
+			if(OppInRegion())
+				getDefensiveSkill();
+			else
+				getAttackSkill();
+			break;
+
+		case DEFENDING:
+				getDefensiveSkill();
+			break;
+
+		case DEFATTACK:
+			if (OppInRegion())
+				getDefensiveSkill();
+			else
+				getAttackSkill();
+			break;
+		default : return SKILL_STAND;
+
+		}
+	}
+
+	else if (role == DEF) {
+
+		switch (GameState) {
+		case ATTACKING:
+			if (OppInRegion())
+				getDefensiveSkill();
+			else
+				getAttackSkill();
+			break;
+
+		case ATTDEFEND:
+			getDefensiveSkill();
+			break;
+
+		case DEFENDING:
+			getDefensiveSkill();
+			break;
+
+		case DEFATTACK:
+			getDefensiveSkill();
+			break;
+		default:
+			return SKILL_STAND;
+
+		}
+
 	}
 	else{
 		//cout << "DEF" << endl;
 		return getDefensiveSkill();
 	}
-
 	return SKILL_STAND;
+
 }
 
 

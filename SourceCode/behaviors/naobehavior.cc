@@ -338,9 +338,9 @@ string NaoBehavior::Think(const std::string& message) {
 		if(ball.getX() < 5 && ball.getX()>-7 && loader->GetPrev()=="HALF")
 			loader->setTeamState(ATTDEFEND);
 		else if(ball.getX() < 5 && ball.getX()>-7 && loader->GetPrev()=="DEF")
-			loader->setTeamState(ATTDEFEND);
-		else if(ball.getX() < 5 && ball.getX()>-7 && loader->GetPrev()=="ATT")
 			loader->setTeamState(DEFATTACK);
+		else if(ball.getX() < 5 && ball.getX()>-7 && loader->GetPrev()=="ATT")
+			loader->setTeamState(ATTDEFEND);
 		else if(ball.getX() >=5 && ball.getX()<15){
 			loader->SetPrev("ATT");
 			loader->setTeamState(ATTACKING);

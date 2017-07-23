@@ -51,7 +51,7 @@ supportSkill::supportSkill(WorldModel *wm, formationLoader *loader) :
 
 //	}
 	else {
-		cost = 100;
+		cost = 1000;
 		double mtheta = -180;
 		for (double theta = -180; theta < 180; theta += 15) {
 			double x = generateTarget(theta);
