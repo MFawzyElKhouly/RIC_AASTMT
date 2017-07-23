@@ -349,7 +349,7 @@ string NaoBehavior::Think(const std::string& message) {
 			loader->SetPrev("DEF");
 			loader->setTeamState(DEFENDING);
 		}
-		loader->setTeamState(DEFENDING);
+		loader->setTeamState(ATTACKING);
 //		cout<<loader->getTeamState()<<" is a teammate\n";
 //		if ((worldModel->hasBall() //&& (worldModel->distanceToMyGoal(ball)) > 2
 //				&& (worldModel->getBall()

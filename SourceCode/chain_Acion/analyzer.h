@@ -34,12 +34,13 @@ class Analyzer {
 private:
 	WorldModel *wm;
 	formationLoader *loader;
-	vector<skilldesc> skillset;
+
 	skilldesc *max;
 
 	double maxShot;
 protected:
 public:
+	vector<skilldesc> skillset;
 	Analyzer(WorldModel *wm);
 
 	Analyzer(WorldModel *wm,formationLoader *loader);
@@ -47,6 +48,7 @@ public:
 	void generateBallHolderSkills();
 	void generateAttackingSkills();
 	void generateDefensiveSkills();
+	VecPosition getDuePos();
 	skilldesc getTopSkill();
 	double calcCost(skilldesc scil);
 	void generatePassPoints(PassType type);
@@ -58,7 +60,7 @@ public:
 	void generateintersect();
 	VecPosition getHeatMap();
 	void generateDribble(int range) ;
-
+	bool canThreat(double time) ;
 };
 void loadParameters(string file,map<string,double> &factors);
 #endif

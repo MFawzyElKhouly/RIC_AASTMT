@@ -40,16 +40,19 @@ supportSkill::supportSkill(WorldModel *wm, formationLoader *loader) :
 			cl = i - WO_TEAMMATE1 + 1;
 		}
 	}
+	VecPosition ball = wm->getBall();
 	if (wm->getBall().getDistanceTo(wm->getMyPosition()) > maxShot) {
 
 		target = wm->getBall();
-
 	}
-	//else if(wm->getBall().getDistanceTo(wm->getMyPosition()) > 5
-	//	&& cl==wm->getUNum()) {
-	//	target = wm->getBall();
 
-//	}
+	else if(ball.getDistanceTo(wm->getMyPosition()) > 5
+		//&& wm->getRole(wm->getUNum()) > 2
+			&&ball.getX() > 0
+		&& ball.getDistanceTo((wm->getOppLeftGoalPost()+wm->getOppRightGoalPost())/2) < 7.5 && wm->getUNum() > 6) {
+
+		target = wm->getBall();
+	}
 	else {
 		cost = 1000;
 		double mtheta = -180;
@@ -67,16 +70,29 @@ supportSkill::supportSkill(WorldModel *wm, formationLoader *loader) :
 }
 double supportSkill::generateTarget(double theta) {
 	target = VecPosition(0.5, theta, 0, POLAR) + wm->getMyPosition();
-	double myGoal = exponential(wm->distanceToMyGoal(target), 13) + 1
+	double myGoal =  + 1
 			- exponential(wm->distanceToOppGoal(target), 22);
 	double ret = 0;
+
+
 	for (int i = 0 + WO_OPPONENT1; i < WO_OPPONENT1 + NUM_AGENTS; i++) {
 		if (!wm->getWorldObject(i)->validPosition
 				|| wm->isOut(wm->getWorldObject(i)->pos)
 				|| target.getDistanceTo(wm->getOpponent(i)) > 4)
 			continue;
-		ret += exponential(wm->getPlayerTimeTo(i, target), 8.5);
+		ret += exponential(wm->getOpponent(i).getDistanceTo( target), 8.5);
 	}
+	double supported  = 0;
+	for (int i = 0 + WO_TEAMMATE1; i < WO_TEAMMATE1 + NUM_AGENTS; i++) {
+			if (!wm->getWorldObject(i)->validPosition
+					|| wm->isOut(wm->getWorldObject(i)->pos)
+					|| target.getDistanceTo(wm->getTeammate(i)) > 4)
+				continue;
+			supported=  max(supported,exponential(wm->getPlayerTimeTo(i, target), 8.5));
+		}
+//	for (int i = 0 + WO_OPPONENT1; i < WO_OPPONENT1 + NUM_AGENTS; i++) {
+//
+//	}
 	double nearest = 1e9;
 	for (int i = 0 + WO_TEAMMATE1; i < WO_TEAMMATE1 + NUM_AGENTS; i++) {
 		int curUNum = i - WO_TEAMMATE1 + 1;
@@ -104,7 +120,7 @@ double supportSkill::generateTarget(double theta) {
 //		if(target.getX() > bigOpp.getX())
 //			return target.getX();
 //	}
-	return ret + 5*myGoal;
+	return ret + 5*myGoal +supported;
 }
 double supportSkill::lengthOfSupport() {
 	double mylen = wm->distancetoBall(wm->getMyPosition());

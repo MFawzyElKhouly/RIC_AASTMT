@@ -17,6 +17,7 @@ enum TeamState {
 };
 class formationLoader {
 protected:
+public:
 	vector<VecPosition> beamings;
 	vector<VecPosition> attacking;
 	vector<VecPosition> defending;
@@ -35,7 +36,7 @@ protected:
 	string strategy;
 	string prevState="ATT";
 	//string prevState="HALF";
-public:
+
 	formationLoader();
 	~formationLoader();
 	inline VecPosition getBeamingPosition(int unum) {

@@ -98,9 +98,9 @@ double dribble::dribbleSafety() {
 
 }
 double dribble::effectiveness() {
-	double myGoal = exponential(wm->distanceToMyGoal(target), 130);
+	double myGoal = exponential(wm->distanceToMyGoal(target), 13);
 	double theirGoal = 1
-			- exponential(wm->distanceToOppGoal(target), TheirGoalP);
+			- exponential(wm->distanceToOppGoal(target), 22);
 	double surrounding_Opponents = surroundingOpponents();
 	//	double supporting_TeamMates = supportingTeamMates(target);
 

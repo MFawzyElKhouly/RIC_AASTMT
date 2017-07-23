@@ -60,6 +60,12 @@ SkillType NaoBehavior::dribbleAng(double ang) {
 
 }
 bool NaoBehavior::OppInRegion(){
+	VecPosition me = worldModel->getMyPosition();
+	for (int i = WO_OPPONENT1;i<= WO_OPPONENT11;i++) {
+		if (fabs(worldModel->getOpponent(i).getX() - me.getX()) < loader->getDueLength(worldModel->getUNum())/2)
+			if (fabs(worldModel->getOpponent(i).getY() - me.getY()) < loader->getDueWidth(worldModel->getUNum())/2)
+				return true;
+	}
 	return false;
 }
 bool NaoBehavior::Nearest(){
