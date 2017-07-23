@@ -23,8 +23,14 @@ protected:
 	vector<double> attackingLengths;
 	vector<double> attackingWidths;
 	vector<double> defendingLengths;
-
 	vector<double> defendingWidths;
+		vector<VecPosition> attdefend;
+		vector<VecPosition> defattack;
+		vector<double> attdefendLengths;
+		vector<double> attdefendWidths;
+		vector<double> defattackLengths;
+		vector<double> defattackWidths;
+		//vector<double> defWidths;
 	TeamState state;
 	string strategy;
 public:
@@ -43,14 +49,42 @@ public:
 	}
 
 	inline VecPosition getDuePosition(int unum) {
+		switch (state) {
+		case ATTACKING:return attacking[unum-1];
+
+		case ATTDEFEND:return attdefend[unum-1];
+
+		case DEFETTACK:return defattack[unum-1];
+
+		case DEFENDING:return defending[unum-1];
+		}
 		return ((state == ATTACKING ||state == ATTDEFEND) ? attacking[unum-1] : defending[unum-1]);
+
 	}
 	inline double getDueLength(int unum) {
+		switch (state) {
+				case ATTACKING:return attackingLengths[unum-1];
+
+				case ATTDEFEND:return attdefendLengths[unum-1];
+
+				case DEFETTACK:return defattackLengths[unum-1];
+
+				case DEFENDING:return defendingLengths[unum-1];
+				}
 		return ((state == ATTACKING ||state == ATTDEFEND)) ?
 				attackingLengths[unum-1] : defendingLengths[unum-1];
 	}
 
 	inline double getDueWidth(int unum) {
+		switch (state) {
+						case ATTACKING:return attackingWidths[unum-1];
+
+						case ATTDEFEND:return attdefendWidths[unum-1];
+
+						case DEFETTACK:return defendingWidths[unum-1];
+
+						case DEFENDING:return defendingWidths[unum-1];
+						}
 		return ((state == ATTACKING ||state == ATTDEFEND)) ?
 				attackingWidths[unum-1] : defendingWidths[unum-1];
 	}
@@ -62,3 +96,4 @@ public:
 };
 
 #endif /* FORMATIONS_FORMATION_H_ */
+
