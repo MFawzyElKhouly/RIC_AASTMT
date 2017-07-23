@@ -341,7 +341,7 @@ string NaoBehavior::Think(const std::string& message) {
 			loader->setTeamState(DEFATTACK);
 		else if(ball.getX() < 5 && ball.getX()>-7 && loader->GetPrev()=="ATT")
 			loader->setTeamState(ATTDEFEND);
-		else if(ball.getX() >=5 && ball.getX()<15){
+		else if((ball.getX() >=5 && ball.getX()<15) || worldModel->getPlayMode() == PM_KICK_OFF_LEFT){
 			loader->SetPrev("ATT");
 			loader->setTeamState(ATTACKING);
 		}
@@ -349,6 +349,8 @@ string NaoBehavior::Think(const std::string& message) {
 			loader->SetPrev("DEF");
 			loader->setTeamState(DEFENDING);
 		}
+		loader->setTeamState(DEFENDING);
+//		cout<<loader->getTeamState()<<" is a teammate\n";
 //		if ((worldModel->hasBall() //&& (worldModel->distanceToMyGoal(ball)) > 2
 //				&& (worldModel->getBall()
 //						- worldModel->getOpponentBodyFastestTo(

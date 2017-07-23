@@ -89,7 +89,8 @@ protected:
     void calculateAngles();
     void preProcessJoints();
     void postProcessJoints();
-
+    bool Nearest();
+    bool OppInRegion();
     double hoverTime;
     bool mInit;
     bool initBeamed;

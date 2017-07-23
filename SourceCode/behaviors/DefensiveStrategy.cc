@@ -17,7 +17,7 @@
 #include <fstream>
 using namespace std;
 SkillType NaoBehavior::getDefensiveSkill() {
-		analyzer->generateCanditates();
+		analyzer->generateDefensiveSkills();
 		skilldesc skilltarg = analyzer->getTopSkill();
 		SkillType ret;
 

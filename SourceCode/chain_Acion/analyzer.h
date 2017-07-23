@@ -46,7 +46,7 @@ public:
 	void generateCanditates();
 	void generateBallHolderSkills();
 	void generateAttackingSkills();
-	void generateDefensiveSkill();
+	void generateDefensiveSkills();
 	skilldesc getTopSkill();
 	double calcCost(skilldesc scil);
 	void generatePassPoints(PassType type);

@@ -33,7 +33,7 @@ protected:
 		//vector<double> defWidths;
 	TeamState state;
 	string strategy;
-	string prevState="HALF";
+	string prevState="ATT";
 	//string prevState="HALF";
 public:
 	formationLoader();
@@ -64,7 +64,7 @@ public:
 
 		case ATTDEFEND:return attdefend[unum-1];
 
-		case DEFETTACK:return defattack[unum-1];
+		case DEFATTACK:return defattack[unum-1];
 
 		case DEFENDING:return defending[unum-1];
 		}
@@ -77,7 +77,7 @@ public:
 
 				case ATTDEFEND:return attdefendLengths[unum-1];
 
-				case DEFETTACK:return defattackLengths[unum-1];
+				case DEFATTACK:return defattackLengths[unum-1];
 
 				case DEFENDING:return defendingLengths[unum-1];
 				}
@@ -91,7 +91,7 @@ public:
 
 						case ATTDEFEND:return attdefendWidths[unum-1];
 
-						case DEFETTACK:return defendingWidths[unum-1];
+						case DEFATTACK:return defendingWidths[unum-1];
 
 						case DEFENDING:return defendingWidths[unum-1];
 						}

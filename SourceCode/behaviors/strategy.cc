@@ -136,6 +136,7 @@ SkillType NaoBehavior::selectSkill() {
 
 	int role = worldModel->getRole(worldModel->getUNum()-1);
 	int GameState = loader->getTeamState();
+	cout << " my role is "<<role << " and state is "<<GameState<<endl;;
 	if(me.getDistanceTo(ball)<0.3)
 		ballHolder = true;
 
@@ -146,19 +147,19 @@ SkillType NaoBehavior::selectSkill() {
 		switch (GameState)
 		{
 		case ATTACKING:
-			getAttackSkill();
+			return getAttackSkill();
 			break;
 		case ATTDEFEND:
-			getAttackSkill();
+			return getAttackSkill();
 			break;
 		case DEFENDING:
 			if(OppInRegion())
-				getDefensiveSkill();
+				return getDefensiveSkill();
 			else
-				getAttackSkill();
+				return getAttackSkill();
 			break;
 		case DEFATTACK:
-			getAttackSkill();
+			return getAttackSkill();
 			break;
 		default : return SKILL_STAND;
 		}
@@ -169,25 +170,25 @@ SkillType NaoBehavior::selectSkill() {
 		switch (GameState)
 		{
 		case ATTACKING:
-			getAttackSkill();
+			return getAttackSkill();
 			break;
 
 		case ATTDEFEND:
 			if(OppInRegion())
-				getDefensiveSkill();
+				return getDefensiveSkill();
 			else
-				getAttackSkill();
+				return getAttackSkill();
 			break;
 
 		case DEFENDING:
-				getDefensiveSkill();
+			return getDefensiveSkill();
 			break;
 
 		case DEFATTACK:
 			if (OppInRegion())
-				getDefensiveSkill();
+				return getDefensiveSkill();
 			else
-				getAttackSkill();
+				return getAttackSkill();
 			break;
 		default : return SKILL_STAND;
 
@@ -199,21 +200,21 @@ SkillType NaoBehavior::selectSkill() {
 		switch (GameState) {
 		case ATTACKING:
 			if (OppInRegion())
-				getDefensiveSkill();
+				return getDefensiveSkill();
 			else
-				getAttackSkill();
+				return getAttackSkill();
 			break;
 
 		case ATTDEFEND:
-			getDefensiveSkill();
+			return getDefensiveSkill();
 			break;
 
 		case DEFENDING:
-			getDefensiveSkill();
+			return getDefensiveSkill();
 			break;
 
 		case DEFATTACK:
-			getDefensiveSkill();
+			return getDefensiveSkill();
 			break;
 		default:
 			return SKILL_STAND;

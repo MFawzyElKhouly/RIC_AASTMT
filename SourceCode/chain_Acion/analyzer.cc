@@ -295,6 +295,7 @@ void Analyzer::generateDefensiveSkills() {
 
 	}
 	generateintersect();
+
 }
 
 void Analyzer::generateintersect() {
@@ -316,32 +317,32 @@ void Analyzer::generateintersect() {
 
 	for (int i = WO_TEAMMATE2; i <= WO_TEAMMATE11; i++) {// kam teammate a2rb ll kora
 
-		if ((i - WO_TEAMMATE1 + 1) == (wm->getUNum() - WO_TEAMMATE1+1))
-			continue;
+			if ((i - WO_TEAMMATE1 + 1) == (wm->getUNum() - WO_TEAMMATE1+1))
+				continue;
 
-//		if(me.getX()>ball.getX() && Mark &&
-//						wm->getTeammateClosestTo(ball)==wm->getUNum()+WO_TEAMMATE1-1){
-//		//			double DisToOpp = wm->getTeammate(i).getDistanceTo(ball);
-//		//			int AngleWithBall = wm->getTeammate(i).getAngleWithVector(ball);
-//		//			int AngleWithGoal = wm->getTeammate(i).getAngleWithVector((wm->getOppLeftGoalPost()+wm->getOppRightGoalPost())/2);
-//					if(wm->getTeammate(i).getX()+1.0 < wm->getOpponent((wm->getOpponentClosestTo(ball)+WO_OPPONENT1-1)).getX()){
-//						Mark =0;
-//						cout << "Teammate Succ " << i << endl;
-//					}
-//				}
-		double di = wm->distancetoBall(wm->getTeammate(i));
-		if (wm->getTeammate(i).getX() > wm->getBall().getX() || wm->getFallenTeammate(i - WO_TEAMMATE1 + 1)){// && wm->distancetoBall(wm->getTeammate(i)) > 1.5)
-		di+=50;
-		Mark++;
-		}
+	//		if(me.getX()>ball.getX() && Mark &&
+	//						wm->getTeammateClosestTo(ball)==wm->getUNum()+WO_TEAMMATE1-1){
+	//		//			double DisToOpp = wm->getTeammate(i).getDistanceTo(ball);
+	//		//			int AngleWithBall = wm->getTeammate(i).getAngleWithVector(ball);
+	//		//			int AngleWithGoal = wm->getTeammate(i).getAngleWithVector((wm->getOppLeftGoalPost()+wm->getOppRightGoalPost())/2);
+	//					if(wm->getTeammate(i).getX()+1.0 < wm->getOpponent((wm->getOpponentClosestTo(ball)+WO_OPPONENT1-1)).getX()){
+	//						Mark =0;
+	//						cout << "Teammate Succ " << i << endl;
+	//					}
+	//				}
+			double di = wm->distancetoBall(wm->getTeammate(i));
+			if (wm->getTeammate(i).getX() > wm->getBall().getX() || wm->getFallenTeammate(i - WO_TEAMMATE1 + 1)){// && wm->distancetoBall(wm->getTeammate(i)) > 1.5)
+			di+=50;
+			Mark++;
+			}
 
-		if ((di < d) /*(di == d && i - (WO_TEAMMATE1 < wm->getUNum() - 1))*/
-				&& wm->getWorldObject(i)->validPosition && wm->getFallenTeammate(i) == false
-				//&& !wm->getFallenTeammate(i)
-				) {
-			n++;
+			if ((di < d) /*(di == d && i - (WO_TEAMMATE1 < wm->getUNum() - 1))*/
+					&& wm->getWorldObject(i)->validPosition && wm->getFallenTeammate(i) == false
+					//&& !wm->getFallenTeammate(i)
+					) {
+				n++;
+			}
 		}
-	}
 	//cout << "Player no " << wm->getUNum() << " N = " << n << endl;
 	int MyNum = wm->getUNum()+WO_TEAMMATE1-1;
 	int ClosestTeammte = wm->getTeammateClosestTo(ball)+WO_TEAMMATE1-1;
