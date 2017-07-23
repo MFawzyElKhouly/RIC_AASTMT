@@ -18,7 +18,7 @@ for ((i=1;i<=$NUM_PLAYERS;i++)); do
     case $i in
 	1|2)
 	    echo "Running agent No. $i "
-		./RICAASTMT $opt --unum $i --type 0  --paramsfile paramfiles/defaultParams_t0.txt &#> /dev/null &
+		./RICAASTMT $opt --unum $i --type 4  --paramsfile paramfiles/defaultParams_t4.txt &#> /dev/null &
 	    ;;
 	3|4)
 	    echo "Running agent No. $i "
