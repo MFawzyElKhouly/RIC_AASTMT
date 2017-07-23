@@ -94,9 +94,14 @@ WorldModel::~WorldModel() {
 }
 
 VecPosition WorldModel::predictBall (float time)
-	{
+{
 	  return  ballKalmanFilter->predict(time);
-	}
+}
+VecPosition WorldModel::predictPlayer (int modelNumber,float time)
+{
+	return opponentKalmanFilters->predict(modelNumber,time);
+}
+
 
 void WorldModel::display() {
 
