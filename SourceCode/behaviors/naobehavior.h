@@ -120,7 +120,7 @@ protected:
     VecPosition me;
     VecPosition myXDirection, myYDirection, myZDirection;
 
-    VecPosition ball;
+    VecPosition ball,lastballpos;
 
     //SCORE
     int scoreMe;

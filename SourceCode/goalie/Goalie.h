@@ -28,22 +28,12 @@ public:
 	Goalie(const std::string teamName, int uNum, const map<string, string>& namedParams_, const string& rsg_);
 	~Goalie();
 protected:
-
-	    SIM::Point2D goalLineStart;
-	    SIM::Point2D goalLineEnd;
-	    SIM::Point2D ballLineStart;
-	    SIM::Point2D ballLineEnd;
-	    bool notYet, endIt;
-	    double times;
-	    double t;
-	    bool f;
-	    double t1,t2;
-	    double ballv;
-	    VecPosition p1,p2;
-	    int counter;
 	SkillType selectSkill();
 private:
 
+	VecPosition target;
+	double oldX=0.0,oldY=0.0;
+	double timeforGK=0.0;
 	bool splitDecision (double distance);
 	double getMagnitude(double p1, double q1, double p2, double q2);
 	bool standDecision ();

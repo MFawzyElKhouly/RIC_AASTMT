@@ -416,7 +416,6 @@ void Analyzer::generateintersect() {
 //			cout << "GOOD" << endl;
 			target = tempTarget;
 		if(Mark == 9 && wm->getRole(wm->getUNum()-1)<3){
-					cout << "Marking ALLLL" << endl;
 				if (wm->getOpponent(i).getDistanceTo(wm->getMyLeftGoalPost())
 					< wm->getOpponent(i).getDistanceTo(
 					wm->getMyRightGoalPost()))
@@ -440,8 +439,8 @@ void Analyzer::generateintersect() {
 			) {
 
 		//cout << "Angle : "<< OppAngle << endl;
-		cout << "Ball " << ball.getX() << " " << ball.getY() << endl;
-		cout << "New " << target.getX() << " " << target.getY() << endl;
+	//	cout << "Ball " << ball.getX() << " " << ball.getY() << endl;
+		//cout << "New " << target.getX() << " " << target.getY() << endl;
 		//VecPosition IncDis = *(new VecPosition (0.3,0,0,POLAR));
 		//cout << "Ball Pos = " << ball.getX() << " " << ball.getY() << endl;
 		//cout << "New POSSSSSS = " << target.getX() << " " << target.getY() << endl;

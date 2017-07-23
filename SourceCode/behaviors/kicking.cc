@@ -35,7 +35,7 @@ SkillType NaoBehavior::kickBall(const int kickTypeToUse,
 						* atof(namedParams.find("drib_target")->second.c_str());
 		return goToTarget(approachBallTarget);
 	}
-	
+
 	return kickBallAtPresetTarget();
 }
 
@@ -97,10 +97,9 @@ SkillType NaoBehavior::kickBallAtPresetTarget() {
 		getTargetDistanceAndAngle(kickTarget, target_dist, target_angle);
 
 		SkillType kick_array[2];
-
 		if (ball.getDistanceTo(kickTarget) <= 4.5)
-		kickType = KICK_IK;
-		else if (ball.getDistanceTo(kickTarget) < 6.75 )
+			kickType = KICK_IK;
+		else if (ball.getDistanceTo(kickTarget) < 6.75)
 			kickType = KICK_FORWARD_6_5;
 		else if (ball.getDistanceTo(kickTarget) < 7.25)
 			kickType = KICK_FORWARD_7;
@@ -133,7 +132,6 @@ SkillType NaoBehavior::kickBallAtPresetTarget() {
 				kickSkill = kick;
 			}
 		}
-
 		static double timeLastSetTarget = -100;
 		static VecPosition currentTarget = VecPosition(0, 0, 0);
 
@@ -150,12 +148,11 @@ SkillType NaoBehavior::kickBallAtPresetTarget() {
 			currentKickType = kickType;
 
 		}
-
-		if (lastKickSelected != kickSkill) {
+		if (abs(lastKickSelected - kickSkill) > 1) {
 			lastKickSelected = kickSkill;
 			lastKickSelectedTime = worldModel->getTime();
 		}
-
+		//	cout << kickSkill << endl;
 		// Kick skill hysteresis requires us to hold a kick skill for a certain amount of time before switching (but don't switch between kick types)
 		if (worldModel->getTime() - lastKickSelectedTime > .5
 				&& currentKickType == kickType) {
