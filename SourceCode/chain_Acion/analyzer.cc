@@ -188,7 +188,8 @@ void Analyzer::generateBallHolderSkills() {
 						+ add);
 	}
 	//threatTime = wm->getPlayerTimeTo(threat, wm->getBall());
-	threatTime = clos * 1.25;
+	if(wm->getPlayMode() == PM_PLAY_ON)
+		threatTime = clos * 1.25;
 	//threatTime = clos;
 	int range = 20;
 	if (wm->distancetoBall(wm->getMyPosition()) < 1.5) {
@@ -491,13 +492,14 @@ void Analyzer::generateCanditates() {
 			really = true;
 		}
 	}
+	if(wm->hasBall())
 	if (ballHolder == wm->getUNum() //&& !really
 			//&&loader->getTeamState() == ATTACKING
 			) {
 		generateBallHolderSkills();
 		return;
 	}
-	if (wm->getBallHolder() - WO_TEAMMATE1 < 11
+	else if (wm->getBallHolder() - WO_TEAMMATE1 < 11
 			&& (wm->distanceToMyGoal(ball)) > 0) {
 
 		generateAttackingSkills();
