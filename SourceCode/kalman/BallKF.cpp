@@ -135,7 +135,7 @@ VecPosition BallKF::predict(float time){
 	    float yrelbar = (X[4][0]) ;
 	    VecPosition x = VecPosition(xrelbar,yrelbar,0);
 	    x = worldModel->l2g(x);
-  /*
+/*
 	    string n;
 	               n = "Player";
 	               ostringstream convert;
@@ -144,7 +144,7 @@ VecPosition BallKF::predict(float time){
 	                 n+=".csv";
 	                ofstream f (n.c_str(),std::ios_base::app);
 	                f<<x.getX()<<";"<<x.getY()<<";"<<worldModel->getBallGroundTruth().getX()<<";"<<worldModel->getBallGroundTruth().getY()<<endl;
-    */
+*/
     return x;
 
 }
@@ -165,7 +165,7 @@ void BallKF::processFrame() {
     X = currModel->GetStates();
 
     // update the pose in the kf using pf estimate
-    //poseMeasurementUpdate(0);
+    poseMeasurementUpdate(0);
     X = currModel->GetStates();
 
     // ball - measurement update
@@ -798,7 +798,7 @@ void BallKF::updateBallFromKF(int modelNumber) {
      ofstream f (n.c_str(),std::ios_base::app);
     f<<objGlobal.getX()<<";"<<objGlobal.getY()<<";"<<worldModel->getTime()<<";"<<worldModel->getBallGroundTruth().getX()<<";"<<worldModel->getBallGroundTruth().getY()<<";"<<worldModel->getBall().getX()<<";"<<worldModel->getBall().getY()<<endl;
 
-     */
+
 /*
     if(worldModel->getUNum()==2)
     {
