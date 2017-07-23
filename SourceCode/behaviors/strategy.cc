@@ -59,8 +59,58 @@ SkillType NaoBehavior::dribbleAng(double ang) {
 	return  kickBall(KICK_DRIBBLE, tar);
 
 }
-bool OppInRegion(){
+bool NaoBehavior::OppInRegion(){
 	return false;
+}
+bool NaoBehavior::Nearest(){
+	int n = 0;
+		int Mark = 0;
+		VecPosition me = worldModel->getMyPosition();
+		VecPosition Half_Goal = (worldModel->getMyLeftGoalPost()+worldModel->getMyRightGoalPost())/2;
+			//int NrstLeftTeammate,NrstRightTeammate;
+		//	NrstLeftTeammate = worldModel->getTeammateClosestTo((worldModel->getMyLeftGoalPost()+Half_Goal)/2)+WO_TEAMMATE1-1;
+		//	NrstRightTeammate = worldModel->getTeammateClosestTo((worldModel->getMyRightGoalPost()+Half_Goal)/2)+WO_TEAMMATE1-1;
+			VecPosition ball = worldModel->getBall();
+		//int cnt = 0;
+		double d = worldModel->distancetoBall(worldModel->getMyPosition());
+
+		if (worldModel->getMyPosition().getX() > worldModel->getBall().getX() || worldModel->getFallenTeammate(worldModel->getUNum()) == true)
+			//	&& d > 1.5)
+			d +=50;
+
+
+		for (int i = WO_TEAMMATE2; i <= WO_TEAMMATE11; i++) {// kam teammate a2rb ll kora
+
+				if ((i - WO_TEAMMATE1 + 1) == (worldModel->getUNum() - WO_TEAMMATE1+1))
+					continue;
+
+		//		if(me.getX()>ball.getX() && Mark &&
+		//						worldModel->getTeammateClosestTo(ball)==worldModel->getUNum()+WO_TEAMMATE1-1){
+		//		//			double DisToOpp = worldModel->getTeammate(i).getDistanceTo(ball);
+		//		//			int AngleWithBall = worldModel->getTeammate(i).getAngleWithVector(ball);
+		//		//			int AngleWithGoal = worldModel->getTeammate(i).getAngleWithVector((worldModel->getOppLeftGoalPost()+worldModel->getOppRightGoalPost())/2);
+		//					if(worldModel->getTeammate(i).getX()+1.0 < worldModel->getOpponent((worldModel->getOpponentClosestTo(ball)+WO_OPPONENT1-1)).getX()){
+		//						Mark =0;
+		//						cout << "Teammate Succ " << i << endl;
+		//					}
+		//				}
+				double di = worldModel->distancetoBall(worldModel->getTeammate(i));
+				if (worldModel->getTeammate(i).getX() > worldModel->getBall().getX() || worldModel->getFallenTeammate(i - WO_TEAMMATE1 + 1)){// && worldModel->distancetoBall(worldModel->getTeammate(i)) > 1.5)
+				di+=50;
+				Mark++;
+				}
+
+				if ((di < d) /*(di == d && i - (WO_TEAMMATE1 < worldModel->getUNum() - 1))*/
+						&& worldModel->getWorldObject(i)->validPosition && worldModel->getFallenTeammate(i) == false
+						//&& !worldModel->getFallenTeammate(i)
+						) {
+					n++;
+				}
+			}
+		if(n==0 || n==1)
+			return true;
+
+		return false;
 }
 SkillType NaoBehavior::selectSkill() {
 //	VecPosition T_HalfG = (worldModel->getOppLeftGoalPost()+worldModel->getOppRightGoalPost())/2;
@@ -132,16 +182,15 @@ SkillType NaoBehavior::selectSkill() {
 	if (worldModel->getPlayMode() != PM_PLAY_ON) {
 		return getPlayModeSkill();
 	}
-	bool ballHolder = false;
 
 	int role = worldModel->getRole(worldModel->getUNum()-1);
 	int GameState = loader->getTeamState();
-	cout << " my role is "<<role << " and state is "<<GameState<<endl;;
-	if(me.getDistanceTo(ball)<0.3)
-		ballHolder = true;
+	cout << " my role is "<<role << " and state is "<<GameState<<endl;
 
-	if (ballHolder)
+	if (worldModel->GetsBall())
 		return getAttackSkill();
+	else if(Nearest())
+		return getDefensiveSkill();
 
 	if(role == ATT){
 		switch (GameState)

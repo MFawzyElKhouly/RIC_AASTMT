@@ -620,6 +620,9 @@ public:
 	inline bool hasBall() {
 		return(getBallHolder() < WO_OPPONENT1);
 	}
+	inline bool GetsBall() {
+			return(getBallHolder()== WO_TEAMMATE1 + getUNum() -1);
+		}
 	inline void setOpponent(const int &i, const VecPosition &opponent) {
 		worldObjects[i].pos = opponent;
 	}
