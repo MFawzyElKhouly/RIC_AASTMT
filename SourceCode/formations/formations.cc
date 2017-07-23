@@ -54,6 +54,26 @@ void formationLoader::loadFormations() {
 		if(defending.size() < 11 || attacking.size() < 11 || beamings.size() < 11)
 			NaoBehavior::debug->fail(0,"couldn't load files");
 	of3.close();
+		bfile = "./formations/" + strategy + "/attdefend.io";
+		fstream of4(bfile.c_str(), ios_base::in);
+		//double x, y,ang;
+		while (of4 >> x >> y >> ang >> len>>wid)
+			{attdefend.push_back(*(new VecPosition(x, y, ang)));
+			attdefendLengths.push_back(len);
+			attdefendWidths.push_back(wid);
+
+			}
+		of4.close();
+		bfile = "./formations/" + strategy + "/defattack.io";
+			fstream of5(bfile.c_str(), ios_base::in);
+			//double x, y,ang;
+			while (of5 >> x >> y >> ang >> len>>wid)
+				{defattack.push_back(*(new VecPosition(x, y, ang)));
+				defattackLengths.push_back(len);
+				defattackWidths.push_back(wid);
+
+				}
+			of5.close();
 
 }
 
