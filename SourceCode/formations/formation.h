@@ -13,7 +13,7 @@
 #include "../math/vecposition.h"
 using namespace std;
 enum TeamState {
-	ATTACKING, DEFENDING,ATTDEFEND,DEFETTACK
+	ATTACKING, DEFENDING,ATTDEFEND,DEFATTACK
 };
 class formationLoader {
 protected:
@@ -23,16 +23,25 @@ protected:
 	vector<double> attackingLengths;
 	vector<double> attackingWidths;
 	vector<double> defendingLengths;
-
 	vector<double> defendingWidths;
 	TeamState state;
 	string strategy;
+	string prevState="HALF";
+	//string prevState="HALF";
 public:
 	formationLoader();
 	~formationLoader();
 	inline VecPosition getBeamingPosition(int unum) {
 		return beamings[unum-1];
 	}
+
+	inline void SetPrev(string pre){
+		this->prevState = pre;
+	}
+
+	inline string GetPrev(){
+			return prevState;
+		}
 
 	inline void setTeamState(TeamState state) {
 		this->state = state;

@@ -56,6 +56,26 @@ SkillType NaoBehavior::dribbleAng(double ang) {
 
 }
 SkillType NaoBehavior::selectSkill() {
+	VecPosition T_HalfG = (worldModel->getOppLeftGoalPost()+worldModel->getOppRightGoalPost())/2;
+	VecPosition O_HalfG = (worldModel->getMyLeftGoalPost()+worldModel->getMyRightGoalPost())/2;
+	cout << "State = ";
+	if(loader->getTeamState()==0)
+		cout << "Attacking ";
+		else if(loader->getTeamState()==1)
+		cout << "DEFENDING ";
+		else if(loader->getTeamState()==2)
+		cout << "ATTDEFEND ";
+		else if(loader->getTeamState()==3)
+		cout << "DEFATTACK ";
+
+	cout << loader->GetPrev() << endl;
+	if(worldModel->getUNum() == worldModel->getTeammateClosestTo(ball)){
+	if(ball.getX()>=0 && (loader->GetPrev()=="ATT"||loader->GetPrev()=="HALF"))
+		return kickBall(KICK_FORWARD, O_HalfG);
+	else
+		return kickBall(KICK_FORWARD, T_HalfG);}
+	else
+	return SKILL_STAND;
 //	int Opp = worldModel->getOpponentClosestTo(ball)+WO_OPPONENT1-1;
 //	VecPosition target;
 //	target = ball
@@ -114,12 +134,14 @@ SkillType NaoBehavior::selectSkill() {
 			}
 		}
 	}
+	//cout << "My Dist = " << MeDisToBall << endl;
+	//cout << "oppDissssssssssssss = " << oppDis << endl;
+
 	if (worldModel->getPlayMode() != PM_PLAY_ON) {
 		return getPlayModeSkill();
 	}
 
-	if (MeDisToBall < oppDis || worldModel->getTeammateClosestTo(ball) == worldModel->getUNum()) {
-
+	if (MeDisToBall< oppDis || worldModel->getTeammateClosestTo(ball) == worldModel->getUNum()) {
 	//cout << "ATT STATEEEEEEEEEEEEEEE" << endl;
 		return getAttackSkill();
 	}

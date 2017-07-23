@@ -35,12 +35,20 @@ using namespace SIM;
 		}
 	double mark::calcCost() {
 		if(wm->getTeammateClosestTo(target) != wm->getUNum() && (wm->getTeammateClosestTo(wm->getBall()) != wm->getTeammateClosestTo(target))
-				&& wm->getTeammateClosestTo(target)!=1)
-			return cost = INF;
+						&& wm->getTeammateClosestTo(target)!=1)
+					return cost = 1000.5;
 
+//				else if((wm->getOpponentClosestTo(target)+WO_OPPONENT1-1) == (wm->getOpponentClosestTo(wm->getBall())+WO_OPPONENT1-1))
+//					return cost = 1000.5;
 
-		else if((wm->getOpponentClosestTo(target)+WO_OPPONENT1-1) == (wm->getOpponentClosestTo(wm->getBall())+WO_OPPONENT1-1))
-			return cost = INF;
+//		if((wm->getTeammateClosestTo(wm->getBall()) !=
+//					wm->getTeammateClosestTo(target)) &&
+//				wm->getTeammateClosestTo(target) != wm->getUNum())
+//			return cost = INF;
+
+//else if((wm->getOpponentClosestTo(target)+WO_OPPONENT1-1) == (wm->getOpponentClosestTo(wm->getBall())+WO_OPPONENT1-1))
+//			return cost = INF;
+			
 		if(target.getDistanceTo((wm->getMyLeftGoalPost()+wm->getMyRightGoalPost())/2)<5)
 			cost = thre*threatDist()*10+bal*ballDist()+pos*transitionDist();
 		else

@@ -41,7 +41,7 @@ private:
 	RVSender *rvsend;
 	bool fUseGroundTruthDataForLocalization;
 
-    int roles[11] ={0,1,1,1,1,2,2,2,3,3,3};
+    int roles[11] ={0,1,1,1,1,2,2,2,2,3,3};
 	// TODO: comment it out if we don't want ground truth
 #define GROUND_TRUTH_SERVER
 #ifdef GROUND_TRUTH_SERVER

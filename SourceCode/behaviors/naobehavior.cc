@@ -334,31 +334,46 @@ string NaoBehavior::Think(const std::string& message) {
 
 				}
 		}
-		if ((worldModel->hasBall() //&& (worldModel->distanceToMyGoal(ball)) > 2
-				&& (worldModel->getBall()
-						- worldModel->getOpponentBodyFastestTo(
-								worldModel->getBall())).getMagnitude() > 0.7
-				&& (worldModel->getWorldObject(
-						worldModel->getOpponentClosestTo(worldModel->getBall())
-								+ WO_OPPONENT1 - 1)->pos.getX()
-						> worldModel->getWorldObject(
-								worldModel->getTeammateClosestTo(
-										worldModel->getBall()) + WO_TEAMMATE1
-										- 1)->pos.getX()))
-				&& ((PM && worldModel->getSide() == SIDE_LEFT)
-						|| (!PM && worldModel->getSide() == SIDE_RIGHT)))
-				{
+		VecPosition ball = worldModel->getBall();
+		if(ball.getX() < 5 && ball.getX()>-7 && loader->GetPrev()=="HALF")
+			loader->setTeamState(ATTDEFEND);
+		else if(ball.getX() < 5 && ball.getX()>-7 && loader->GetPrev()=="DEF")
+			loader->setTeamState(ATTDEFEND);
+		else if(ball.getX() < 5 && ball.getX()>-7 && loader->GetPrev()=="ATT")
+			loader->setTeamState(DEFATTACK);
+		else if(ball.getX() >=5 && ball.getX()<15){
+			loader->SetPrev("ATT");
 			loader->setTeamState(ATTACKING);
-
-		} else if (worldModel->getBall().getX() > 0)
-			if (worldModel->hasBall())
-				loader->setTeamState(ATTACKING);
-			else
-				loader->setTeamState(ATTDEFEND);
-
-		else
-
+		}
+		else if(ball.getX() <=-7 && ball.getX()>-15){
+			loader->SetPrev("DEF");
 			loader->setTeamState(DEFENDING);
+		}
+//		if ((worldModel->hasBall() //&& (worldModel->distanceToMyGoal(ball)) > 2
+//				&& (worldModel->getBall()
+//						- worldModel->getOpponentBodyFastestTo(
+//								worldModel->getBall())).getMagnitude() > 0.7
+//				&& (worldModel->getWorldObject(
+//						worldModel->getOpponentClosestTo(worldModel->getBall())
+//								+ WO_OPPONENT1 - 1)->pos.getX()
+//						> worldModel->getWorldObject(
+//								worldModel->getTeammateClosestTo(
+//										worldModel->getBall()) + WO_TEAMMATE1
+//										- 1)->pos.getX()))
+//				&& ((PM && worldModel->getSide() == SIDE_LEFT)
+//						|| (!PM && worldModel->getSide() == SIDE_RIGHT)))
+//				{
+//			loader->setTeamState(ATTACKING);
+//
+//		} else if (worldModel->getBall().getX() > 0)
+//			if (worldModel->hasBall())
+//				loader->setTeamState(ATTACKING);
+//			else
+//				loader->setTeamState(ATTDEFEND);
+//
+//		else
+//
+//			loader->setTeamState(DEFENDING);
 
 		if (loader->getTeamState() != last)
 			lastswitchingtime = worldModel->getTime();
