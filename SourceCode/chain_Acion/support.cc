@@ -80,7 +80,7 @@ double supportSkill::generateTarget(double theta) {
 				|| wm->isOut(wm->getWorldObject(i)->pos)
 				|| target.getDistanceTo(wm->getOpponent(i)) > 4)
 			continue;
-		ret += exponential(wm->getPlayerTimeTo(i, target), 8.5);
+		ret += exponential(wm->getOpponent(i).getDistanceTo( target), 8.5);
 	}
 	double supported  = 0;
 	for (int i = 0 + WO_TEAMMATE1; i < WO_TEAMMATE1 + NUM_AGENTS; i++) {

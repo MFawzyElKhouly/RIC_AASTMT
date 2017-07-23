@@ -56,13 +56,19 @@ double dribble::surroundingOpponents() {
 				|| wm->isOut(wm->getWorldObject(i)->pos)
 				|| wm->getWorldObject(i)->pos.getDistanceTo(target) > 4)
 			continue;
-		ret += exponential(wm->getPlayerTimeTo(i, target), Cnear);
+		ret += exponential(wm->predictOpponentTimeTo(i, target,this->time), Cnear);
 		n++;
 	}
 	double width = HALF_FIELD_Y;
 	width -= abs(target.getY());
-	ret += exponential(width, Cnear);
-	return n == 0 ? 0 : ret / 6;
+	if(abs(target.getY()) > abs(wm->getOppLeftGoalPost().getY()))
+	{		ret += 2*exponential(width, Cnear);
+
+		if(HALF_FIELD_X - target.getX() < 5)
+			ret += exponential(HALF_FIELD_X - target.getX(), Cnear);
+
+	}
+	return  ret / 6;
 }
 
 double dribble::dribbleSafety() {
@@ -94,28 +100,30 @@ double dribble::dribbleSafety() {
 	}
 	double ret = exponential(nearest, 0.5);
 
-	return ret;
+
+	return ret ;
 
 }
 double dribble::effectiveness() {
 	double myGoal = exponential(wm->distanceToMyGoal(target), 13);
 	double theirGoal = 1
 			- exponential(wm->distanceToOppGoal(target), 22);
-	double surrounding_Opponents = surroundingOpponents();
 	//	double supporting_TeamMates = supportingTeamMates(target);
-
-	double ret = (myGoal + 2*theirGoal + surrounding_Opponents);
+	double surrounding_Opponents = surroundingOpponents();
+	double ret = (myGoal + 2*theirGoal+surrounding_Opponents);
 	return ret;
 }
 
 double dribble::calcCost() {
+	calcTime();
 	double e = effectiveness();
 	double s = dribbleSafety();
-	double ret = 7 * e + 1*s; // + surrP*dribbleReliability();
-	//cout<< "DE = "<<e<< " DS = "<<s <<" DC = "<<ret<<"\n";
+	double ret = 5 * e + 1*s; // + surrP*dribbleReliability();
+// if (wm->getBall().getX() > 12)
+//	cout<< "DE = "<<e<< " DS = "<<s <<" DC = "<<ret<<"\n";
 	//ret /= (effP+safeP+surrP);
 	//ret*=factor;
-	calcTime();
+
 	return cost = ret;
 }
 ndribble::ndribble(WorldModel *wm, formationLoader *fm) :

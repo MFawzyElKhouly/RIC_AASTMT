@@ -118,10 +118,11 @@ SkillType NaoBehavior::selectSkill() {
 		return getPlayModeSkill();
 	}
 
+//	||
+//				(worldModel->getTeammateClosestTo(ball)
+//				== worldModel->getUNum())
 	if (MeDisToBall < oppDis
-			||
-			(worldModel->getTeammateClosestTo(ball)
-			== worldModel->getUNum())) {//&& oppDis > 1.5
+			) {//&& oppDis > 1.5
 
 	//cout << "ATT STATEEEEEEEEEEEEEEE" << endl;
 		return getAttackSkill();

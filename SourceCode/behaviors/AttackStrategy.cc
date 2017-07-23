@@ -53,7 +53,7 @@ SkillType NaoBehavior::getAttackSkill() {
 	SkillType ret;
 
 	if (skilltarg.getType() == SKILL_PASS) {
-		//cout<<"SKILL = SKILL_PASS"<<endl;
+		//cout<<"SKILL = SKILL_PASS "<<skilltarg.getTarget()<<endl;
 		if (worldModel->getBall().getDistanceTo(skilltarg.getTarget()) > 5)
 			ret = kickBall(KICK_FORWARD, skilltarg.getTarget());
 		else

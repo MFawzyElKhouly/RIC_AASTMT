@@ -132,7 +132,24 @@ public:
 	}
 	VecPosition predictBall (float time);
 	VecPosition predictPlayer (int modelNumber,float time);
+	inline double predictOpponentTimeTo(int player, VecPosition p,double shift) {
+				double v, w;
+					v = theirV, w = theirW;
 
+				VecPosition dis = p - this->predictPlayer(player - WO_TEAMMATE1,shift);
+				double len = dis.getMagnitude();
+				double ang = dis.getPhi() - worldObjects[player].orien;
+				if(ang  > 180)
+					ang-=360;
+				if(ang < 180)
+					ang+=360;
+				if (ang < 0)
+					ang *=-1;
+				double t = 0;
+				//t += ang / w;
+				t += len / 1;
+				return t;
+			}
 	inline void setMyLastPosition(const VecPosition& newPos) {
 		myLastPosition = newPos;
 	}
@@ -340,7 +357,7 @@ public:
 			ang *=-1;
 		double t = 0;
 		t += ang / w;
-		t += len / v;
+		t += len / 1;
 		return t;
 	}
 
@@ -462,7 +479,7 @@ public:
 				temp = getMyPosition();
 			} else {
 				WorldObject* teammate = getWorldObject(i);
-				if (teammate->validPosition && !getFallenTeammate(i)) {
+				if (teammate->validPosition && !getFallenTeammate(i - WO_TEAMMATE1)) {
 					temp = teammate->pos;
 				} else {
 					continue;
@@ -490,7 +507,7 @@ public:
 				temp = getMyPosition();
 			} else {
 				WorldObject* teammate = getWorldObject(i);
-				if (teammate->validPosition && !getFallenTeammate(i)) {
+				if (teammate->validPosition && !getFallenTeammate(i-WO_TEAMMATE1)) {
 					temp = teammate->pos;
 				} else {
 					continue;
@@ -563,7 +580,7 @@ public:
 			int playerNum = i - WO_OPPONENT1 + 1;
 
 			WorldObject* teammate = getWorldObject(i);
-			if (teammate->validPosition && !getFallenOpponent(i)) {
+			if (teammate->validPosition && !getFallenOpponent(i- WO_OPPONENT1)) {
 				temp = teammate->pos;
 			} else {
 				continue;
@@ -588,7 +605,7 @@ public:
 			int playerNum = i - WO_OPPONENT1 + 1;
 
 			WorldObject* teammate = getWorldObject(i);
-			if (teammate->validPosition && !getFallenOpponent(i)) {
+			if (teammate->validPosition && !getFallenOpponent(i - WO_OPPONENT1)) {
 				temp = teammate->pos;
 			} else {
 				continue;
