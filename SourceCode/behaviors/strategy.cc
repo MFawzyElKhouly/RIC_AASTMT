@@ -193,7 +193,6 @@ SkillType NaoBehavior::selectSkill() {
 	int role = worldModel->getRole(worldModel->getUNum()-1);
 	int GameState = loader->getTeamState();
 
-	return getDefensiveSkill();
 	if (worldModel->GetsBall())
 		return getAttackSkill();
 	else if(Nearest())

@@ -307,9 +307,17 @@ void Analyzer::generateDefensiveSkills() {
 	for (int i = 0 + WO_OPPONENT2; i <= WO_OPPONENT11; i++) {
 		if (wm->getTeammateClosestTo(wm->getOpponent(i)) == wm->getUNum()
 				&& wm->getOpponentClosestTo(wm->getBall())
-						== (i - WO_OPPONENT1 + 1)) {         //if the nearest is me ..
+						== (i - WO_OPPONENT1 + 1) ) {         //if the nearest is me ..
 			continue;
 		}
+		VecPosition cent = getDuePos();
+double top = cent.getX() + loader->getDueLength(wm->getUNum())/2;
+
+double down = cent.getX()-+ loader->getDueLength(wm->getUNum())/2;
+if(!inZone(wm->getOpponent(i),cent,loader->getDueWidth(wm->getUNum()),top,down)) {
+	continue;
+}
+
 		mark scill = *(new mark(wm, loader));
 		//scill.skill = ;
 		scill.time=0;
