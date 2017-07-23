@@ -349,8 +349,7 @@ string NaoBehavior::Think(const std::string& message) {
 			loader->SetPrev("DEF");
 			loader->setTeamState(DEFENDING);
 		}
-		loader->setTeamState(ATTACKING);
-//		cout<<loader->getTeamState()<<" is a teammate\n";
+		//		cout<<loader->getTeamState()<<" is a teammate\n";
 //		if ((worldModel->hasBall() //&& (worldModel->distanceToMyGoal(ball)) > 2
 //				&& (worldModel->getBall()
 //						- worldModel->getOpponentBodyFastestTo(
@@ -976,7 +975,13 @@ SkillType NaoBehavior::goToTargetRelative(const VecPosition& targetLoc,
 //Assumes target = z-0. Maybe needs further tuning
 SkillType NaoBehavior::goToTarget(const VecPosition &target) {
 	double distance, angle;
-	getTargetDistanceAndAngle(target, distance, angle);
+	VecPosition t_avoid = collisionAvoidance(true, false, false, 0.5 ,0.5, target, true);
+	int c = 2;
+	while(c--)
+		t_avoid = collisionAvoidance(true, true, false, 0.5 ,0.5, t_avoid, true);
+	if (currentSkillDribble || worldModel->getUNum() == 1 || ball.getDistanceTo(target) <= 0.5)
+		t_avoid = target;
+	getTargetDistanceAndAngle(t_avoid, distance, angle);
 
 	const double distanceThreshold = 1;
 	const double angleThreshold = getLimitingAngleForward() * .9;
@@ -995,7 +1000,7 @@ SkillType NaoBehavior::goToTarget(const VecPosition &target) {
 	SIM::AngDeg turnAngle = angle;
 
 	// If we are within distanceThreshold of the target, we walk directly to the target
-	if (me.getDistanceTo(target) < distanceThreshold) {
+	if (me.getDistanceTo(t_avoid) < distanceThreshold) {
 
 		getTargetDistanceAndAngle(ball, distance, turnAngle);
 		if(distance < 0.5)
