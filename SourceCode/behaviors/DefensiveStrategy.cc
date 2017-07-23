@@ -17,6 +17,7 @@
 #include <fstream>
 using namespace std;
 SkillType NaoBehavior::getDefensiveSkill() {
+	//cout << "Player : " << worldModel->getUNum() << " " << "DEFFFFFFFFFF" << endl;
 		analyzer->generateDefensiveSkills();
 		skilldesc skilltarg = analyzer->getTopSkill();
 		SkillType ret;
@@ -60,13 +61,13 @@ SkillType NaoBehavior::getDefensiveSkill() {
 				getTargetDistanceAndAngle(ball, dis, angle);
 				return goToTargetRelative(VecPosition(), angle);
 			}
-
+			//cout << "FLAAAAAAAAAAAAAAAAAAAAAAAAAG" << endl;
 			return SKILL_STAND;
-
 		 }
 		 else
 		 		analyzer->resetCandidates();
 
+	//	 cout << "FLAAAAAAAAAAAAAAAAAAG" << endl;
 		 return SKILL_STAND;
 }
 

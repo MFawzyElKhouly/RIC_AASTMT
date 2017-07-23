@@ -113,8 +113,9 @@ bool NaoBehavior::Nearest(){
 					n++;
 				}
 			}
-		if(n==0 || n==1)
-			return true;
+		if(n==0 || n==1){
+		//cout << worldModel->getUNum() << " " << n << endl;
+			return true;	}
 
 		return false;
 }
@@ -179,7 +180,7 @@ SkillType NaoBehavior::selectSkill() {
 //			//VecPosition Intersection_pt = Point.getVecPositionFromPolar(Point.getX()*1.8,Point.getY(),Point.getZ());
 //				cout << "Opp Pos " << OppPos.getX() << " " << OppPos.getY() << endl;
 //				cout <<  "Estimated Position " << target.getX() << " " << target.getY() << endl;
-//
+
 //		return SKILL_STAND;
 
 	//cout << "My Dist = " << MeDisToBall << endl;
@@ -191,8 +192,8 @@ SkillType NaoBehavior::selectSkill() {
 
 	int role = worldModel->getRole(worldModel->getUNum()-1);
 	int GameState = loader->getTeamState();
-	cout << " my role is "<<role << " and state is "<<GameState<<endl;
 
+	return getDefensiveSkill();
 	if (worldModel->GetsBall())
 		return getAttackSkill();
 	else if(Nearest())

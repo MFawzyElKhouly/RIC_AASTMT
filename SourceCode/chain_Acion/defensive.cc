@@ -34,46 +34,45 @@ using namespace SIM;
 			factor = factors["factor"];
 		}
 	double mark::calcCost() {
-		if(wm->getTeammateClosestTo(target) != wm->getUNum() && (wm->getTeammateClosestTo(wm->getBall()) != wm->getTeammateClosestTo(target))
-						&& wm->getTeammateClosestTo(target)!=1)
-					return cost = 1000.5;
+		if(wm->getTeammateClosestTo(target) != wm->getUNum() && (wm->getTeammateClosestTo(wm->getBall()) == wm->getTeammateClosestTo(target)))
+					return cost = INF;
+
 
 //				else if((wm->getOpponentClosestTo(target)+WO_OPPONENT1-1) == (wm->getOpponentClosestTo(wm->getBall())+WO_OPPONENT1-1))
 //					return cost = 1000.5;
 
 //		if((wm->getTeammateClosestTo(wm->getBall()) !=
 //					wm->getTeammateClosestTo(target)) &&
-//				wm->getTeammateClosestTo(target) != wm->getUNum())
-//			return cost = INF;
+		if(wm->getTeammateClosestTo(target) != wm->getUNum())
+			return cost = INF;
 
 //else if((wm->getOpponentClosestTo(target)+WO_OPPONENT1-1) == (wm->getOpponentClosestTo(wm->getBall())+WO_OPPONENT1-1))
 //			return cost = INF;
-			
-		if(target.getDistanceTo((wm->getMyLeftGoalPost()+wm->getMyRightGoalPost())/2)<5)
-			cost = thre*threatDist()*10+bal*ballDist()+pos*transitionDist();
-		else
-			cost = thre*threatDist()*7+bal*ballDist()+pos*transitionDist();
-		cost/=(thre+bal+pos);
-		cost*=factor;
+			cost = threatDist()*2+ballDist()+transitionDist();
+
+//		cost/=(thre+bal+pos);
+//		cost*=factor;
+		//" dis to tar"<< target.getDistanceTo(wm->getMyPosition()) << " DistToBall " << target.getDistanceTo(wm->getBall()) << " ThreatDist = " << (1-exponential(wm->distanceToMyGoal(target),Cthre)) << " "
+	//			<< "BallDist = " << ballDist() << " TransDist = " << transitionDist() << endl;
 		return cost;
 	}
 double mark::threatDist() {
 	if(wm->distanceToMyGoal(target) > 15) {
 		return INF;
 	}
-	return exponential(wm->distanceToMyGoal(target),Cthre);
+	return (1-exponential(wm->distanceToMyGoal(target),Cthre));
 }
 double mark::ballDist() {
 	if(target.getDistanceTo(wm->getBall()) > 15) {
 		//return INF;
 	}
-	return exponential(target.getDistanceTo(wm->getBall()),Cbal);
+	return (1-exponential(target.getDistanceTo(wm->getBall()),Cbal));
 }
 double mark::transitionDist() {
 	if(target.getDistanceTo(wm->getMyPosition()) > 10) {
 		//return INF;
 	}
-	return exponential(target.getDistanceTo(wm->getMyPosition()),Cpos);
+	return (1-exponential(target.getDistanceTo(wm->getMyPosition()),Cpos));
 
 }
 

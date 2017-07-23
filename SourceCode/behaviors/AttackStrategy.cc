@@ -20,6 +20,7 @@ using namespace std;
 bool drib = false;
 SkillType NaoBehavior::getAttackSkill() {
 
+
 	if (analyzer->getTopSkill().getType() == SKILL_PASS
 			&& (worldModel->getTeammateClosestTo(worldModel->getBall())
 					!= worldModel->getUNum()
