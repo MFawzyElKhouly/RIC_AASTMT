@@ -56,7 +56,7 @@ class NaoBehavior : public Behavior {
 protected:
     formationLoader *loader;
     double currentFallStateStartTime;
-
+    double dummyTime;
     // TODO: eliminate these and use a better solution
     string classname;
 

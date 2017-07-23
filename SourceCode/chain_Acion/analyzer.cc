@@ -42,6 +42,32 @@ void loadParameters(string file, map<string, double> &factors) {
 	of.close();
 
 }
+bool Analyzer::canThreat(double time) {
+	VecPosition ball = wm->getBall();
+	if(time < 0.1 || wm->getPlayMode() != PM_PLAY_ON)
+		return true;
+	return true;
+	time = 1;
+	for (int i = WO_OPPONENT1;i<= WO_OPPONENT11;i++) {
+		VecPosition start = wm->getOpponent(i);
+		VecPosition end = wm->predictPlayer(i-WO_TEAMMATE1,time);
+		if (end.getDistanceTo(ball) < 0.5 ) {
+			return false;
+
+		}
+		if (start.getDistanceTo(ball) < 0.5 ) {
+					return false;
+
+				}
+		if(perp(ball,start,end) < 0.5) {
+			return false;
+		}
+
+	}
+	//cout<<"no threat "<<time<<endl;
+	return true;
+
+}
 kickSkill::kickSkill(SkillType type, WorldModel *wm, formationLoader *fm) :
 		skilldesc(type) {
 	this->wm = wm;
@@ -91,6 +117,7 @@ Analyzer::Analyzer(WorldModel *wm, formationLoader*loader) {
 
 	max = (new skilldesc(SKILL_STAND));
 }
+double TIME = 0;
 void Analyzer::resetCandidates() {
 
 	for (int i = 0; i < (int) skillset.size(); i++)
@@ -537,6 +564,7 @@ void Analyzer::generatePoints() {
 }
 
 void Analyzer::generatePlayers() {
+	TIME = wm->getTime();
 	VecPosition ball = wm->getBall();
 	double ini = 100;
 	VecPosition ftar,pla;
@@ -607,7 +635,7 @@ skilldesc Analyzer::getTopSkill() {
 	max = &skillset[0];
 	for (int i = 0; i < (int) skillset.size(); i++) {
 		if (skillset[i].getCost() < max->getCost()
-				&& skillset[i].getTime() < threatTime)
+				&& canThreat(skillset[i].getTime()))
 			max = &skillset[i];
 		if (skillset[i].getType() == SKILL_DRIBBLE)
 			dmi = min(dmi, skillset[i].getCost());

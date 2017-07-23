@@ -52,7 +52,7 @@ double getCost() {
 double virtual calcTime()  {
 	return time =0;
 }
-double virtual getTime() {
+double  getTime() {
 	return time;
 }
 

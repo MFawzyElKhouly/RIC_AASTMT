@@ -59,7 +59,7 @@ public:
 	void generateintersect();
 	VecPosition getHeatMap();
 	void generateDribble(int range) ;
-
+	bool canThreat(double time) ;
 };
 void loadParameters(string file,map<string,double> &factors);
 #endif

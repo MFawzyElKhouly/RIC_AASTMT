@@ -56,6 +56,8 @@ SkillType NaoBehavior::dribbleAng(double ang) {
 
 }
 SkillType NaoBehavior::selectSkill() {
+
+
 //	int Opp = worldModel->getOpponentClosestTo(ball)+WO_OPPONENT1-1;
 //	VecPosition target;
 //	target = ball
@@ -124,11 +126,11 @@ SkillType NaoBehavior::selectSkill() {
 	if (MeDisToBall < oppDis
 			) {//&& oppDis > 1.5
 
-	//cout << "ATT STATEEEEEEEEEEEEEEE" << endl;
+	//cout << "ATT "<<worldModel->hasBall() << endl;
 		return getAttackSkill();
 	}
 	else{
-		//cout << "DEF" << endl;
+	//	cout << "DEF " <<worldModel->hasBall() << endl;
 		return getDefensiveSkill();
 	}
 

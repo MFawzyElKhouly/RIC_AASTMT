@@ -32,7 +32,7 @@ VecPosition perpPoint(VecPosition opp,VecPosition s, VecPosition d) {
 double perp(VecPosition opp,VecPosition s, VecPosition d){
  double len = (d-s).getMagnitude();
  if((opp-s).getMagnitude() > len ||(opp-d).getMagnitude() > len ||
-		 (s-opp).getAngleWithVector(s-d) > 90 || (d-opp).getAngleWithVector(d-s) > 90)
+		 fabs((s-opp).getAngleWithVector(s-d)) > 90 || fabs((d-opp).getAngleWithVector(d-s)) > 90)
   return 10000.0; //min((opp-s).getMagnitude(),(opp-d).getMagnitude());
  return are((s-opp),(d-opp))/len;
 }

@@ -16,11 +16,11 @@ opt=" --host=${host} --port ${port} --paramsfile paramfiles/defaultParams.txt "
 
 for ((i=1;i<=$NUM_PLAYERS;i++)); do
     case $i in
-	1)
+	1|2)
 	    echo "Running agent No. $i "
 		./RICAASTMT $opt --unum $i --type 2  --paramsfile paramfiles/defaultParams_t2.txt &#> /dev/null &
 	    ;;
-	2|3|4)
+	3|4)
 	    echo "Running agent No. $i "
 		./RICAASTMT $opt --unum $i --type 4   --paramsfile paramfiles/defaultParams_t4.txt  &#>  /dev/null &
 	    ;;

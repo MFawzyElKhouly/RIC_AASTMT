@@ -51,13 +51,13 @@ public:
 				VecPosition tempTar = wm->g2l(target);
 				double turnAng = tempTar.getTheta();
 				turnAng = abs(turnAng);
-				time = turnAng / rotSpeed *2; //Take Care Awy!!
+				//time = turnAng / rotSpeed *2; //Take Care Awy!!
 				if(turnAng > 25)
 					time+=1;
 				if (wm->getBall().getDistanceTo(this->target) < 4.5)
-					time += 0.7; //KICK_IK time
+					time += 0.54; //KICK_IK time
 				else
-					time += 2.8; //KICK_FORWARD time
+					time += 3; //KICK_FORWARD time
 				//time=2.6;
 				return time;
 	}
@@ -132,9 +132,9 @@ public:
 			double turnAng = tempTar.getTheta();
 			turnAng = abs(turnAng);
 			//cout<<turnAng<< " MY TURN ANGLE\n";
-			time = turnAng / rotSpeed ; //Take care !!
+			//time = turnAng / rotSpeed ; //Take care !!
 			if(turnAng > 25)
-				time+=2;
+				time+=1;
 			return time;
 		}
 };

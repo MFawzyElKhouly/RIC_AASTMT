@@ -415,6 +415,9 @@ void NaoBehavior::act() {
 	} else {
 		if (skills[skill]->done(bodyModel, worldModel)
 				|| bodyModel->useOmniWalk()) {
+//			if ( skill != SKILL_STAND &&skill != SKILL_WALK_OMNI) {
+//				cout<<worldModel-> getTime() - dummyTime<<" is thge time\n";
+//			}
 			skills[skill]->reset();
 			resetScales();
 			SkillType currentSkill;

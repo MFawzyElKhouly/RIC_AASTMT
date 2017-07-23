@@ -27,7 +27,8 @@ SkillType NaoBehavior::kickBall(const int kickTypeToUse,
 	kickDirection = (kickTarget - ball).normalize();
 
 	kickType = kickTypeToUse;
-
+	if(worldModel->getTime()-dummyTime > 3)
+	dummyTime = worldModel->getTime();
 	if (me.getDistanceTo(ball) > 0.5) {
 		// Far away from the ball so walk toward target offset from the ball
 		VecPosition approachBallTarget = ball
@@ -35,7 +36,7 @@ SkillType NaoBehavior::kickBall(const int kickTypeToUse,
 						* atof(namedParams.find("drib_target")->second.c_str());
 		return goToTarget(approachBallTarget);
 	}
-	
+
 	return kickBallAtPresetTarget();
 }
 
@@ -97,26 +98,27 @@ SkillType NaoBehavior::kickBallAtPresetTarget() {
 		getTargetDistanceAndAngle(kickTarget, target_dist, target_angle);
 
 		SkillType kick_array[2];
-
+		//dummyTime = worldModel->getTime();
+		//cout<< "time before kick" << worldModel->getTime() - dummyTime<<endl;
 		if (ball.getDistanceTo(kickTarget) <= 4.5)
-		kickType = KICK_IK;
-		else if (ball.getDistanceTo(kickTarget) < 6.75 )
+			kickType = KICK_IK;
+		else if (ball.getDistanceTo(kickTarget) < 6.25)
 			kickType = KICK_FORWARD_6_5;
-		else if (ball.getDistanceTo(kickTarget) < 7.25)
+		else if (ball.getDistanceTo(kickTarget) < 6.75)
 			kickType = KICK_FORWARD_7;
-		else if (ball.getDistanceTo(kickTarget) < 7.75)
+		else if (ball.getDistanceTo(kickTarget) < 7.25)
 			kickType = KICK_FORWARD_7_5;
-		else if (ball.getDistanceTo(kickTarget) < 8.25)
+		else if (ball.getDistanceTo(kickTarget) < 7.75)
 			kickType = KICK_FORWARD_8;
-		else if (ball.getDistanceTo(kickTarget) < 8.75)
+		else if (ball.getDistanceTo(kickTarget) < 8.25)
 			kickType = KICK_FORWARD_8_5;
-		else if (ball.getDistanceTo(kickTarget) < 9.25)
+		else if (ball.getDistanceTo(kickTarget) < 8.75)
 			kickType = KICK_FORWARD_9;
-		else if (ball.getDistanceTo(kickTarget) < 9.75)
+		else if (ball.getDistanceTo(kickTarget) < 9.25)
 			kickType = KICK_FORWARD_9_5;
-		else if (ball.getDistanceTo(kickTarget) < 10.25)
+		else if (ball.getDistanceTo(kickTarget) < 9.75)
 			kickType = KICK_FORWARD_10;
-		else if (ball.getDistanceTo(kickTarget) < 10.75)
+		else if (ball.getDistanceTo(kickTarget) < 10.25)
 			kickType = KICK_FORWARD_10_5;
 		else
 			kickType = KICK_FORWARD;
@@ -128,7 +130,7 @@ SkillType NaoBehavior::kickBallAtPresetTarget() {
 		for (int k = 0; k < 2; k++) {      //changed by ehab
 			SkillType kick = kick_array[k];
 			double kickCost = computeKickCost(kickTarget, kick);
-			if (kickCost < lowestKickCost) {
+			if (kickCost <= lowestKickCost) {
 				lowestKickCost = kickCost;
 				kickSkill = kick;
 			}
@@ -150,8 +152,8 @@ SkillType NaoBehavior::kickBallAtPresetTarget() {
 			currentKickType = kickType;
 
 		}
-
-		if (lastKickSelected != kickSkill) {
+//|| (abs(lastKickSelected - kickSkill) == 1 && ((lastKickSelected % 2	&& kickSkill + 1 != lastKickSelected)|| (kickSkill % 2&& lastKickSelected + 1 != kickSkill)))
+		if (abs(lastKickSelected - kickSkill) > 1) {
 			lastKickSelected = kickSkill;
 			lastKickSelectedTime = worldModel->getTime();
 		}
