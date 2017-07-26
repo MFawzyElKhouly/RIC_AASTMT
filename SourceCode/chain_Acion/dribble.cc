@@ -61,7 +61,7 @@ double dribble::surroundingOpponents() {
 	}
 	double width = HALF_FIELD_Y;
 	width -= abs(target.getY());
-	ret += exponential(width, Cnear);
+	ret += 2*exponential(width, Cnear);
 	return n == 0 ? 0 : ret / 6;
 }
 

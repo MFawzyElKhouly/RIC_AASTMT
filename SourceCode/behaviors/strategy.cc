@@ -188,14 +188,18 @@ SkillType NaoBehavior::selectSkill() {
 	//cout << "My Dist = " << MeDisToBall << endl;
 	//cout << "oppDissssssssssssss = " << oppDis << endl;
 
-
 	if (worldModel->getPlayMode() != PM_PLAY_ON) {
 		return getPlayModeSkill();
 	}
 
 	int role = worldModel->getRole(worldModel->getUNum()-1);
 	int GameState = loader->getTeamState();
-
+	if(worldModel->getTeammateClosestTo(ball) == worldModel->getUNum()){
+		if(worldModel->hasBall())
+			analyzer->generateBallHolderSkills();
+		else
+			analyzer->generateintersect();
+	}
 	if (worldModel->GetsBall())
 		return getAttackSkill();
 	else if(Nearest())
@@ -212,6 +216,7 @@ SkillType NaoBehavior::selectSkill() {
 			break;
 		case DEFENDING:
 			if(OppInRegion() && !worldModel->hasBall())
+
 				return getDefensiveSkill();
 			else
 				return getAttackSkill();
@@ -232,7 +237,8 @@ SkillType NaoBehavior::selectSkill() {
 			break;
 
 		case ATTDEFEND:
-			if(OppInRegion() && !worldModel->hasBall())
+
+			if(OppInRegion()&&!worldModel->hasBall())
 				return getDefensiveSkill();
 			else
 				return getAttackSkill();
@@ -243,6 +249,7 @@ SkillType NaoBehavior::selectSkill() {
 			break;
 
 		case DEFATTACK:
+
 			if (OppInRegion() && !worldModel->hasBall())
 				return getDefensiveSkill();
 			else
@@ -257,7 +264,7 @@ SkillType NaoBehavior::selectSkill() {
 
 		switch (GameState) {
 		case ATTACKING:
-			if (OppInRegion() && !worldModel->hasBall())
+			if (OppInRegion()&&!worldModel->hasBall())
 				return getDefensiveSkill();
 			else
 				return getAttackSkill();

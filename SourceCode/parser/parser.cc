@@ -1515,6 +1515,7 @@ void Parser::processVision() {
 	}
 
 	worldModel->getOpponentKalmanFilters()->processFrame();
+	//worldModel->predictBall(1);
 
 	for (int i = WO_BALL; i < NUM_WORLD_OBJS; ++i) {
 		WorldObject *pObj = worldModel->getWorldObject(i);

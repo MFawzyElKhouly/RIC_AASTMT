@@ -341,7 +341,7 @@ string NaoBehavior::Think(const std::string& message) {
 			loader->setTeamState(DEFATTACK);
 		else if(ball.getX() < 5 && ball.getX()>-7 && loader->GetPrev()=="ATT")
 			loader->setTeamState(ATTDEFEND);
-		else if((ball.getX() >=5 && ball.getX()<15) || worldModel->getPlayMode() == PM_KICK_OFF_LEFT){
+		else if((ball.getX() >=3 && ball.getX()<15) || worldModel->getPlayMode() == PM_KICK_OFF_LEFT){
 			loader->SetPrev("ATT");
 			loader->setTeamState(ATTACKING);
 		}

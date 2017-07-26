@@ -27,9 +27,10 @@ SkillType NaoBehavior::getPlayModeSkill() {
 		//	skilldesc top = analyzer->getTopSkill();
 			if (worldModel->getTeammateClosestTo(worldModel->getBall()) == worldModel->getUNum()){
 				if(worldModel->getUNum() != 10){
-				return kickBall(KICK_IK, loader->getBeamingPosition(10));
-				}
-			return kickBall(KICK_IK, loader->getBeamingPosition(9));
+					return kickBall(KICK_IK, *new VecPosition(-3,-2,0));
+//				}
+//			return kickBall(KICK_IK, loader->getBeamingPosition(8));
+		}
 			}
 
 			return SKILL_STAND;

@@ -40,6 +40,9 @@ private:
 	double maxShot;
 protected:
 public:
+	VecPosition H_Goal = (wm->getMyRightGoalPost() + wm->getMyLeftGoalPost())/2;
+	double X_Goal = H_Goal.getX();
+	double Y_Goal = H_Goal.getY();
 	vector<skilldesc> skillset;
 	Analyzer(WorldModel *wm);
 

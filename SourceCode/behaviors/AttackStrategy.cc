@@ -35,11 +35,8 @@ SkillType NaoBehavior::getAttackSkill() {
 //					) {
 	//analyzer->generateCanditates();
 	if (analyzer->skillset.empty())
-		if (worldModel->GetsBall()
-		//&&loader->getTeamState() == ATTACKING
-		) {
+		if (worldModel->getTeammateClosestTo(worldModel->getBall()) == worldModel->getUNum()) {
 			analyzer->generateBallHolderSkills();
-			//return;
 		}
 		//double MeDisToBall = wm->getBall().getDistanceTo(worldModel->getTeammate(worldModel->getTeammateClosestTo(ball)+WO_TEAMMATE1-1));
 
@@ -52,7 +49,7 @@ SkillType NaoBehavior::getAttackSkill() {
 
 		}
 	skilldesc skilltarg = analyzer->getTopSkill();
-
+ //cout<<"  "<<skilltarg.getType()<<endl;
 //	if((drib == true && worldModel->getBall().getDistanceTo(worldModel->getMyPosition()) > 0.3)
 //		||(skilltarg.getType() == SKILL_DRIBBLE && worldModel->getBall().getDistanceTo(worldModel->getMyPosition()) > 2)	)
 //		{
