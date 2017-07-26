@@ -46,8 +46,8 @@ bool Analyzer::canThreat(double time) {
 	VecPosition ball = wm->getBall();
 	if(time < 0.1 || wm->getPlayMode() != PM_PLAY_ON)
 		return true;
-	return true;
-	time = 1;
+	//return true;
+	//time = 1;
 	for (int i = WO_OPPONENT1;i<= WO_OPPONENT11;i++) {
 		VecPosition start = wm->getOpponent(i);
 		VecPosition end = wm->predictPlayer(i-WO_TEAMMATE1,time);
@@ -59,9 +59,9 @@ bool Analyzer::canThreat(double time) {
 					return false;
 
 				}
-		if(perp(ball,start,end) < 0.5) {
-			return false;
-		}
+//		if(perp(ball,start,end) < 0.5) {
+//			return false;
+//		}
 
 	}
 	//cout<<"no threat "<<time<<endl;
@@ -219,7 +219,7 @@ void Analyzer::generateBallHolderSkills() {
 	threatTime = clos * 1.25;
 	//threatTime = clos;
 	int range = 20;
-	if (wm->distancetoBall(wm->getMyPosition()) < 1.5) {
+	if (wm->distancetoBall(wm->getMyPosition()) < 1) {
 		od = false;
 		if (clos > 0 //2.6
 				//threatTime > 5 //TODO change this
@@ -287,7 +287,7 @@ void Analyzer::generateAttackingSkills() {
 		scill.setTarget(getDuePos());
 		scill.setCost(0.0);
 		skillset.push_back(scill);
-		cout<<"GoingHome "<<wm->getUNum()<<" "<<wm->getMyPosition() << " "<<getDuePos()<<" "<<top<<" "<<endl;;
+		//cout<<"GoingHome "<<wm->getUNum()<<" "<<wm->getMyPosition() << " "<<getDuePos()<<" "<<top<<" "<<endl;;
 		return;
 	}
 	supportSkill scill2 = *(new supportSkill(this->wm, this->loader));
@@ -303,7 +303,6 @@ void Analyzer::generateDefensiveSkills() {
 	skillset.push_back(scill);
 	double max = 1000;
 	threatTime = 1;
-	int opp;
 	for (int i = 0 + WO_OPPONENT2; i <= WO_OPPONENT11; i++) {
 		if (wm->getTeammateClosestTo(wm->getOpponent(i)) == wm->getUNum()
 				&& wm->getOpponentClosestTo(wm->getBall())
@@ -314,10 +313,9 @@ void Analyzer::generateDefensiveSkills() {
 double top = cent.getX() + loader->getDueLength(wm->getUNum())/2;
 
 double down = cent.getX()-+ loader->getDueLength(wm->getUNum())/2;
-if(!inZone(wm->getOpponent(i),cent,loader->getDueWidth(wm->getUNum()),top,down)) {
+if(((wm->getRole(wm->getUNum()-1))!=3 && !inZone(wm->getOpponent(i),cent,loader->getDueWidth(wm->getUNum()),top,down))) {
 	continue;
 }
-
 		mark scill = *(new mark(wm, loader));
 		//scill.skill = ;
 		scill.time=0;
@@ -325,10 +323,6 @@ if(!inZone(wm->getOpponent(i),cent,loader->getDueWidth(wm->getUNum()),top,down))
 		scill.setTarget(wm->getOpponent(i));
 		VecPosition targ;
 		scill.calcCost();
-		if(scill.getCost()<max){
-			opp = i;
-			max = scill.getCost();
-		}
 //		 ofstream myfile;
 //		  myfile.open ("example.txt");
 //		  myfile << "cost My Pos : " << wm->getMyPosition().getX() << " " <<
@@ -336,7 +330,11 @@ if(!inZone(wm->getOpponent(i),cent,loader->getDueWidth(wm->getUNum()),top,down))
 //				  << " " << wm->getOpponent(i).getY() << " is " << scill.getCost() << endl;
 //		  myfile.close();
 
-		if (wm->getRole(wm->getUNum() - 1) < 2) {
+		if (wm->getRole(wm->getUNum() - 1) < 3) {
+			targ = wm->getOpponent(i);
+			targ.setX(targ.getX()-1);
+		}
+			/*
 			if (wm->getOpponent(i).getDistanceTo(wm->getMyLeftGoalPost())
 					< wm->getOpponent(i).getDistanceTo(
 							wm->getMyRightGoalPost()))
@@ -362,16 +360,14 @@ if(!inZone(wm->getOpponent(i),cent,loader->getDueWidth(wm->getUNum()),top,down))
 			targ = wm->getBall() - wm->getOpponent(i);
 			targ *= 0.25;
 			targ += wm->getOpponent(i);
-		}
+		}*/
 
-		//scill.setTarget(targ);
-
+		scill.setTarget(targ);
 		skillset.push_back(scill);
 
 	}
 	//cout << "Player " << wm->getUNum() << "Cost : " << max << "Targ : " << (opp-11) << endl;
 	generateintersect();
-
 }
 
 void Analyzer::generateintersect() {
@@ -434,53 +430,26 @@ void Analyzer::generateintersect() {
 	VecPosition end = v; //wm->getOpponent(i) +(wm->getOpponent(i) - );// + VecPosition(20, ang, 0, POLAR);
 	VecPosition tar = perpPoint(wm->getMyPosition(), wm->getBall(), end);
 
-
 		int Opp = wm->getOpponentClosestTo(ball)+WO_OPPONENT1-1;
 		VecPosition target,tempTarget;
-		tempTarget = wm->predictBall(0.3);
+		tempTarget = wm->predictBall(0.7);
+		//target = tempTarget+((tempTarget-ball)*3);
 		target = tempTarget;
 
-//			cout << "GOOD" << endl;
-			//target = tempTarget;
-//		if(Mark >=9 && wm->getRole(wm->getUNum()-1)<2){
-//					//cout << "Marking ALLLL" << endl;
-//				if (wm->getOpponent(i).getDistanceTo(wm->getMyLeftGoalPost())
-//					< wm->getOpponent(i).getDistanceTo(
-//					wm->getMyRightGoalPost()))
-//					target = wm->getOpponent(i) - wm->getMyLeftGoalPost();
-//				else
-//					target = wm->getOpponent(i) - wm->getMyRightGoalPost();
-//					//	cout << "Ball " << ball.getX() << " " << ball.getY() << endl;
-//					target*=0.2;
-//					target = ball - target;
-//						//		cout << "New " << target.getX() << " " << target.getY() << endl;
-//
-//					skilldesc scill= *(new skilldesc(SKILL_INTERCEPT));
-//					scill.setTarget(target);
-//					scill.setCost(0);
-//					skillset.push_back(scill);
-//					return;
-//					}
-			//cout << "Ball " << ball.getX() << " " << ball.getY() << endl;
-			//cout << "New " << target.getX() << " " << target.getY() << endl;
-		if (n == 0 //|| ((wm->distanceToMyGoal(ball) < 10) && (wm->getUNum() < 6))
-			) {
+		if (n == 0) {
 
 		//cout << "Angle : "<< OppAngle << endl;
-		cout << "Ball " << ball.getX() << " " << ball.getY() << endl;
-		cout << "New " << target.getX() << " " << target.getY() << endl;
 		//VecPosition IncDis = *(new VecPosition (0.3,0,0,POLAR));
-		//cout << "Ball Pos = " << ball.getX() << " " << ball.getY() << endl;
-		//cout << "New POSSSSSS = " << target.getX() << " " << target.getY() << endl;
+		cout << "Ball Pos = " << ball.getX() << " " << ball.getY() << endl;
+		cout << "New POSSSSSS = " << target.getX() << " " << target.getY() << endl;
 		//cout << "Nearest Players is : " << wm->getUNum() << endl;
 		skilldesc scill = *(new skilldesc(SKILL_INTERCEPT));
-
-//		if(me.getAngleWithVector(ball) < fabs(5)){
+//		double Ang = me.getAngleBetweenPoints(ball,(wm->getOppLeftGoalPost()+wm->getOppRightGoalPost())/2);
+//		if(fabs(Ang)<=5){
 //			scill.setTarget(ball);
-//			cout << "GOING" << endl;
+//			//cout << "GOING" << endl;
 //		}
-//		else
-			scill.setTarget(target);//(ball+tar)/2);
+			scill.setTarget(target);
 		//	cout << "DEF" << endl;
 
 			scill.setCost(0);
@@ -508,6 +477,7 @@ void Analyzer::generateintersect() {
 	}
 
 }
+
 void Analyzer::generateCanditates() {
 	if (wm->getPlayMode() == PM_PLAY_ON) {
 		if (wm->isOut(wm->getMyPosition())) {

@@ -70,7 +70,7 @@ SkillType NaoBehavior::getAttackSkill() {
 	SkillType ret;
 
 	if (skilltarg.getType() == SKILL_PASS) {
-		cout<<"SKILL = SKILL_PASS"<<endl;
+		//cout<<"SKILL = SKILL_PASS"<<endl;
 			ret = kickBall(KICK_IK, skilltarg.getTarget());
 		//if (ret != SKILL_STAND && ret != SKILL_WALK_OMNI)
 		//analyzer->resetCandidates();

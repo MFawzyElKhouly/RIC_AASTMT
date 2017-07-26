@@ -120,6 +120,7 @@ bool NaoBehavior::Nearest(){
 		return false;
 }
 SkillType NaoBehavior::selectSkill() {
+
 //	VecPosition T_HalfG = (worldModel->getOppLeftGoalPost()+worldModel->getOppRightGoalPost())/2;
 //	VecPosition O_HalfG = (worldModel->getMyLeftGoalPost()+worldModel->getMyRightGoalPost())/2;
 //	cout << "State = ";
@@ -137,7 +138,8 @@ SkillType NaoBehavior::selectSkill() {
 //	if(ball.getX()>=0 && (loader->GetPrev()=="ATT"||loader->GetPrev()=="HALF"))
 //		return kickBall(KICK_FORWARD, O_HalfG);
 //	else
-//		return kickBall(KICK_FORWARD, T_HalfG);}
+//		return kickBall(KICK_FORWARD, T_HalfG);
+//	}
 //	else
 //	return SKILL_STAND;
 
@@ -186,6 +188,7 @@ SkillType NaoBehavior::selectSkill() {
 	//cout << "My Dist = " << MeDisToBall << endl;
 	//cout << "oppDissssssssssssss = " << oppDis << endl;
 
+
 	if (worldModel->getPlayMode() != PM_PLAY_ON) {
 		return getPlayModeSkill();
 	}
@@ -208,7 +211,7 @@ SkillType NaoBehavior::selectSkill() {
 			return getAttackSkill();
 			break;
 		case DEFENDING:
-			if(OppInRegion())
+			if(OppInRegion() && !worldModel->hasBall())
 				return getDefensiveSkill();
 			else
 				return getAttackSkill();
@@ -229,7 +232,7 @@ SkillType NaoBehavior::selectSkill() {
 			break;
 
 		case ATTDEFEND:
-			if(OppInRegion())
+			if(OppInRegion() && !worldModel->hasBall())
 				return getDefensiveSkill();
 			else
 				return getAttackSkill();
@@ -240,7 +243,7 @@ SkillType NaoBehavior::selectSkill() {
 			break;
 
 		case DEFATTACK:
-			if (OppInRegion())
+			if (OppInRegion() && !worldModel->hasBall())
 				return getDefensiveSkill();
 			else
 				return getAttackSkill();
@@ -254,7 +257,7 @@ SkillType NaoBehavior::selectSkill() {
 
 		switch (GameState) {
 		case ATTACKING:
-			if (OppInRegion())
+			if (OppInRegion() && !worldModel->hasBall())
 				return getDefensiveSkill();
 			else
 				return getAttackSkill();
