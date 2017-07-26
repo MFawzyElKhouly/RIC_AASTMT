@@ -121,18 +121,21 @@ bool NaoBehavior::Nearest(){
 }
 SkillType NaoBehavior::selectSkill() {
 
-//	VecPosition T_HalfG = (worldModel->getOppLeftGoalPost()+worldModel->getOppRightGoalPost())/2;
-//	VecPosition O_HalfG = (worldModel->getMyLeftGoalPost()+worldModel->getMyRightGoalPost())/2;
-//	cout << "State = ";
-//	if(loader->getTeamState()==0)
-//		cout << "Attacking ";
-//		else if(loader->getTeamState()==1)
-//		cout << "DEFENDING ";
-//		else if(loader->getTeamState()==2)
-//		cout << "ATTDEFEND ";
-//		else if(loader->getTeamState()==3)
-//		cout << "DEFATTACK ";
+//	if (worldModel->getSide() == SIDE_LEFT){
+//			return SKILL_STAND;
+//	}
+//	else{
+//	if(worldModel->getUNum()==10)
+//		return goToTarget(14,3,0);
+//	else
+//		return SKILL_STAND;
+//	}
+//				&& (worldModel->getPlayMode() == PM_KICK_OFF_LEFT))
 //
+//			{if ((worldModel->getTeammateClosestTo(worldModel->getBall())
+//					== worldModel->getUNum()))
+
+	////////////////////////////////////////////////// try defence with 3 in pen
 //	cout << loader->GetPrev() << endl;
 //	if(worldModel->getUNum() == worldModel->getTeammateClosestTo(ball)){
 //	if(ball.getX()>=0 && (loader->GetPrev()=="ATT"||loader->GetPrev()=="HALF"))
@@ -188,18 +191,43 @@ SkillType NaoBehavior::selectSkill() {
 	//cout << "My Dist = " << MeDisToBall << endl;
 	//cout << "oppDissssssssssssss = " << oppDis << endl;
 
-	if (worldModel->getPlayMode() != PM_PLAY_ON) {
-		return getPlayModeSkill();
-	}
+//	if (worldModel->getPlayMode() != PM_PLAY_ON) {
+//		return getPlayModeSkill();
+//	}
 
 	int role = worldModel->getRole(worldModel->getUNum()-1);
 	int GameState = loader->getTeamState();
-	if(worldModel->getTeammateClosestTo(ball) == worldModel->getUNum()){
-		if(worldModel->hasBall())
-			analyzer->generateBallHolderSkills();
-		else
-			analyzer->generateintersect();
+	if(!worldModel->hasBall() && GameState == DEFATTACK){
+		loader->setTeamState(ATTDEFEND);
 	}
+
+//	cout << "State = ";
+//		if(loader->getTeamState()==0)
+//			cout << "Attacking ";
+//			else if(loader->getTeamState()==1)
+//			cout << "DEFENDING ";
+//			else if(loader->getTeamState()==2)
+//			cout << "ATTDEFEND ";
+//			else if(loader->getTeamState()==3)
+//			cout << "DEFATTACK ";
+//
+//		cout << endl;
+////		cout << endl;
+//		if(worldModel->getUNum() == 10){
+//		if(ball.getX()>1)
+//				return goToTarget(VecPosition(-10,0,0));
+//			else
+//				return kickBall(KICK_IK,VecPosition(1,5,0));
+//		}
+//		else
+//			return SKILL_STAND;
+	//
+//	if(worldModel->getTeammateClosestTo(ball) == worldModel->getUNum()){
+//		if(worldModel->hasBall())
+//			analyzer->generateBallHolderSkills();
+//		else
+//			analyzer->generateintersect();
+//	}
 	if (worldModel->GetsBall())
 		return getAttackSkill();
 	else if(Nearest())

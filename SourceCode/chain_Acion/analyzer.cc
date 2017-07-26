@@ -306,7 +306,30 @@ void Analyzer::generateAttackingSkills() {
 	//cout << "I am supporting" <<wm->getUNum()<<endl;
 	//}
 }
+VecPosition tempBack(int unum) {
+	switch (unum){
+	case 2: return VecPosition(-13,-2.5,0);
+
+	case 3: return VecPosition(-13,-1,0);
+
+	case 4: return VecPosition(-13,1,0);
+
+	case 5: return VecPosition(-13,2.5,0);
+	}
+}
 void Analyzer::generateDefensiveSkills() {
+	if(wm->getRole(wm->getUNum()-1) == 1 && wm->getBall().getX() < wm->getMyPosition().getX()){
+
+		skilldesc backo =*(new skilldesc(SKILL_WALK_OMNI));
+		VecPosition tar = tempBack(wm->getUNum());
+		if(wm->getBall().getX() > tar.getX())
+		{
+		backo.setTarget(tar);
+		backo.setCost(0);
+		skillset.push_back(backo);
+		return ;
+		}
+	}
 	mark scill = *(new mark(wm, loader));
 	scill.setTarget(loader->getDuePosition(wm->getUNum()));
 	scill.setCost(500);
@@ -427,13 +450,13 @@ void Analyzer::generateintersect() {
 
 		//cout << "Nearest Players is : " << wm->getUNum() << endl;
 		skilldesc scill = *(new skilldesc(SKILL_INTERCEPT));
-		tempTarget = wm->predictBall(0.3);
-		target = tempTarget+((tempTarget-ball)/2);
+		target = wm->predictBall(0.7);
+	//	target = tempTarget-((tempTarget-ball)/2);
 //		if(wm->getOpponent(i).getX()-1 > wm->getMyPosition().getX())
 //			scill.setTarget(ball);
 //		else
-		cout << "Ball Pos = " << ball.getX() << " " << ball.getY() << endl;
-		cout << "New POSSSSSS = " << target.getX() << " " << target.getY() << endl;
+		//cout << "Ball Pos = " << ball.getX() << " " << ball.getY() << endl;
+		//cout << "New POSSSSSS = " << target.getX() << " " << target.getY() << endl;
 		scill.setTarget(target);
 			scill.setCost(0);
 			skillset.push_back(scill);

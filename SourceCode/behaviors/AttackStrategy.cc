@@ -25,7 +25,7 @@ SkillType NaoBehavior::getAttackSkill() {
 			&& (worldModel->getTeammateClosestTo(worldModel->getBall())
 					!= worldModel->getUNum()
 					|| worldModel->getBall().getDistanceTo(
-							worldModel->getMyPosition()) > 1)) {
+							worldModel->getMyPosition()) > 1.5)) {
 		analyzer->resetCandidates();
 
 	}
@@ -63,6 +63,7 @@ SkillType NaoBehavior::getAttackSkill() {
 //	}
 //if(skilltarg.getType() != SKILL_DRIBBLE)
 //	drib = false;
+
 
 	SkillType ret;
 
