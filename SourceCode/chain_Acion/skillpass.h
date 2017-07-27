@@ -98,9 +98,9 @@ public:
 		turnAng = abs(turnAng);
 		//time = turnAng / rotSpeed; //Take Care!!
 		if (wm->getBall().getDistanceTo(this->target) < 4.5)
-			time += 0.54; //KICK_IK time
+			time += 0.6; //KICK_IK time
 		else
-			time += 2.5; //KICK_FORWARD time
+			time += 3; //KICK_FORWARD time
 		return time;
 	}
 };

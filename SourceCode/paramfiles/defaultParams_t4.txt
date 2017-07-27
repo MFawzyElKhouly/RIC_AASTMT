@@ -264,7 +264,7 @@ utwalk_ankle_phase_offset	0.168332553635
 ############################################## NEW ############################################
 // walk
 utwalk_max_step_size_angle	0.653098492289
-utwalk_max_step_size_x	89.949557674590
+utwalk_max_step_size_x	100.949557674590
 utwalk_max_step_size_y	42.562329511951
 utwalk_shift_amount	1.092660871914
 utwalk_walk_height	155.414418987833
@@ -286,7 +286,7 @@ utwalk_toe_const_offset	0.101406461192
 utwalk_toe_amplitude	-0.413964376160
 utwalk_toe_phase_offset	0.127678454571
 utwalk_ankle_const_offset	0.006124886450
-utwalk_ankle_amplitude	-0.009780790253
+utwalk_ankle_amplitude	0.09780790253
 utwalk_ankle_phase_offset	0.168332553635
 
 #####

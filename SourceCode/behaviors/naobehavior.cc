@@ -31,6 +31,8 @@ void NaoBehavior::initdebug(string str) {
 NaoBehavior::NaoBehavior(const std::string teamName, int uNum,
 		const map<string, string>& namedParams_, const string& rsg_) :
 		namedParams(namedParams_), rsg(rsg_) {
+	 oldX=0.0;
+	 oldY=0.0;
 
 	//debug = new Debugger(mfile);//ttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt);
 	srand((unsigned) time(NULL));

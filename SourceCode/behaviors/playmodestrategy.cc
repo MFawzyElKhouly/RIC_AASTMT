@@ -42,6 +42,11 @@ SkillType NaoBehavior::getPlayModeSkill() {
 					return SKILL_STAND;
 				return getDefensiveSkill();
 			}
+			if(worldModel->getPlayMode() == PM_GOAL_KICK_RIGHT){
+				if(worldModel->getUNum()!=1){
+					return goToTarget(VecPosition(worldModel->getMyPosition().getX()+1,worldModel->getMyPosition().getY(),0));
+				}
+			}
 			return getAttackSkill();
 
 		} else if (worldModel->getSide() == SIDE_LEFT) {

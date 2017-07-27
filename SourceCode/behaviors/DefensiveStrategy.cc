@@ -31,11 +31,18 @@ SkillType NaoBehavior::getDefensiveSkill() {
 			 )
 			 return SKILL_STAND;
 			 }*/
+			VecPosition target = skilltarg.getTarget();
+			if (worldModel->getTeammateClosestTo(worldModel->getBall())
+					!= worldModel->getUNum())
+				target = collisionAvoidance(true /*Avoid teamate*/,
+						true /*Avoid opponent*/, true /*Avoid ball*/, .5, .5,
+						target, true /*fKeepDistance*/);
 			double distance, angle, targ;
 			getTargetDistanceAndAngle(skilltarg.getTarget(), distance, angle);
 			/*	if (abs(angle) > 10) {
 			 return goToTargetRelative(VecPosition(), angle);
 			 } else */
+
 
 			if (distance > 0.2) {
 			return goToTarget(skilltarg.getTarget());

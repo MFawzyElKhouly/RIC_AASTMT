@@ -64,7 +64,7 @@ double dribble::surroundingOpponents() {
 	ret += 2*exponential(width, Cnear);
 	if(target.getX() > 12)
 		ret+=2*exponential(15 - target.getX(), Cnear);
-	return n == 0 ? 0 : ret / 6;
+	return  ret / 6;
 }
 
 double dribble::dribbleSafety() {
@@ -95,18 +95,18 @@ double dribble::dribbleSafety() {
 		return 1;
 	}
 	double ret = exponential(nearest, 0.5);
+	double surrounding_Opponents = surroundingOpponents();
 
-	return ret;
+	return ret + surrounding_Opponents;
 
 }
 double dribble::effectiveness() {
 	double myGoal = exponential(wm->distanceToMyGoal(target), 13);
 	double theirGoal = 1
 			- exponential(wm->distanceToOppGoal(target), 22);
-	double surrounding_Opponents = surroundingOpponents();
 	//	double supporting_TeamMates = supportingTeamMates(target);
 
-	double ret = (myGoal + theirGoal + surrounding_Opponents);
+	double ret = (myGoal + theirGoal);
 	return ret;
 }
 

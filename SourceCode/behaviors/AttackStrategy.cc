@@ -26,10 +26,10 @@ SkillType NaoBehavior::dribbleAng(double ang) {
 				return goToTarget(ball);
 
 	if((CBall - ball).getMagnitude() <0.3){
-		drib = false;
-		cout<<"5alas drib " <<i++%100000007;
 		return  kickBall(KICK_DRIBBLE,targeto);
 	}
+	drib = false;
+			//cout<<targeto<<endl;
 
 	VecPosition lball  = worldModel->g2l(ball);
 	targeto = lball+VecPosition(1,ang,0,POLAR);
@@ -55,19 +55,15 @@ SkillType NaoBehavior::getAttackSkill() {
 //					) {
 	//analyzer->generateCanditates();
 	if (analyzer->skillset.empty())
-		if (worldModel->getTeammateClosestTo(worldModel->getBall()) == worldModel->getUNum()) {
+	{		if (worldModel->getTeammateClosestTo(worldModel->getBall()) == worldModel->getUNum()) {
 			analyzer->generateBallHolderSkills();
-		}
-		//double MeDisToBall = wm->getBall().getDistanceTo(worldModel->getTeammate(worldModel->getTeammateClosestTo(ball)+WO_TEAMMATE1-1));
-
-		//	if ((loader->getTeamState() == ATTACKING)
-		//			&& (wm->distanceToMyGoal(ball)) > 0) {
-		else {
+		}		else {
 
 			//cout << "ATTAAAAAAACK" << endl;
 			analyzer->generateAttackingSkills();
 
 		}
+}
 	skilldesc skilltarg = analyzer->getTopSkill();
  //cout<<"  "<<skilltarg.getType()<<endl;
 //	if((drib == true && worldModel->getBall().getDistanceTo(worldModel->getMyPosition()) > 0.3)
@@ -87,10 +83,10 @@ SkillType NaoBehavior::getAttackSkill() {
 
 	SkillType ret;
 
-	 if (skilltarg.getType() == SKILL_DRIBBLE || drib) {
-
+	 if (skilltarg.getType() == SKILL_DRIBBLE || drib ) {
+		 drib = true;
 			ret = dribbleAng((skilltarg).angle);
-			drib = true;
+
 			analyzer->resetCandidates();
 			return ret;
 		}else if (skilltarg.getType() == SKILL_PASS) {
@@ -108,8 +104,8 @@ SkillType NaoBehavior::getAttackSkill() {
 		if (worldModel->getTeammateClosestTo(worldModel->getBall())
 				!= worldModel->getUNum())
 			target = collisionAvoidance(true /*Avoid teamate*/,
-					true /*Avoid opponent*/, true /*Avoid ball*/, .5, .5,
-					target, false /*fKeepDistance*/);
+					true /*Avoid opponent*/, true /*Avoid ball*/, 1, 1,
+					target, true /*fKeepDistance*/);
 		double distance, angle, targ;
 		getTargetDistanceAndAngle(target, distance, angle);
 

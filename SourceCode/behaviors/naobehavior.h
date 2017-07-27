@@ -59,7 +59,7 @@ protected:
 
     // TODO: eliminate these and use a better solution
     string classname;
-
+	double oldX,oldY;
     map< SkillType, shared_ptr<Skill> > skills;
     const map<string, string>& namedParams;
     string rsg;

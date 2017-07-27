@@ -217,8 +217,48 @@ SkillType NaoBehavior::selectSkill() {
 //	}
 	if (worldModel->GetsBall())
 		return getAttackSkill();
-	else if(Nearest())
-		return getDefensiveSkill();
+	else if(Nearest() && worldModel->getRole(worldModel->getUNum()-1)==1){
+		//cout << "Defender " << worldModel->getUNum() << endl;
+		double pX = 3.0;
+		double pY = 0.75;
+		VecPosition target;
+		double newX = ball.getX() + pX;
+				double newY = ball.getY() + pY;
+		if (abs(newX - oldX) < 0.2)
+			newX = oldX;
+		if (abs(newY - oldY) < 0.2)
+			newY = oldY;
+		if (me.getDistanceTo(ball) > 0.25) {
+			/*
+			VecPosition lball  = worldModel->g2l(ball);
+			target = lball+VecPosition(-1,0,0,POLAR);
+			target =worldModel->l2g(target);*/
+			target = worldModel->predictBall(0.7);
+					target = target + ((worldModel->predictBall(0.3)-ball)*2);
+
+			target = collisionAvoidance(true, true, false, .5, .5, target,
+					false);
+			return goToTarget(target);
+		}
+		//cout << "InterCepting" << endl;
+		return intercept();
+		VecPosition lball  = worldModel->g2l(ball);
+		target = lball+VecPosition(1,0,0,POLAR);
+		target =worldModel->l2g(target);
+		cout << "My Pos " << worldModel->getMyPosition() << endl;
+		cout << "New " << target << endl;
+		return  kickBall(KICK_IK, target);
+		/*
+		oldX = newX;
+		oldY = newY;
+		VecPosition temp = worldModel->getMyPosition()+(1,0,0,POLAR);
+		target = worldModel->l2g(temp);
+		return kickBall(KICK_IK, target);//VecPosition(newX, newY, 0));*/
+	}
+//	else if(Nearest()){
+//		cout << "Defendinggg" << endl;
+//		return getDefensiveSkill();
+//	}
 
 	if(role == ATT){
 		switch (GameState)
@@ -231,7 +271,6 @@ SkillType NaoBehavior::selectSkill() {
 			break;
 		case DEFENDING:
 			if(OppInRegion() && !worldModel->hasBall())
-
 				return getDefensiveSkill();
 			else
 				return getAttackSkill();

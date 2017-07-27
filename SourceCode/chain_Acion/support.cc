@@ -41,7 +41,9 @@ supportSkill::supportSkill(WorldModel *wm, formationLoader *loader) :
 		}
 	}
 	VecPosition ball = wm->getBall();
-	if (wm->getBall().getDistanceTo(wm->getMyPosition()) > maxShot - 2) {
+	if(ball.getDistanceTo(wm->getMyPosition()) < 5)
+		target = wm->getMyPosition();
+	else if (wm->getBall().getDistanceTo(wm->getMyPosition()) > maxShot) {
 
 		target = wm->getBall();
 	}
