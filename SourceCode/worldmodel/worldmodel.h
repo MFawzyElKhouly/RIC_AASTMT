@@ -305,8 +305,10 @@ public:
 		this->uNum = uNum;
 	}
 	inline bool isOut(const VecPosition& p) {
-		return !(p.getX() > -HALF_FIELD_X  && p.getX() < HALF_FIELD_X
+		bool out =  !(p.getX() > -HALF_FIELD_X  && p.getX() < HALF_FIELD_X
 				&&p.getY() > -HALF_FIELD_Y && p.getY() <HALF_FIELD_Y );
+		bool inGoal =p.getX() >=this->getOppLeftGoalPost().getX() && fabs(p.getY()) <= this->getOppLeftGoalPost().getY();
+		return out && !inGoal;
 	}
 	inline bool validPosition(const int &i) {
 		return worldObjects[i].validPosition && !isOut(worldObjects[i].pos);

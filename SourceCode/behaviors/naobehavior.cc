@@ -13,7 +13,6 @@
 #include "../chain_Acion/analyzer.h"
 
 #include "../formations/formation.h"
-
 #include <assert.h>
 
 // For UT Walk
@@ -301,7 +300,7 @@ string NaoBehavior::Think(const std::string& message) {
 	bool PM = true;		//worldModel->getSide() == SIDE_LEFT;
 	if (worldModel->getTime() - lastswitchingtime > 0.2) {
 
-		if (worldModel->getSide() == SIDE_LEFT ){
+		if (worldModel->getSide() == SIDE_LEFT) {
 
 			switch (worldModel->getLastPlayMode()) {
 
@@ -318,34 +317,36 @@ string NaoBehavior::Think(const std::string& message) {
 			}
 		}
 
-			else{
+		else {
 
-				switch (worldModel->getLastPlayMode()) {
+			switch (worldModel->getLastPlayMode()) {
 
-				case PM_KICK_OFF_LEFT:
-				case PM_KICK_IN_LEFT:
-				case PM_GOAL_LEFT:
-				case PM_CORNER_KICK_LEFT:
-				case PM_GOAL_KICK_LEFT:
-				case PM_OFFSIDE_LEFT:
-				case PM_FREE_KICK_LEFT:
-				case PM_DIRECT_FREE_KICK_LEFT:
-					PM = false;
+			case PM_KICK_OFF_LEFT:
+			case PM_KICK_IN_LEFT:
+			case PM_GOAL_LEFT:
+			case PM_CORNER_KICK_LEFT:
+			case PM_GOAL_KICK_LEFT:
+			case PM_OFFSIDE_LEFT:
+			case PM_FREE_KICK_LEFT:
+			case PM_DIRECT_FREE_KICK_LEFT:
+				PM = false;
 
-				}
+			}
 		}
 		VecPosition ball = worldModel->getBall();
-		if(ball.getX() < 5 && ball.getX()>-7 && loader->GetPrev()=="HALF")
+		if (ball.getX() < 3 && ball.getX() > -7 && loader->GetPrev() == "HALF")
 			loader->setTeamState(ATTDEFEND);
-		else if(ball.getX() < 5 && ball.getX()>-7 && loader->GetPrev()=="DEF")
+		else if (ball.getX() < 3 && ball.getX() > -7
+				&& loader->GetPrev() == "DEF")
 			loader->setTeamState(DEFATTACK);
-		else if(ball.getX() < 5 && ball.getX()>-7 && loader->GetPrev()=="ATT")
+		else if (ball.getX() < 3 && ball.getX() > -7
+				&& loader->GetPrev() == "ATT")
 			loader->setTeamState(ATTDEFEND);
-		else if((ball.getX() >=3 && ball.getX()<15) || worldModel->getPlayMode() == PM_KICK_OFF_LEFT){
+		else if ((ball.getX() >= 3 && ball.getX() < 15)
+				|| worldModel->getPlayMode() == PM_KICK_OFF_LEFT) {
 			loader->SetPrev("ATT");
 			loader->setTeamState(ATTACKING);
-		}
-		else if(ball.getX() <=-7 && ball.getX()>-15){
+		} else if (ball.getX() <= -7 && ball.getX() > -15) {
 			loader->SetPrev("DEF");
 			loader->setTeamState(DEFENDING);
 		}
@@ -425,16 +426,13 @@ void NaoBehavior::act() {
 			skills[skill]->reset();
 			resetScales();
 			SkillType currentSkill;
-			if (currentSkillDribble && me.getDistanceTo(ball) <= lastDistance){
+			if (currentSkillDribble && me.getDistanceTo(ball) <= lastDistance) {
 				currentSkill = kickBall(KICK_DRIBBLE, kickTarget);
 				lastDistance = me.getDistanceTo(ball);
-			}
-			else
-			{
+			} else {
 				currentSkillDribble = false;
 				currentSkill = selectSkill();
 			}
-
 
 			if (currentSkill != SKILL_WALK_OMNI) {
 				velocity.paramSet = WalkRequestBlock::PARAMS_DEFAULT;
@@ -832,7 +830,14 @@ SkillType NaoBehavior::getWalk(WalkRequestBlock::ParamSet paramSet,
 		const double& direction, double rotation, double speed,
 		bool fAllowOver180Turn) {
 	double reqDirection, relSpeed;
-
+//	if (worldModel->getTeammateClosestTo(ball) == worldModel->getUNum()) {
+//		if (paramSet == WalkRequestBlock::PARAMS_DEFAULT)
+//			cout << "Walk 3ady" << endl;
+//		else if (paramSet == WalkRequestBlock::PARAMS_POSITIONING)
+//			cout << "Pos" << endl;
+//		else if (paramSet == WalkRequestBlock::PARAMS_APPROACH_BALL)
+//			cout << "dribble" << endl;
+//	}
 	if (worldModel->getTime() - lastGetupRecoveryTime < 1.0
 			&& abs(direction) > 90) {
 		// Don't try and walk backwards if we just got up as we are probably unstable
@@ -975,11 +980,14 @@ SkillType NaoBehavior::goToTargetRelative(const VecPosition& targetLoc,
 //Assumes target = z-0. Maybe needs further tuning
 SkillType NaoBehavior::goToTarget(const VecPosition &target) {
 	double distance, angle;
-	VecPosition t_avoid = collisionAvoidance(true, false, false, 0.5 ,0.5, target, true);
+	VecPosition t_avoid = collisionAvoidance(true, false, false, 0.5, 0.5,
+			target, true);
 	int c = 2;
-	while(c--)
-		t_avoid = collisionAvoidance(true, true, false, 0.5 ,0.5, t_avoid, true);
-	if (currentSkillDribble || worldModel->getUNum() == 1 || ball.getDistanceTo(target) <= 0.5)
+	while (c--)
+		t_avoid = collisionAvoidance(true, true, false, 0.5, 0.5, t_avoid,
+				true);
+	if (currentSkillDribble || worldModel->getUNum() == 1
+			|| ball.getDistanceTo(target) <= 0.5)
 		t_avoid = target;
 	getTargetDistanceAndAngle(t_avoid, distance, angle);
 
@@ -1003,7 +1011,7 @@ SkillType NaoBehavior::goToTarget(const VecPosition &target) {
 	if (me.getDistanceTo(t_avoid) < distanceThreshold) {
 
 		getTargetDistanceAndAngle(ball, distance, turnAngle);
-		if(distance < 0.5)
+		if (distance < 0.5)
 			turnAngle = 0;
 	}
 

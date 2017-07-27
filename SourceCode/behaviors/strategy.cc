@@ -44,21 +44,8 @@ void NaoBehavior::beam(double& beamX, double& beamY, double& beamAngle) {
 
 }
 int i = 0;
-VecPosition CBall;
-VecPosition tar;
-SkillType NaoBehavior::dribbleAng(double ang) {
-	if(ball.getDistanceTo(worldModel->getMyPosition()) > 0.6)
-				return goToTarget(ball);
 
-	if((CBall - ball).getMagnitude() <0.3)
-		return  kickBall(KICK_DRIBBLE,tar);
-	VecPosition lball  = worldModel->g2l(ball);
-	tar = lball+VecPosition(1,ang,0,POLAR);
-	CBall = ball;
-	tar =worldModel->l2g(tar);
-	return  kickBall(KICK_DRIBBLE, tar);
-
-}
+bool isdribbling = false;
 bool NaoBehavior::OppInRegion(){
 	VecPosition me = worldModel->getMyPosition();
 	for (int i = WO_OPPONENT1;i<= WO_OPPONENT11;i++) {
@@ -191,9 +178,9 @@ SkillType NaoBehavior::selectSkill() {
 	//cout << "My Dist = " << MeDisToBall << endl;
 	//cout << "oppDissssssssssssss = " << oppDis << endl;
 
-//	if (worldModel->getPlayMode() != PM_PLAY_ON) {
-//		return getPlayModeSkill();
-//	}
+	if (worldModel->getPlayMode() != PM_PLAY_ON) {
+		return getPlayModeSkill();
+	}
 
 	int role = worldModel->getRole(worldModel->getUNum()-1);
 	int GameState = loader->getTeamState();

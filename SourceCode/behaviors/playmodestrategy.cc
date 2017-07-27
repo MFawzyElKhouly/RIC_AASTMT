@@ -20,13 +20,11 @@ SkillType NaoBehavior::getPlayModeSkill() {
 			&& (worldModel->getPlayMode() == PM_KICK_OFF_LEFT))
 			|| ((worldModel->getSide() == SIDE_RIGHT)
 					&& (worldModel->getPlayMode() == PM_KICK_OFF_RIGHT))))
-		{if ((worldModel->getTeammateClosestTo(worldModel->getBall())
-				== worldModel->getUNum()))
-		//	analyzer->resetCandidates();
+		{//	analyzer->resetCandidates();
 		//	analyzer->generatePlayers();
 		//	skilldesc top = analyzer->getTopSkill();
 			if (11 == worldModel->getUNum()){
-					return kickBall(KICK_IK, *new VecPosition(-3,-2,0));
+					return kickBall(KICK_FORWARD, *new VecPosition(16,0,0));
 
 			}
 

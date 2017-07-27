@@ -18,6 +18,26 @@
 using namespace std;
 
 bool drib = false;
+VecPosition CBall;
+VecPosition targeto;
+SkillType NaoBehavior::dribbleAng(double ang) {
+	static int i = 0;
+	if(ball.getDistanceTo(worldModel->getMyPosition()) > 0.6)
+				return goToTarget(ball);
+
+	if((CBall - ball).getMagnitude() <0.3){
+		drib = false;
+		cout<<"5alas drib " <<i++%100000007;
+		return  kickBall(KICK_DRIBBLE,targeto);
+	}
+
+	VecPosition lball  = worldModel->g2l(ball);
+	targeto = lball+VecPosition(1,ang,0,POLAR);
+	CBall = ball;
+	targeto =worldModel->l2g(targeto);
+	return  kickBall(KICK_DRIBBLE, targeto);
+
+}
 SkillType NaoBehavior::getAttackSkill() {
 
 
@@ -67,7 +87,13 @@ SkillType NaoBehavior::getAttackSkill() {
 
 	SkillType ret;
 
-	if (skilltarg.getType() == SKILL_PASS) {
+	 if (skilltarg.getType() == SKILL_DRIBBLE || drib) {
+
+			ret = dribbleAng((skilltarg).angle);
+			drib = true;
+			analyzer->resetCandidates();
+			return ret;
+		}else if (skilltarg.getType() == SKILL_PASS) {
 		//cout<<"SKILL = SKILL_PASS"<<endl;
 			ret = kickBall(KICK_IK, skilltarg.getTarget());
 		//if (ret != SKILL_STAND && ret != SKILL_WALK_OMNI)
@@ -103,13 +129,6 @@ SkillType NaoBehavior::getAttackSkill() {
 	} else if (skilltarg.getType() == SKILL_SHOOT) {
 		//cout<<"SKILL = SKILL_KICK_LEFT_LEG"<<endl;
 		ret = kickBall(KICK_FORWARD, skilltarg.getTarget());
-		analyzer->resetCandidates();
-		return ret;
-	} else if (skilltarg.getType() == SKILL_DRIBBLE) {
-		//dribble sktemp = (;
-
-		ret = dribbleAng((skilltarg).angle);
-		//cout<<"Dribb\n";
 		analyzer->resetCandidates();
 		return ret;
 	} else

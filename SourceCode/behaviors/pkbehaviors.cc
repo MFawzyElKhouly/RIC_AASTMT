@@ -173,7 +173,19 @@ beam( double& beamX, double& beamY, double& beamAngle ) {
     beamAngle = 0;
 }
 
-SkillType PKShooterBehavior::
-selectSkill() {
-    return SKILL_STAND;
+
+SkillType PKShooterBehavior::selectSkill() {
+
+	if (worldModel->getBall().getX() > 8)
+		{
+		if(worldModel->getBall().getY() > 1.5)
+			   return kickBall(KICK_IK, VecPosition(17, -2, 0));
+		else if(worldModel->getBall().getY() > -1.5)
+				return kickBall(KICK_IK, VecPosition(17, 2, 0));
+		else
+			return kickBall(KICK_IK, VecPosition(17, 0, 0));
+		}
+	else
+		return kickBall(KICK_IK, VecPosition(17, 0, 0));
+
 }
